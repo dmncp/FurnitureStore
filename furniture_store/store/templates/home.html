@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+
+{% block css %}
+  {% load static %}
+  <link href="{% static 'store/main.css' %}" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+{% endblock %}
+
+
+{% block body %}
+  <nav id="home-nav" class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="/" id="home-name">
+      Klamer Meble
+    </a>
+    <button id="burger" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" onclick="burgerAnimation()">
+          <div class="burger-div"></div>
+          <div class="burger-div"></div>
+          <div class="burger-div"></div>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="nav justify-content-end" id="ul-nav">
+        {% if not user.is_authenticated %}
+          <li class="nav-item">
+              <a class="nav-link" href="/accounts/login">
+                  Zaloguj się
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="/accounts/signup">
+                  Załóż konto
+              </a>
+          </li>
+        {% endif %}
+        <li class="nav-item">
+          <a class="nav-link" href="/">
+              Kontakt
+          </a>
+        </li>
+
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+                Ustawienia
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">
+                Wyloguj
+            </a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+  <main id="home-main">
+  </main>
+  <div id="description" class="container">
+      <h2>Piękne meble holenderskie w niskiej cenie. <br> Sprawdź naszą ofertę.</h2>
+      <button id="products-btn" type="button" class="btn btn-lg">
+        Zobacz produkty
+      </button>
+  </div>
+
+  <script>
+      function burgerAnimation(){
+        let divs = document.getElementsByClassName('burger-div');
+        for(let div of divs){
+          div.classList.toggle("opened");
+        }
+      }
+  </script>
+{% endblock %}

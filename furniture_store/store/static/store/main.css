@@ -1,0 +1,165 @@
+#home-main{
+    width: 100vw;
+    height: 100vh;
+    background-image: url(./images/main2.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position:relative;
+    z-index: 1;
+    opacity: 0.5; /*eventually to delete */
+}
+
+#home-nav{
+    position: absolute;
+    height: 10vh;
+    width: 100vw;
+    z-index: 2;
+}
+
+#home-name{
+    color: #af0809;
+    font-family: 'Dancing Script', cursive;
+    font-size: 48px;
+    font-weight: bold;
+    padding: 0 20px;
+}
+
+#ul-nav{
+    width: 100%;
+    padding: 50px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.nav-link{
+    color: black!important;
+    text-transform: uppercase;
+}
+
+.nav-link{
+    display: inline-block;
+    position: relative;
+}
+
+.nav-link::after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #af0809;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.nav-link:hover::after{
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.nav-link:hover{
+    color: #af0809!important;
+}
+
+#burger{
+    width: 50px;
+    height: 50px;
+    margin-right: 30px;
+    padding: 0;
+    outline: none;
+}
+
+#burger > div{
+    background-color: #af0809;
+    height: 15%;
+    width: 100%;
+    border-radius: 30px;
+    margin: 5px 0;
+    position: relative;
+}
+
+.opened:first-child{
+    top: 11.5%;
+    transform: rotate(45deg);
+}
+
+.opened:nth-child(3){
+    transform: rotate(-45deg);
+    top: -11.5%
+}
+
+.opened:nth-child(2){
+    display: none;
+}
+
+.navbar-collapse.collapse.show ul, .navbar-collapse.collapsing ul{
+    flex-direction: column;
+    background-color: #ffffff;
+    align-items: center;
+    height: 90vh;
+    justify-content: start!important;
+}
+
+#description{
+    text-align: center;
+    color: brown;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+h2{
+    font-size: 90px!important;
+    font-family: 'Great Vibes', cursive;
+    padding: 120px 0 50px 0;
+}
+
+#products-btn{
+    transition: ease-out 0.3s;
+    outline: none;
+    border: 3px solid brown;
+    border-radius: 30px;
+    position: relative;
+    z-index: 1;
+    color: brown;
+    font-size: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#products-btn:hover{
+    color: white;
+}
+
+#products-btn::before{
+    transition: 0.5s all ease;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    right: 50%;
+    bottom: 0;
+    opacity: 0;
+    content: "";
+    background-color: brown;
+    border-radius: 20px;
+}
+
+#products-btn:hover::before{
+    transition: 0.5s all ease;
+    left: 0;
+    right: 0;
+    opacity: 1;
+    z-index: -1;
+}
+
+
+@media(max-width:991px){
+    h2{
+        font-size: 60px!important;
+    }
+}
