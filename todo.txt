@@ -1,0 +1,59 @@
+1. Reset hasła nie działa
+2. Dodać css do strony logowania i rejestracji
+3. Usunąć podpowiedzi ze strony rejestracji (wygląda to słabo)
+4. Zrobić stronę domową:
+    - zaloguj się
+    - załóż konto
+    - dostępne produkty (wyłącznie przegląd)
+    - kontakt
+    - efekt nachodzenia kolejnych stron
+    - własna burger animacja
+    - dodać facebooka, instagrama itd
+
+5. Ujednolicić język na polski
+
+6. Strona produktów:
+    - dla niezalogowanych tylko przegląd i ocena ogólna produktu oraz opinie innych
+    - filtrowanie
+    - sortowanie
+    - kategorie
+    - koszyk
+    - widok mebla (szczegóły) ma opcję zadania pytania pracownikowi ( wysłanie maila ) - autouzupełnianie nt. nr mebla, dane usera + podana zawartość pytania
+    - każdy produkt to karta bootstrapowa z karuzelą zdjęć
+
+
+7. Kontakt:
+    - wkleić mapę google lokalizacji
+    - pole do zadawania pytania
+
+8. Zarządzanie kontem:
+    - zmiana danych adresu
+    - usuwanie konta
+    - historia zakupów
+
+9. Zalogowani użytkownicy:
+    - mogą dodawać opinie, wystawiać ocenę produktu, zadawać pytanie pracownikowi nt. mebla
+    - widzą koszyk
+    - mogą robić zakupy ale płatność tylko przy odbiorze (system musi zapamiętywać ile użytkownik ma zapłacić)
+
+10. Admin:
+    - ma dostęp do ustawień specjalnych - może widzieć wszystkich klientów, może wyszukiwać konkretnego użytkownika z listy
+    - może zmieniać uprawnienia użytkowników
+    - widzi produkty niedostępne
+    - może usuwać i edytować dane użytkowników
+    - widzi złożone zamówienia, może edytować lub anulować dowolne zamówienie (jeżeli nie zostało jeszcze wysłane)
+    - może zmieniać dane dowolnego produktu
+
+11. Pracownik:
+    - może anulować i edytować zamówienia
+    - może zmienić status przesyłki: złożone, wysłane, dostarczone
+    - przy każdej zmianie statusu automatyczne wysłanie maila do klienta
+
+
+13. Tryb jasny i ciemny (np na domowej dać warstwę czarnego z opacity tak żeby tło miało czarne opacity a nie białe)
+
+14. Dodać info o darmowej dostawie do 50km lub np zamównienie powyżej 500km
+
+15. Powinien być jakiś regulamin sklepu
+
+16. Przy napisie koszyk dodać w małym kółeczku nad napisem ilość produktów w tym koszyku

@@ -2,11 +2,28 @@
 
 {% block title %}Sign Up{% endblock %}
 
-{% block body %}
-  <h2>Sign up</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign Up</button>
-  </form>
+{% block css %}
+  {% load static %}
+  <link href="{% static 'store/signup.css' %}" rel="stylesheet">
 {% endblock %}
+
+
+{% block body %}
+<div id="main-div" class="card">
+  <h5 class="card-header">Rejestracja</h5>
+  <div id="body" class="card-body">
+      <form method="post">
+         {% csrf_token %}
+         {{ form.as_p }}
+         <button class="btn btn-primary" type="submit">Załóż konto</button>
+
+         <p id="login">Masz już konto?</p>
+         <a href="/accounts/login">Zaloguj się</a>
+          <br><br>
+         <a href="/">Strona główna</a>
+      </form>
+  </div>
+</div>
+{% endblock %}
+
+

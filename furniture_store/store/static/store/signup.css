@@ -1,0 +1,25 @@
+h5{
+    text-align: center;
+}
+
+#main-div{
+    width: 50vw;
+    margin: 10vh auto;
+}
+
+#body{
+    margin: 20px;
+}
+
+label{
+    width: 50%
+}
+
+button{
+    margin-bottom: 30px!important;
+}
+
+#login{
+    margin-bottom: 0!important;
+}
+

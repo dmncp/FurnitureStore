@@ -2,11 +2,25 @@
 
 {% block title %}Login{% endblock %}
 
+{% block css %}
+  {% load static %}
+  <link href="{% static 'store/login-style.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
-<h2>Log In</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Log In</button>
-</form>
+<div id="main-div" class="card">
+  <h5 class="card-header">Logowanie</h5>
+  <div id="body" class="card-body">
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn btn-primary" type="submit">Zaloguj</button>
+
+      <p id="register">Nie masz konta?</p>
+      <a href="/accounts/signup">Załóż konto</a>
+      <br><br>
+      <a href="/">Strona główna</a>
+    </form>
+  </div>
+</div>
 {% endblock %}
