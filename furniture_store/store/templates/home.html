@@ -83,5 +83,21 @@
           div.classList.toggle("opened");
         }
       }
+
+      window.onresize = function(){
+        if(screen.width > 991){
+            let burger = document.getElementById('burger')
+            burger.classList.add('collapsed')
+            burger.ariaExpended = 'false'
+
+            let div = document.getElementById('navbarNav')
+            div.classList.remove("show");
+
+            let divs = document.getElementsByClassName('burger-div');
+            for(let div of divs){
+              div.classList.remove("opened");
+            }
+        }
+      }
   </script>
 {% endblock %}
