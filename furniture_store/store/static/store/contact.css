@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
+
+h3{
+    text-transform: uppercase;
+    font-size: 50px!important;
+    text-align: center;
+    padding-top: 50px;
+}
+
+span{
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 20px;
+}
+
+iframe{
+    display: block;
+    margin: 0 auto;
+    padding: 50px 0 100px 0;
+    width: 70vw;
+    height: 70vh;
+}
+
+label{
+    width: 20vw;
+    font-size: 20px
+}
+
+input, textarea{
+    width: 40vw;
+    border: none;
+    border-bottom: 2px solid #af0809;
+    outline: none;
+    text-align: center;
+    font-size: 18px!important;
+    font-weight: bold;
+}
+
+
+input{
+    height: 50px;
+}
+
+input:focus, textarea:focus{
+    background-color: #f5f2f2;
+    
+}
+
+#form-title, #form-desc{
+    text-align: center;
+}
+
+#form-desc{
+    font-size: 20px;
+}
+
+#form-desc::after{
+    content: "";
+    background-color: #af0809;
+    display: block;
+    height: 10px;
+    width: 100px;
+    margin: 15px auto;
+    border-radius: 30px;
+}
+
+#form-title{
+    font-size: 32px;
+    text-transform: uppercase;
+    color: #af0809;
+    font-weight: bold;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 3px solid #af0809;
+    width: 80vw;
+    margin: 0 auto 100px auto;
+    padding: 50px 0;
+    border-radius: 30px;
+    font-family: 'Poiret One', cursive;
+    font-weight: bold;
+}
+
+#form-btn{
+    margin-top: 50px!important;
+    font-weight: bold;
+}

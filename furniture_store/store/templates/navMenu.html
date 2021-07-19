@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+
+{% block css %}
+  {% load static %}
+    <link href="{% static 'store/main.css' %}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+    {% block additional %}
+    {% endblock %}
+
+{% endblock %}
+
+{% block body %}
+<nav id="main" class="navbar navbar-expand-lg navbar-dark" style="background-color: black; height: 100px;">
+<a class="navbar-brand" href="/" id="home-name">
+  Klamer Meble
+</a>
+<button id="burger" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" onclick="burgerAnimation()" style="">
+      <div class="burger-div"></div>
+      <div class="burger-div"></div>
+      <div class="burger-div"></div>
+</button>
+<div class="collapse navbar-collapse" id="navbarNav">
+  <ul class="nav justify-content-end" id="ul-nav">
+    {% if not user.is_authenticated %}
+      <li class="nav-item">
+          <a class="nav-link text-white" href="/accounts/login">
+              Zaloguj się
+          </a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link text-white" href="/accounts/signup">
+              Załóż konto
+          </a>
+      </li>
+    {% endif %}
+    <li class="nav-item">
+      <a class="nav-link text-white" href="/">
+          Kontakt
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-white" href="https://facebook.com" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-facebook" viewBox="0 0 16 16">
+              <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+          </svg>
+      </a>
+    </li>
+
+    {% if user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link text-white" href="/">
+            Ustawienia
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white" href="{% url 'logout' %}">
+            Wyloguj
+        </a>
+      </li>
+    {% endif %}
+  </ul>
+</div>
+</nav>
+
+{% block main %}
+{% endblock %}
+
+<footer class="text-center text-white" style="background-color: black">
+  <!-- Grid container -->
+  <div class="container p-4">
+    <!-- Section: Links -->
+    <section class="">
+      <!--Grid row-->
+      <div class="row">
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Informacje</h5>
+
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a href="#!" class="text-white">Regulamin</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Płatność i wysyłka</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Zakupy na raty</a>
+            </li>
+          </ul>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Klamer Meble</h5>
+
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a href="#!" class="text-white">O nas</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Produkty</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Producenci</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Kontakt</a>
+            </li>
+          </ul>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Biuro Obsługi Klienta</h5>
+          <ul class="list-unstyled mb-0">
+            Czynne w godzinach: <br>
+            pn.-pt.: 08:00 - 18:00 <br>
+            soboty : 10:00 - 15:00 <br><br>
+            tel. 000-111-222
+            <br>
+            email: klamer.meble@gmail.com
+            <br>
+          </ul>
+        </div>
+        <!--Grid column-->
+      </div>
+      <!--Grid row-->
+    </section>
+    <!-- Section: Links -->
+  </div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: #af0809">
+    © 2020 Copyright:
+    <a class="text-white" href="/">Klamer Meble</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+
+<script>
+  function burgerAnimation(){
+    let divs = document.getElementsByClassName('burger-div');
+    for(let div of divs){
+      div.classList.toggle("opened");
+    }
+  }
+</script>
+
+
+{% endblock %}

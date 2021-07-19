@@ -32,3 +32,10 @@ class UserCreationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+
+class ContactForm(forms.Form):
+    name = forms.CharField(required=True, label='Imię i nazwisko')
+    from_email = forms.EmailField(required=True, label='Email')
+    subject = forms.CharField(required=True, label='Temat')
+    message = forms.CharField(widget=forms.Textarea, required=True, label="Treść wiadomości")
