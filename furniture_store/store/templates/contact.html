@@ -68,7 +68,7 @@
             https://www.mailerlite.com/
             https://learndjango.com/tutorials/django-email-contact-form
 -->
-    <form method="post">
+    <form method="post" onsubmit="addConfirm()">
         <h4 id="form-title">Formularz kontaktowy</h4>
         <p id="form-desc">Skontaktuj się z nami jeżeli masz pytania.</p>
         {% csrf_token %}
@@ -78,4 +78,14 @@
         </div>
     </form>
 
+    <script>
+        function addConfirm(){
+            let p = document.createElement('p');
+            p.innerHTML = "Twoja wiadomość została wysłana pomyślnie."
+            p.style.fontSize = '30px';
+            p.style.color = "green";
+
+            document.getElementsByTagName('form')[0].appendChild(p);
+        }
+    </script>
 {% endblock %}

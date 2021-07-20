@@ -10,7 +10,7 @@
         <h3>Ustawienia</h3>
     </div>
 
-    <div id="main" class="container text-black" style="min-height: 54vh;">
+    <div id="main" class="container text-black" style="min-height: 70vh;">
         <!--    CLIENT    -->
         {% if user.is_authenticated %}
             <a class="heading collapsed" data-bs-toggle="collapse" href="#clientSettings" role="button" aria-expanded="true" aria-controls="collapseExample">
@@ -211,5 +211,7 @@
             </div>
         {% endif %}
     </div>
+
+
 
 {% endblock %}
