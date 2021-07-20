@@ -5,6 +5,16 @@ from django.contrib.auth.models import User
 
 class UserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
+    first_name = forms.CharField(
+        label="Imię",
+        required=True,
+        help_text=""
+    )
+    last_name = forms.CharField(
+        label="Nazwisko",
+        required=True,
+        help_text=""
+    )
     password1 = forms.CharField(
         label="Hasło",
         strip=False,
@@ -24,11 +34,13 @@ class UserCreationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ("username", "email", "password1", "password2")
+        fields = ("first_name", "last_name" , "username", "email", "password1", "password2")
 
     def save(self, commit=True):
         user = super(UserCreationForm, self).save(commit=False)
         user.email = self.cleaned_data["email"]
+        user.first_name = self.cleaned_data["first_name"]
+        user.last_name = self.cleaned_data["last_name"]
         if commit:
             user.save()
         return user

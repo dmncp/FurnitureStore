@@ -32,7 +32,7 @@
   Klamer Meble
 </a>
 <button id="burger" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" onclick="burgerAnimation()" style="">
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" onclick="burgerAnimation()">
       <div class="burger-div"></div>
       <div class="burger-div"></div>
       <div class="burger-div"></div>
@@ -52,14 +52,14 @@
       </li>
     {% endif %}
     <li class="nav-item">
-      <a class="nav-link text-white" href="/">
+      <a class="nav-link text-white" href="/contact">
           Kontakt
       </a>
     </li>
 
     {% if user.is_authenticated %}
       <li class="nav-item">
-        <a class="nav-link text-white" href="/">
+        <a class="nav-link text-white" href="/settings">
             Ustawienia
         </a>
       </li>
@@ -189,6 +189,7 @@
             }
         }
       }
+
 </script>
 
 

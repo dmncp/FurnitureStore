@@ -14,7 +14,7 @@
     height: 10vh;
     width: 100vw;
     position: fixed;
-    z-index: 2;
+    z-index: 3;
 }
 
 #home-name{
@@ -101,6 +101,8 @@
     align-items: center;
     height: 90vh;
     justify-content: start!important;
+    position: relative!important;
+    z-index: 3!important;
 }
 
 #description{

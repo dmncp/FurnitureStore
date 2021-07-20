@@ -31,3 +31,9 @@ def contactView(request):
 
 def successView(request):
     return HttpResponse('Twoja wiadomość została wysłana pomyślnie.')
+
+
+def settings_view(request):
+    if not request.user.is_authenticated:
+        return redirect('home')
+    return render(request, 'settings.html')
