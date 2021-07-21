@@ -37,20 +37,30 @@
                   Załóż konto
               </a>
           </li>
-        {% endif %}
-        <li class="nav-item">
-          <a class="nav-link" href="/contact">
+          <li class="nav-item">
+            <a class="nav-link" href="/contact">
               Kontakt
-          </a>
-        </li>
+            </a>
+          </li>
+        {% endif %}
+
 
         {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+                Koszyk
+            </a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="/settings">
                 Ustawienia
             </a>
           </li>
-
+          <li class="nav-item">
+            <a class="nav-link" href="/contact">
+                Kontakt
+            </a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'logout' %}">
                 Wyloguj

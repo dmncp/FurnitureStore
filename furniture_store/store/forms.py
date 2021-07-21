@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, ReadOnlyPasswordHashField
 from django.contrib.auth.models import User
 
 
@@ -34,7 +34,7 @@ class UserCreationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ("first_name", "last_name" , "username", "email", "password1", "password2")
+        fields = ("first_name", "last_name", "username", "email", "password1", "password2")
 
     def save(self, commit=True):
         user = super(UserCreationForm, self).save(commit=False)
@@ -51,3 +51,36 @@ class ContactForm(forms.Form):
     from_email = forms.EmailField(required=True, label='Email')
     subject = forms.CharField(required=True, label='Temat')
     message = forms.CharField(widget=forms.Textarea, required=True, label="Treść wiadomości")
+
+
+class UserChangeForm(UserChangeForm):
+    first_name = forms.CharField(
+        label="Imię",
+        required=True,
+        help_text=""
+    )
+    last_name = forms.CharField(
+        label="Nazwisko",
+        required=True,
+        help_text=""
+    )
+    password = ReadOnlyPasswordHashField(
+        label="",
+        help_text=(
+            'Zapomniałeś/aś hasła? Możesz je zmienić klikając '
+            '<a href="{}">tutaj</a>.'
+        )
+    )
+    username = forms.CharField(
+        label="Nazwa użytkownika",
+        required=True,
+        help_text=""
+    )
+    email = forms.EmailField(
+        required=True,
+        label='Email'
+    )
+
+    class Meta:
+        model = User
+        fields = ("first_name", "last_name", "username", "email")

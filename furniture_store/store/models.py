@@ -55,7 +55,7 @@ class Address(models.Model):
     city = models.CharField(max_length=255)
     street = models.CharField(max_length=255)
     house_nr = models.CharField(max_length=5)
-    building_nr = models.CharField(max_length=5)
+    building_nr = models.CharField(max_length=5, blank=True)
     zip_code = models.CharField(max_length=7)
 
 

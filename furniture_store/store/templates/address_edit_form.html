@@ -1,0 +1,55 @@
+{% extends 'navMenu.html' %}
+
+{% block additional %}
+    {% load static %}
+    <link href="{% static 'store/address.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        {% if pk == 0 %}
+            <h3>Dodaj nowy adres</h3>
+        {% else %}
+            <h3>Edytuj adres</h3>
+        {%endif%}
+    </div>
+
+    <div style="min-height: 74vh; margin: 0 auto;" id="form">
+      <form method="get" id="edit_form">
+          {% csrf_token %}
+          <!--    {{ form.as_p }}    -->
+          <p>
+              <label for="street">Ulica: </label>
+              <input id="street" type="text" name="street" {% if address %}value="{{address.street}}"{%endif%} required>
+          </p>
+          <p>
+              <label for="house_nr">Nr. domu: </label>
+              <input id="house_nr" type="number" min="1" max="1000" name="house_nr" {% if address %}value="{{address.house_nr}}"{%endif%} required>
+          </p>
+          <p>
+              <label for="block_nr">Nr. bloku: </label>
+              <input id="block_nr" type="number" min="1" max="1000" name="block_nr" {% if address %}value="{{address.building_nr}}"{%endif%}>
+          </p>
+          <p>
+              <label for="zip">Kod pocztowy: </label>
+              <input id="zip" name="zip_code" type="text" inputmode="numeric" pattern="^(?(^00000(|-0000))|(\d{5}(|-\d{4})))$" {% if address %}value="{{address.zip_code}}"{%endif%} required>
+          </p>
+          <p>
+              <label for="city">Miasto: </label>
+              <input id="city" type="text" name="city" {% if address %}value="{{address.city}}"{%endif%} required>
+          </p>
+
+          <div class="form-actions">
+              <button class="btn btn-lg btn-dark" type="submit" style="width: 200px" id="form-btn">
+                    {% if pk == 0 %}
+                        Dodaj
+                    {% else %}
+                        Edytuj
+                    {%endif%}
+              </button>
+          </div>
+      </form>
+      <a type="button" class="btn btn-lg btn-outline-dark" href="/settings/address" id="go_back">Powrót</a>
+    </div>
+
+{% endblock %}

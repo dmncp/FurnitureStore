@@ -1,0 +1,24 @@
+{% extends 'navMenu.html' %}
+
+{% block additional %}
+    {% load static %}
+    <link href="{% static 'store/profile.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <h3>Profil</h3>
+    </div>
+
+    <div style="min-height: 74vh; margin: 0 auto;">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="form-actions">
+                <button class="btn btn-lg btn-dark" type="submit" style="width: 200px" id="form-btn">Edytuj</button>
+            </div>
+        </form>
+        <a type="button" class="btn btn-lg btn-outline-dark" href="/settings" id="go_back">Powrót</a>
+    </div>
+
+{% endblock %}

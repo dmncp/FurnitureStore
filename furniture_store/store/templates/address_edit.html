@@ -1,0 +1,62 @@
+{% extends 'navMenu.html' %}
+
+{% block additional %}
+    {% load static %}
+    <link href="{% static 'store/address.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <h3>Adresy</h3>
+    </div>
+
+    <div class="container" id="list">
+        <div class="row" style="position: relative; z-index: 2">
+            {% for address in object_list %}
+                <div class="col-lg-6 mt-2">
+                    <div class="card text-center bg-light" style="height: 200px">
+                        <div class="card-body">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#af0809" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                              <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                            </svg>
+
+                            <p class="card-text">
+                                {{address.address.city}}<br>
+                                {{address.address.street}}
+                                {% if address.address.building_nr %}
+                                    {{address.address.building_nr}} /
+                                {% endif %}
+                                {{address.address.house_nr}}<br>
+                                {{address.address.zip_code}} {{address.address.city}}
+                            </p>
+
+                            <a class="btn btn-outline-dark" href="{% url 'address_form' address.address.id %}">
+                                Edycja
+                            </a>
+                            <button class="btn btn-danger">Usuń</button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="col-lg-6 mt-2">
+                <a href="{% url 'address_form' 0 %}" class="link-dark">
+                    <div class="card text-center bg-light" style="height: 200px">
+                        <div class="card-body">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16" style="margin: 50px 0">
+                              <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let inputList = Array.prototype.slice.call(document.getElementsByClassName('addr_input'));
+        inputList.forEach(e => {
+            let len = e.value.length * 10;
+            e.style.width = len.toString() + 'px';
+        })
+    </script>
+{% endblock %}

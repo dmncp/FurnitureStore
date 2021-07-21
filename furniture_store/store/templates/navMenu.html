@@ -50,17 +50,29 @@
               Załóż konto
           </a>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white" href="/contact">
+            Kontakt
+        </a>
+      </li>
     {% endif %}
-    <li class="nav-item">
-      <a class="nav-link text-white" href="/contact">
-          Kontakt
-      </a>
-    </li>
 
     {% if user.is_authenticated %}
       <li class="nav-item">
+        <a class="nav-link text-white" href="/">
+            Koszyk
+        </a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link text-white" href="/settings">
             Ustawienia
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white" href="/contact">
+            Kontakt
         </a>
       </li>
 
@@ -70,6 +82,7 @@
         </a>
       </li>
     {% endif %}
+
 
     <li class="nav-item">
         <a class="nav-link text-white" href="https://facebook.com" target="_blank">
