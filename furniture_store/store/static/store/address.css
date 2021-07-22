@@ -6,7 +6,10 @@ h3{
 }
 
 #list{
-    margin-bottom: 50px
+    margin-bottom: 50px;
+    display: flex!important;
+    flex-direction: column!important;
+    align-items: center!important;
 }
 
 #add_new:hover{
@@ -64,5 +67,4 @@ form{
     margin: -50px auto 50px auto;
     display: block;
     width: 150px;
-
 }

@@ -1,0 +1,34 @@
+{% extends 'navMenu.html' %}
+
+{% block additional %}
+    {% load static %}
+    <link href="{% static 'store/opinions.css' %}" rel="stylesheet">
+    <link href="{% static 'store/profile.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <h3>Edytuj opinię</h3>
+    </div>
+
+    <div style="min-height: 74vh; margin: 0 auto;">
+        <form method="get">
+            {% csrf_token %}
+            <p>
+                <label for="rating">Ocena: </label>
+                <input id="rating" type="number" min="0" max="5" name="rating" {% if rating %}value="{{rating}}"{%endif%} required>
+            </p>
+            <p>
+                <label for="opinion">Opinia: </label>
+                <textarea id="opinion" name="opinion" cols="40" rows="10" required>{% if opinion %}{{opinion}}{%endif%}</textarea>
+            </p>
+
+            <div class="form-actions">
+                <button class="btn btn-lg btn-dark" type="submit" style="width: 200px" id="form-btn">Edytuj</button>
+            </div>
+        </form>
+        <a type="button" class="btn btn-lg btn-outline-dark" href="{% url 'opinions' %}" id="go_back">Powrót</a>
+    </div>
+
+{% endblock %}
+

@@ -44,3 +44,9 @@ class UserAddress(admin.ModelAdmin):
     list_display = ['id', 'user', 'address']
     list_filter = ['user', 'address']
 
+
+@admin.register(OrderProduct)
+class OrderProductAdmin(admin.ModelAdmin):
+    list_display = ['id', 'product', 'amount']
+    list_filter = ['product', 'amount']
+

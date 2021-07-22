@@ -6,7 +6,9 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from .models import UserAddress, Address
+from .models import *
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 
 class SignUpView(generic.CreateView):
@@ -95,3 +97,127 @@ class AddressEditFormView(LoginRequiredMixin, generic.ListView):
         context['address'] = Address.objects.filter(id=context['pk'])[0] if context['pk'] != 0 else None
 
         return context
+
+
+@login_required
+def delete_address(request, pk):
+    address = Address.objects.get(id=pk)
+    user_address = UserAddress.objects.get(address=address, user=request.user)
+
+    user_address.delete()
+    address.delete()
+
+    return redirect('address')
+
+
+class CustomerOrdersView(LoginRequiredMixin, generic.ListView):
+    model = Order
+
+    def get_queryset(self):
+        orders = super().get_queryset()
+        orders = orders.filter(user=self.request.user)
+
+        return orders
+
+
+class OrderDetailsView(LoginRequiredMixin, generic.ListView):
+    model = Order
+
+    def get_queryset(self):
+        orders = super().get_queryset()
+        order = orders.get(user=self.request.user, order_nr=self.kwargs['pk'])
+
+        return order
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['price_all'] = self.get_price()
+
+        return context
+
+    def get_price(self):
+        order = Order.objects.get(user=self.request.user, order_nr=self.kwargs['pk'])
+        products = order.products.all()
+        price_all = 0
+
+        for product in products:
+            price_all += product.product.price * product.amount
+
+        return price_all
+
+
+class OpinionsView(LoginRequiredMixin, generic.ListView):
+    model = Opinion
+
+    def get_queryset(self):
+        opinions = super().get_queryset()
+        opinions = opinions.filter(user=self.request.user)
+
+        return opinions
+
+
+@login_required
+def delete_opinion(request, pk):
+    opinion = Opinion.objects.get(id=pk)
+
+    opinion.delete()
+
+    return redirect('opinions')
+
+
+class OpinionEditFormView(LoginRequiredMixin, generic.ListView):
+    model = Opinion
+
+    def get_queryset(self):
+        opinions = super().get_queryset()
+        opinion = opinions.get(id=self.kwargs['pk'])
+        rating = self.request.GET.get('rating', None)
+        opinion_desc = self.request.GET.get('opinion', None)
+
+        if rating and opinion_desc:
+            opinion.rating = rating
+            opinion.opinion = opinion_desc
+            opinion.save()
+
+        return opinion
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['rating'] = self.get_queryset().rating
+        context['opinion'] = self.get_queryset().opinion
+
+        return context
+
+
+@login_required
+def delete_account(request):
+    if not request.user.is_staff:
+        # delete addresses
+        addresses = UserAddress.objects.filter(user=request.user)
+        for address in addresses:
+            address.delete()
+
+        # delete shopping carts
+        shopping_cart = ShoppingCart.objects.filter(user=request.user)
+        for cart in shopping_cart:
+            cart.delete()
+
+        # delete orders
+        orders = Order.objects.filter(user=request.user)
+        for order in orders:
+            order.delete()
+
+        # delete opinions
+        opinions = Opinion.objects.filter(user=request.user)
+        for opinion in opinions:
+            opinion.delete()
+
+        # logout user
+        user_id = request.user.id
+        logout(request)
+
+        # delete account
+        user = User.objects.get(id=user_id)
+        user.delete()
+
+    return redirect('home')

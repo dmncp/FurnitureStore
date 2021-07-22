@@ -1,0 +1,36 @@
+{% extends 'navMenu.html' %}
+
+{% block additional %}
+    {% load static %}
+    <style>
+      h3{
+          text-transform: uppercase;
+          font-size: 50px!important;
+          text-align: center;
+          padding-top: 50px;
+      }
+      #btns{
+          margin: 50px auto;
+          display: flex;
+          justify-content: center;
+      }
+      #btns a{
+          margin: 10px;
+      }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <h3>Usunięcie konta</h3>
+    </div>
+
+    <div class="container" style="min-height: 74vh; margin: 0 auto;">
+        <p class="text-center">Czy na pewno chcesz usunąć konto? Tej operacji nie można cofnąć. Zostaną usunięte wszystkie twoje zamówienia, komentarze, oceny i dane adresowe.</p>
+        <div id="btns">
+          <a type="button" class="btn btn-lg btn-outline-dark" href="/settings">Powrót</a>
+          <a type="button" class="btn btn-lg btn-danger" href="{% url 'delete_user' %}">Usuń konto</a>
+        </div>
+    </div>
+
+{% endblock %}

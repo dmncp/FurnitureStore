@@ -1,7 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 
 STATE = (
     ('new', 'Nowy'),
@@ -59,14 +57,20 @@ class Address(models.Model):
     zip_code = models.CharField(max_length=7)
 
 
+class OrderProduct(models.Model):
+    product = models.ForeignKey(Furniture, on_delete=models.CASCADE)
+    amount = models.IntegerField(default=1)
+
+
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
     order_nr = models.CharField(max_length=7)
     price = models.IntegerField()
-    products = models.ManyToManyField(Furniture, symmetrical=False, related_name='ordered_products')
+    products = models.ManyToManyField(OrderProduct, symmetrical=False, related_name='ordered_products')
     status = models.CharField(choices=ORDER_STATUS, default='unsent', max_length=20)
 
 
 class UserAddress(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
     address = models.ForeignKey(Address, on_delete=models.CASCADE, default=0)
+

@@ -10,8 +10,8 @@
         <h3>Adresy</h3>
     </div>
 
-    <div class="container" id="list">
-        <div class="row" style="position: relative; z-index: 2">
+    <div class="container" id="list" style="min-height: 74vh">
+        <div class="row" style="position: relative; z-index: 2; width: 100%">
             {% for address in object_list %}
                 <div class="col-lg-6 mt-2">
                     <div class="card text-center bg-light" style="height: 200px">
@@ -33,14 +33,14 @@
                             <a class="btn btn-outline-dark" href="{% url 'address_form' address.address.id %}">
                                 Edycja
                             </a>
-                            <button class="btn btn-danger">Usuń</button>
+                            <a class="btn btn-danger" type="button" href="{% url 'address_delete' address.address.id %}">Usuń</a>
                         </div>
                     </div>
                 </div>
             {% endfor %}
             <div class="col-lg-6 mt-2">
                 <a href="{% url 'address_form' 0 %}" class="link-dark">
-                    <div class="card text-center bg-light" style="height: 200px">
+                    <div class="card text-center bg-light" style="height: 200px" id="add_new">
                         <div class="card-body">
                             <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16" style="margin: 50px 0">
                               <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
@@ -50,6 +50,8 @@
                 </a>
             </div>
         </div>
+
+        <a class="btn btn-outline-dark" href="{% url 'settings' %}" style="margin-top: 50px">Powrót</a>
     </div>
 
     <script>

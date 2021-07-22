@@ -62,7 +62,7 @@
                                         <span>Twoje zamówienia</span><br><br>
                                         Tutaj znajdziesz historię zamówień oraz zamówienia w trakcie realizacji. Możesz w tym miejscu anulować zamówienia, które nie zostały jeszcze wysłane.
                                     </p>
-                                    <a class="btn btn-outline-dark " href="/">Sprawdź</a>
+                                    <a class="btn btn-outline-dark " href="{% url 'customer_orders' %}">Sprawdź</a>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                                         <span>Komentarze i oceny</span><br><br>
                                         W tym miejscu możesz edytować lub usuwać komentarze lub usuwać wystawione produktom oceny.
                                     </p>
-                                    <a class="btn btn-outline-dark " href="/">Edycja</a>
+                                    <a class="btn btn-outline-dark " href="{% url 'opinions' %}">Edycja</a>
                                 </div>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                                             <span>Usuń konto</span><br><br>
                                             Po naciścięciu poniższego przycisku twoje konto zostanie usunięte. Operacja jest nieodwracalna.
                                         </p>
-                                        <a class="btn btn-outline-danger " href="/">Usuń</a>
+                                        <a class="btn btn-outline-danger " href="{% url 'delete_user_confirmation' %}">Usuń</a>
                                     </div>
                                 </div>
                             </div>
