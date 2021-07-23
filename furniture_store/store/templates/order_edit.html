@@ -1,0 +1,73 @@
+{% extends 'navMenu.html' %}
+
+{% block additional %}
+    {% load static %}
+    <link href="{% static 'store/address.css' %}" rel="stylesheet">
+    <style>
+        td,th{
+            max-width: 20vw;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <h3>Edytuj zamówienie</h3>
+    </div>
+
+    <div style="min-height: 74vh; margin: 0 auto;" id="form" style="min-height: 74vh">
+      <form method="get" id="edit_form">
+          {% csrf_token %}
+          <!--    {{ form.as_p }}    -->
+          <div style="width: 90%">
+              <label>Lista produktów: </label>
+              <table class="table align-middle text-center">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nazwa produktu</th>
+                        <th>Cena jednostkowa (zł)</th>
+                        <th>Ilość</th>
+                        <th>Cena łączna (zł)</th>
+                        <th>Działania</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in object_list.products.all %}
+                        <tr>
+                            <td>{{product.product.id}}</td>
+                            <td>{{product.product.name}}</td>
+                            <td>{{product.product.price}}</td>
+                            <td style="max-width: 100px">
+                                <input value="{{product.amount}}" name="a{{product.id}}" type="number" min="1" max="{{product.product.amount}}" style="max-width: 100px; border: none">
+                            </td>
+                            <td>{% widthratio product.product.price 1 product.amount %}</td>
+                            <td>
+                                <a href="{% url 'prod_delete' order_id product.id %}" class="btn btn-danger">Usuń</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                        <tr>
+                            <td></td><td></td><td></td><td></td><td></td>
+                            <td>
+                                <a href="{% url 'order_edit_add' order_id %}" class="btn btn-success">Dodaj</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td><td></td><td></td><td></td>
+                            <td>
+                                <strong>Razem:</strong> {{ price_all }}
+                            </td><td></td>
+                        </tr>
+                </tbody>
+              </table>
+          </div>
+
+          <div class="form-actions">
+              <button class="btn btn-lg btn-dark" type="submit" style="width: 200px" id="form-btn">Edytuj</button>
+          </div>
+      </form>
+      <a type="button" class="btn btn-lg btn-outline-dark" href="{% url 'order_archive' %}" id="go_back">Powrót</a>
+    </div>
+
+{% endblock %}

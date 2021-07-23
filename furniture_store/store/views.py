@@ -120,30 +120,31 @@ class CustomerOrdersView(LoginRequiredMixin, generic.ListView):
         return orders
 
 
+def get_price(user, pk):
+    order = Order.objects.get(user=user, order_nr=pk)
+    products = order.products.all()
+    price_all = 0
+
+    for product in products:
+        price_all += product.product.price * product.amount
+
+    return price_all
+
+
 class OrderDetailsView(LoginRequiredMixin, generic.ListView):
     model = Order
 
     def get_queryset(self):
         orders = super().get_queryset()
-        order = orders.get(user=self.request.user, order_nr=self.kwargs['pk'])
+        order = orders.get(order_nr=self.kwargs['pk'])
 
         return order
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['price_all'] = self.get_price()
+        context['price_all'] = get_price(self.request.user, self.kwargs['pk'])
 
         return context
-
-    def get_price(self):
-        order = Order.objects.get(user=self.request.user, order_nr=self.kwargs['pk'])
-        products = order.products.all()
-        price_all = 0
-
-        for product in products:
-            price_all += product.product.price * product.amount
-
-        return price_all
 
 
 class OpinionsView(LoginRequiredMixin, generic.ListView):
@@ -221,3 +222,116 @@ def delete_account(request):
         user.delete()
 
     return redirect('home')
+
+
+class UnavailableProductsView(LoginRequiredMixin, generic.ListView):
+    model = Furniture
+
+    def get_queryset(self):
+        furniture = super().get_queryset()
+        furniture = furniture.filter(amount=0)
+        prod_id = self.request.GET.get('product_id', None)
+        name = self.request.GET.get('name', None)
+
+        if prod_id:
+            furniture = furniture.filter(id=prod_id)
+        if name:
+            furniture = furniture.filter(name=name)
+
+        return furniture
+
+
+class AllOrdersView(LoginRequiredMixin, generic.ListView):
+    model = Order
+
+    def get_queryset(self):
+        order = super().get_queryset()
+        order_nr = self.request.GET.get('order_nr', None)
+        client_id = self.request.GET.get('client_id', None)
+
+        if order_nr:
+            order = order.filter(order_nr=order_nr)
+        if client_id:
+            order = order.filter(user__id=client_id)
+
+        return order
+
+
+@login_required
+def cancel_order(request, pk):
+    order = Order.objects.get(order_nr=pk)
+    if order.status == 'unsent':
+        order.delete()
+    return redirect('order_archive')
+
+
+class EditOrderView(LoginRequiredMixin, generic.ListView):
+    model = Order
+
+    def get_queryset(self):
+        order = super().get_queryset()
+        order = order.get(order_nr=self.kwargs['pk'])
+        products = order.products.all()
+
+        for prod in products:
+            amount = self.request.GET.get('a' + str(prod.id), None)
+            if amount:
+                prod.amount = amount
+                prod.save()
+
+        return order
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['price_all'] = get_price(self.request.user, self.kwargs['pk'])
+        context['order_id'] = self.kwargs['pk']
+
+        return context
+
+
+@login_required
+def delete_product_from_order(request, order_nr, prod_nr):
+    order = Order.objects.get(order_nr=order_nr)
+    product = order.products.all().get(id=prod_nr)
+    product.delete()
+
+    return redirect('order_edit', order_nr)
+
+
+class AddProductToOrder(LoginRequiredMixin, generic.ListView):
+    model = Furniture
+
+    def get_queryset(self):
+        furniture = super().get_queryset()
+        order = Order.objects.get(order_nr=self.kwargs['pk'])
+        id_list = []
+        for p in order.products.all():
+            id_list.append(p.product.id)
+
+        furniture = furniture.exclude(id__in=id_list)
+
+        return furniture
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['order_id'] = self.kwargs['pk']
+
+        return context
+
+
+@login_required
+def add_product(request, order_nr, prod_nr):
+    prod_in_list = False
+    order = Order.objects.get(order_nr=order_nr)
+
+    for prod in order.products.all():
+        if prod.product.id == prod_nr:
+            prod_in_list = True
+
+    if not prod_in_list:
+        prod = Furniture.objects.get(id=prod_nr)
+        order_product = OrderProduct(product=prod, amount=1)
+        order_product.save()
+        order.products.add(order_product)
+
+    return redirect('order_edit_add', order_nr)

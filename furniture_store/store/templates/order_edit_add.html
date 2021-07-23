@@ -1,0 +1,66 @@
+{% extends 'navMenu.html' %}
+
+{% block additional %}
+    {% load static %}
+    <link href="{% static 'store/archive_orders.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <h3>Dodaj produkt do zamówienia</h3>
+    </div>
+
+    <div class="container" style="min-height: 74vh; margin: 0 auto;">
+        <div id="actual">
+            <table class="table align-middle">
+              <thead style="text-align: center;">
+                  <tr>
+                      <th>ID</th>
+                      <th>Nazwa produktu</th>
+                      <th>Kategoria</th>
+                      <th>Ilość w magazynie</th>
+                      <th>Cena jednostkowa</th>
+                      <th>Stan</th>
+                      <th>Działania</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for product in object_list %}
+                    {% if product.amount > 0 %}
+                    <tr>
+                        <td>{{product.id}}</td>
+                        <td>{{product.name}}</td>
+                        <td>{{product.type}}</td>
+                        <td>{{product.amount}}</td>
+                        <td>{{product.price}}</td>
+                        <td>
+                            {% if product.state == 'new' %}
+                                Nowy
+                            {% else %}
+                                Używany
+                            {% endif %}
+                        </td>
+                        <td id="add_td">
+                            <a id="add" onclick="check()" class="btn btn-success" href="{% url 'add_to_order' order_id product.id %}">Dodaj</a>
+                        </td>
+                    </tr>
+                  {% endif %}
+                  {% endfor %}
+              </tbody>
+            </table>
+        </div>
+
+        <a type="button" class="btn btn-lg btn-outline-dark" href="/settings/order_archive/edit/{{order_id}}" id="go_back">Powrót</a>
+    </div>
+
+<!--    <script>-->
+<!--        function check(){-->
+<!--            let a = document.getElementById('add');-->
+<!--            a.style.display = 'none';-->
+
+<!--            let td = document.getElementById('add_td')-->
+<!--            td.innerHTML = "Produkt dodano. Ilość możesz zmienić na poprzedniej stronie."-->
+<!--        }-->
+<!--    </script>-->
+
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'navMenu.html' %}
+
+{% block additional %}
+    {% load static %}
+    <link href="{% static 'store/unavailable.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <h3>Produkty niedostępne</h3>
+    </div>
+
+
+    <div style="min-height: 74vh; margin: 0 auto; max-width: 90vw">
+        <a class="heading" data-bs-toggle="collapse" href="#filters" role="button" aria-expanded="false" aria-controls="collapseExample">
+          Filtry
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+          </svg>
+        </a>
+        <div id="filters" class="mb-5 collapse">
+            <div class="card card-body container m-auto">
+                <form method="get" class="row">
+                  {% csrf_token %}
+                  <div class="col-md-6 d-flex flex-column">
+                    <label>ID mebla:</label>
+                    <input id="product_id" name="product_id">
+                  </div>
+                  <div class="col-md-6 d-flex flex-column">
+                    <label>Nazwa mebla:</label>
+                    <input name="name" id="name">
+                  </div>
+
+                  <button type="submit" class="btn btn-outline-dark mt-3 col-md-3 col-sm-4 m-auto">Wyszukaj</button>
+                </form>
+            </div>
+        </div>
+
+        <table class="table align-middle">
+          <thead style="text-align: center;">
+              <tr>
+                  <th style="max-width: 20px">ID</th>
+                  <th>Nazwa mebla</th>
+                  <th>Kategoria</th>
+                  <th>Pochodzenie</th>
+                  <th>Opis</th>
+                  <th>Stan</th>
+                  <th>Cena (zł)</th>
+                  <th>Wymiary (cm)</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for furniture in object_list %}
+                <tr style="text-align: center">
+                    <td style="max-width: 20px">{{furniture.id}}</td>
+                    <td>{{furniture.name}}</td>
+                    <td>{{furniture.type}}</td>
+                    <td>{{furniture.origin}}</td>
+                    <td style="max-width: 40vw; padding: 0 5px; text-align: left; min-width: 30vw">{{furniture.description}}</td>
+                    <td>
+                        {% if furniture.state == 'used' %}
+                            Używany
+                        {% else %}
+                            Nowy
+                        {% endif %}
+                    </td>
+                    <td>{{furniture.price}}</td>
+                    <td>
+                        Szer. {{furniture.width}}<br>
+                        Wys.  {{furniture.height}}<br>
+                        Gł.   {{furniture.depth}}<br>
+                    </td>
+                </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+        <a type="button" class="btn btn-lg btn-outline-dark" href="/settings" id="go_back">Powrót</a>
+    </div>
+
+{% endblock %}

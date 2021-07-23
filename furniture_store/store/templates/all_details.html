@@ -1,0 +1,51 @@
+{% extends 'navMenu.html' %}
+
+{% block additional %}
+    {% load static %}
+    <link href="{% static 'store/customer_orders.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <h3>Szczegóły zamówienia</h3>
+    </div>
+
+    <div id="main" class="container text-black" style="min-height: 74vh;">
+        <table class="table align-middle" id="details">
+            <thead>
+                <tr>
+                    <th>Nazwa produktu</th>
+                    <th>Stan</th>
+                    <th>Cena jednostkowa (zł)</th>
+                    <th>Ilość</th>
+                    <th>Cena łączna (zł)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in object_list.products.all %}
+                    <tr>
+                        <td>{{product.product.name}}</td>
+                        <td>
+                            {% if product.product.state == 'new' %}
+                                Nowy
+                            {% else %}
+                                Używany
+                            {% endif %}
+                        </td>
+                        <td>{{product.product.price}}</td>
+                        <td>{{product.amount}}</td>
+                        <td>{% widthratio product.product.price 1 product.amount %}</td>
+                    </tr>
+                {% endfor %}
+                    <tr>
+                        <td></td><td></td><td></td><td></td>
+                        <td>
+                            <strong>Razem:</strong> {{ price_all }}
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+        <a type="button" class="btn btn-lg btn-outline-dark" href="{% url 'order_archive' %}" id="go_back">Powrót</a>
+    </div>
+
+{% endblock %}

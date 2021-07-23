@@ -36,6 +36,9 @@ class Furniture(models.Model):
     width = models.IntegerField()
     depth = models.IntegerField()
 
+    def __str__(self):
+        return str(self.name)
+
 
 class Opinion(models.Model):
     furniture = models.ForeignKey(Furniture, on_delete=models.CASCADE)
@@ -43,10 +46,16 @@ class Opinion(models.Model):
     rating = models.IntegerField()
     opinion = models.TextField()
 
+    def __str__(self):
+        return str(self.opinion)
+
 
 class ShoppingCart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
     furniture = models.ForeignKey(Furniture, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.user)
 
 
 class Address(models.Model):
@@ -56,10 +65,16 @@ class Address(models.Model):
     building_nr = models.CharField(max_length=5, blank=True)
     zip_code = models.CharField(max_length=7)
 
+    def __str__(self):
+        return str(self.city) + ',' + str(self.street) + ' ' + str(self.building_nr) + '/' + str(self.house_nr)
+
 
 class OrderProduct(models.Model):
     product = models.ForeignKey(Furniture, on_delete=models.CASCADE)
     amount = models.IntegerField(default=1)
+
+    def __str__(self):
+        return str(self.product.name) + ':' + str(self.amount)
 
 
 class Order(models.Model):
@@ -68,6 +83,9 @@ class Order(models.Model):
     price = models.IntegerField()
     products = models.ManyToManyField(OrderProduct, symmetrical=False, related_name='ordered_products')
     status = models.CharField(choices=ORDER_STATUS, default='unsent', max_length=20)
+
+    def __str__(self):
+        return str(self.user) + ':' + str(self.order_nr)
 
 
 class UserAddress(models.Model):
