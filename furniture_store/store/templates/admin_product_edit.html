@@ -1,0 +1,93 @@
+{% extends 'navMenu.html' %}
+
+{% block additional %}
+    {% load static %}
+    <link href="{% static 'store/all_products.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        {% if pk == 0 %}
+            <h3>Dodaj nowy produkt</h3>
+        {% else %}
+            <h3>Edytuj produkt</h3>
+        {%endif%}
+    </div>
+
+    <div style="min-height: 74vh; margin: 0 auto;" id="form" class="container">
+      <form method="post" id="edit_form" class="row">
+          {% csrf_token %}
+          <div class="col-md-6 d-flex flex-column">
+              <label for="prod_name">Nazwa: </label>
+              <input id="prod_name" type="text" name="prod_name" value="{{object_list.0.name}}" required>
+          </div>
+          <div class="col-md-4 d-flex flex-column">
+              <label for="prod_type">Kategoria:</label>
+              <select id="prod_type" name="prod_type" required>
+                  {% for category in categories %}
+                        <option {%if object_list.0.type.name == category.name %} selected {%endif%}>{{category.name}}</option>
+                  {% endfor %}
+              </select> <!-- TUTAJ WSZYSTKIE KATEGORIE-->
+          </div>
+          <div class="col-md-2 d-flex flex-column">
+              <label for="prod_state">Stan: </label>
+              <select id="prod_state" name="prod_state" required>
+                  <option value="new" {%if object_list.0.state == "new"%} selected {%endif%} >Nowy</option>
+                  <option value="used" {%if object_list.0.state == "used"%} selected {%endif%}>Używany</option>
+              </select>
+          </div>
+          <div class="col-md-3 d-flex flex-column">
+              <label for="prod_price">Cena (zł): </label>
+              <input id="prod_price" name="prod_price" type="number" min="1" value="{{object_list.0.price}}" required>
+          </div>
+          <div class="col-md-4 d-flex flex-column">
+              <label for="prod_origin">Pochodzenie: </label>
+              <input id="prod_origin" type="text" name="prod_origin" value="{{object_list.0.origin}}" required>
+          </div>
+          <div class="col-md-5 d-flex flex-column">
+              <label for="prod_material">Materiał: </label>
+              <input id="prod_material" type="text" name="prod_material" value="{{object_list.0.material}}" required>
+          </div>
+          <div class="col-md-12 d-flex flex-column">
+              <label for="prod_desc">Opis: </label>
+              <textarea id="prod_desc" name="prod_desc" rows="5">{{object_list.0.description}}</textarea>
+          </div>
+          <div class="col-md-4 d-flex flex-column">
+              <label for="prod_amount">Ilość: </label>
+              <input id="prod_amount" type="number" min="0" name="prod_amount" value="{{object_list.0.amount}}" required>
+          </div>
+          <div class="col-md-4 d-flex flex-column">
+              <label for="prod_warranty">Czas gwarancji (lata): </label>
+              <input id="prod_warranty" name="prod_warranty" type="number" min="0" value="{{object_list.0.warranty_time}}" required>
+          </div>
+          <div class="col-md-4 d-flex flex-column">
+              <label for="prod_discount">Zniżka (%): </label>
+              <input id="prod_discount" type="number" min="0" max="99" name="prod_discount" value="{{object_list.0.discount}}" required>
+          </div>
+          <div class="col-md-4 d-flex flex-column">
+              <label for="prod_height">Wysokość (cm): </label>
+              <input id="prod_height" type="number" min="1" max="500" name="prod_height" value="{{object_list.0.height}}">
+          </div>
+          <div class="col-md-4 d-flex flex-column">
+              <label for="prod_width">Szerokość (cm): </label>
+              <input id="prod_width" name="prod_width" type="number" min="1" max="500" value="{{object_list.0.width}}" required>
+          </div>
+          <div class="col-md-4 d-flex flex-column">
+              <label for="prod_depth">Głębokość (cm): </label>
+              <input id="prod_depth" type="number" name="prod_depth" min="1" max="500" value="{{object_list.0.depth}}" required>
+          </div>
+
+          <div class="form-actions col-md-12 d-flex flex-column">
+              <button class="btn btn-lg btn-dark my-4 mx-auto" type="submit" style="width: 200px" id="form-btn">
+                {% if pk == 0 %}
+                    Dodaj
+                {% else %}
+                    Edytuj
+                {%endif%}
+              </button>
+          </div>
+      </form>
+      <a type="button" class="btn btn-lg btn-outline-dark" href="/settings/all_products" id="go_back">Powrót</a>
+    </div>
+
+{% endblock %}

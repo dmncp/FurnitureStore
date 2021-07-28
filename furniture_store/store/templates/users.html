@@ -1,0 +1,112 @@
+{% extends 'navMenu.html' %}
+
+{% block additional %}
+    {% load static %}
+        <link href="{% static 'store/all_products.css' %}" rel="stylesheet">
+    {% endblock %}
+{% block main %}
+    <div class="container">
+        <h3>Użytkownicy</h3>
+    </div>
+
+    <div style="min-height: 74vh; margin: 0 auto;" class="container">
+        <a class="heading" data-bs-toggle="collapse" href="#filters" role="button" aria-expanded="false" aria-controls="collapseExample">
+          Filtry
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+          </svg>
+        </a>
+        <div id="filters" class="mb-5 collapse">
+            <div class="card card-body container m-auto">
+                <form method="get" class="row">
+                  {% csrf_token %}
+                  <div class="col-md-2 d-flex flex-column">
+                    <label>ID użytkownika:</label>
+                    <input id="user_id" name="user_id" type="number" min="1">
+                  </div>
+                  <div class="col-md-7 d-flex flex-column">
+                      <label>Nazwa użytkownika:</label>
+                      <input name="user_name" id="user_name">
+                  </div>
+                  <div class="col-md-3 d-flex flex-column">
+                    <label>Uprawnienia:</label>
+                    <select name="permission">
+                        <option value="" selected>Wszystkie</option>
+                        <option value="client">Klient</option>
+                        <option value="worker">Pracownik</option>
+                        <option value="admin">Administrator</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-6 d-flex flex-column">
+                    <label for="sort_by_id" class="align-middle form-label">Sortuj według:</label>
+                    <select id="sort_by_id" name="sort_by">
+                        <option value="id">ID użytkownika</option>
+                        <option value="first_name">Imię</option>
+                        <option value="last_name">Nazwisko</option>
+                        <option value="username">Login</option>
+                        <option value="email">Email</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6 d-flex flex-column">
+                    <label for="sort_order_id" class="align-middle form-label">Kolejność</label>
+                    <select id="sort_order_id" name="order">
+                        <option value="asc">Rosnąco</option>
+                        <option value="desc">Malejąco</option>
+                    </select>
+                  </div>
+
+                  <button type="submit" class="btn btn-outline-dark mt-3 col-md-3 col-sm-4 m-auto">Wyszukaj</button>
+                </form>
+            </div>
+        </div>
+
+        <a class="heading collapsed" data-bs-toggle="collapse" href="#users" role="button" aria-expanded="true" aria-controls="collapseExample">
+          Lista użytkowników
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+          </svg>
+        </a>
+        <div id="users" class="mb-5 collapse show">
+          <table class="table align-middle" style="table-layout: auto">
+            <thead style="text-align: center;">
+                <tr>
+                    <th style="max-width: 20px">ID</th>
+                    <th>Imię i nazwisko</th>
+                    <th>Login</th>
+                    <th>Email</th>
+                    <th>Uprawnienia</th>
+                    <th>Działania</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in object_list %}
+                  <tr style="text-align: center">
+                      <td style="max-width: 20px">{{user.id}}</td>
+                      <td>{{user.first_name}} {{user.last_name}}</td>
+                      <td>{{user.username}}</td>
+                      <td>{{user.email}}</td>
+                      <td>
+                        <form method="post">
+                          {% csrf_token %}
+                          <select name="permission_new">
+                            <option value="client+{{user.id}}" {%if not user.is_staff %} selected {%endif%}>Klient</option>
+                            <option value="worker+{{user.id}}" {%if user.is_staff and not user.is_superuser%} selected {%endif%}>Pracownik</option>
+                            <option value="admin+{{user.id}}"{%if user.is_superuser %} selected {%endif%}>Administrator</option>
+                          </select>
+                          <button type="submit" class="btn btn-warning">Zmień</button>
+                        </form>
+                      </td>
+                      <td>
+                        <a class="btn btn-danger" href="{% url 'delete_user' user.id %}">Usuń</a>
+                      </td>
+                  </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <a type="button" class="btn btn-lg btn-outline-dark" href="/settings" id="go_back">Powrót</a>
+    </div>
+
+{% endblock %}

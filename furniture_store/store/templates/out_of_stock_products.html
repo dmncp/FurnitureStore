@@ -22,15 +22,35 @@
             <div class="card card-body container m-auto">
                 <form method="get" class="row">
                   {% csrf_token %}
-                  <div class="col-md-6 d-flex flex-column">
+                  <div class="col-md-4 d-flex flex-column">
                     <label>ID mebla:</label>
                     <input id="product_id" name="product_id">
                   </div>
-                  <div class="col-md-6 d-flex flex-column">
+                  <div class="col-md-4 d-flex flex-column">
                     <label>Nazwa mebla:</label>
                     <input name="name" id="name">
                   </div>
-
+                  <div class="col-md-4 d-flex flex-column">
+                    <label>Kategoria:</label>
+                    <input name="category_name" id="category_name">
+                  </div>
+                  <div class="col-md-6 d-flex flex-column">
+                    <label for="sort_by_id" class="align-middle form-label">Sortuj według:</label>
+                    <select id="sort_by_id" name="sort_by">
+                        <option value="id">ID mebla</option>
+                        <option value="type__name">Kategoria</option>
+                        <option value="origin">Pochodzenie</option>
+                        <option value="state">Stan</option>
+                        <option value="price">Cena</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6 d-flex flex-column">
+                    <label for="sort_order_id" class="align-middle form-label">Kolejność</label>
+                    <select id="sort_order_id" name="order">
+                        <option value="asc">Rosnąco</option>
+                        <option value="desc">Malejąco</option>
+                    </select>
+                  </div>
                   <button type="submit" class="btn btn-outline-dark mt-3 col-md-3 col-sm-4 m-auto">Wyszukaj</button>
                 </form>
             </div>

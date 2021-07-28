@@ -31,5 +31,33 @@ textarea{
     padding: 10px;
     text-align: justify!important;
     hyphens: auto;
-    word-wrap: break-word;
+}
+
+label{
+    font-size: 20px;
+    text-align: center
+}
+
+input, select{
+    border: none;
+    border-bottom: 2px solid #af0809;
+    outline: none;
+    font-size: 18px!important;
+    margin: 20px 5px!important;
+}
+
+input, select{
+    height: 50px;
+    text-align: center;
+}
+
+input:focus{
+    background-color: #f5f2f2;
+}
+
+form{
+    padding: 10px 0;
+    font-weight: bold;
+    border: 3px solid #af0809;
+    border-radius: 30px;
 }

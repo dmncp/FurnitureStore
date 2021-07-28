@@ -1,0 +1,144 @@
+{% extends 'navMenu.html' %}
+
+{% block additional %}
+    {% load static %}
+        <link href="{% static 'store/all_products.css' %}" rel="stylesheet">
+    {% endblock %}
+{% block main %}
+    <div class="container">
+        <h3>Produkty i kategorie</h3>
+    </div>
+
+    <div style="min-height: 74vh; margin: 0 auto;" class="container">
+        <a class="btn btn-success" href="{% url 'edit_product_admin' 0 %}">DODAJ NOWY PRODUKT</a>
+        <a class="btn btn-success" href="{% url 'category_edit' 0 %}">DODAJ NOWĄ KATAGORIĘ</a>
+
+        <a class="heading" data-bs-toggle="collapse" href="#filters" role="button" aria-expanded="false" aria-controls="collapseExample">
+          Filtry
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+          </svg>
+        </a>
+        <div id="filters" class="mb-5 collapse">
+            <div class="card card-body container m-auto">
+                <form method="get" class="row">
+                  {% csrf_token %}
+                  <div class="col-md-2 d-flex flex-column">
+                    <label>ID mebla:</label>
+                    <input id="prod_id" name="prod_id" type="number" min="1">
+                  </div>
+                  <div class="col-md-6 d-flex">
+                    <div class="col-md-6 d-flex flex-column">
+                        <label>Cena od:</label>
+                        <input name="price_from" id="price_from" type="number" min="1">
+                    </div>
+                    <div class="col-md-6 d-flex flex-column">
+                        <label>Cena do:</label>
+                        <input name="price_to" id="price_to" type="number" min="1">
+                    </div>
+                  </div>
+                  <div class="col-md-4 d-flex flex-column">
+                    <label>Kategoria:</label>
+                    <input name="category" id="category">
+                  </div>
+                  <div class="col-md-6 d-flex flex-column">
+                    <label>Nazwa mebla:</label>
+                    <input name="prod_name" id="prod_name">
+                  </div>
+                  <div class="col-md-6 d-flex flex-column">
+                    <label>Stan:</label>
+                    <select name="state">
+                        <option selected value="">Wszystkie</option>
+                        <option name="new" value="new">Nowy</option>
+                        <option name="used" value="used">Używany</option>
+                    </select>
+                  </div>
+
+                  <button type="submit" class="btn btn-outline-dark mt-3 col-md-3 col-sm-4 m-auto">Wyszukaj</button>
+                </form>
+            </div>
+        </div>
+
+        <a class="heading collapsed" data-bs-toggle="collapse" href="#products" role="button" aria-expanded="true" aria-controls="collapseExample">
+          Lista produktów
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+          </svg>
+        </a>
+        <div id="products" class="mb-5 collapse show">
+          <table class="table align-middle">
+            <thead style="text-align: center;">
+                <tr>
+                    <th style="max-width: 20px">ID</th>
+                    <th>Nazwa mebla</th>
+                    <th>Kategoria</th>
+                    <th>Opis</th>
+                    <th>Stan</th>
+                    <th>Cena (zł)</th>
+                    <th>Działania</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for furniture in object_list %}
+                  <tr style="text-align: center">
+                      <td style="max-width: 20px">{{furniture.id}}</td>
+                      <td>{{furniture.name}}</td>
+                      <td>{{furniture.type}}</td>
+                      <td style="max-width: 40vw; padding: 0 5px; text-align: left">{{furniture.description}}</td>
+                      <td>
+                          {% if furniture.state == 'used' %}
+                              Używany
+                          {% else %}
+                              Nowy
+                          {% endif %}
+                      </td>
+                      <td>{{furniture.price}}</td>
+                      <td>
+                        <a class="btn btn-warning" href="{% url 'edit_product_admin' furniture.id %}">Edycja</a>
+                      </td>
+                  </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <a class="heading collapsed" data-bs-toggle="collapse" href="#categories" role="button" aria-expanded="true" aria-controls="collapseExample">
+          Lista kategorii
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+          </svg>
+        </a>
+        <div id="categories" class="mb-5 collapse show">
+            {% if messages %}
+                {% for message in messages %}
+                    <p {% if message.tags %} class="{{ message.tags }}"{% endif %} id="msg">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+          <table class="table align-middle">
+            <thead style="text-align: center;">
+                <tr>
+                    <th style="max-width: 20px">ID</th>
+                    <th>Nazwa kategorii</th>
+                    <th>Działania</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in categories %}
+                  <tr style="text-align: center">
+                      <td style="max-width: 20px">{{category.id}}</td>
+                      <td>{{category.name}}</td>
+                      <td>
+                          <a class="btn btn-warning" href="{% url 'category_edit' category.id %}">Edycja</a>
+                          <a class="btn btn-danger" href="{% url 'delete_category' category.id %}" id="delete_btn">Usuń</a>
+
+                      </td>
+                  </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <a type="button" class="btn btn-lg btn-outline-dark" href="/settings" id="go_back">Powrót</a>
+    </div>
+
+{% endblock %}

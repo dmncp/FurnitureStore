@@ -20,24 +20,10 @@ h3{
     margin: 20px auto;
 }
 
-table{
-    text-align: center;
-}
-
-.products{
-    display: block;
-    font-size: 15px;
-    text-decoration: none;
-    color: #af0809;
-    text-transform: uppercase;
-    margin: 20px auto;
-}
-
-#product{
-    border: solid 1px #af0809;
-    text-align: center;
-    width: 80%;
-    margin: 0 auto 10px auto;
+.card{
+    border: none!important;
+    border: 2px solid #af0809!important;
+    border-radius: 30px!important;
 }
 
 label{
@@ -45,12 +31,12 @@ label{
     text-align: center
 }
 
-input, select{
+input, select, textarea{
     border: none;
     border-bottom: 2px solid #af0809;
     outline: none;
     font-size: 18px!important;
-    margin: 20px 5px!important;
+    margin: 20px 5px 50px 5px!important;
 }
 
 input, select{
@@ -58,11 +44,40 @@ input, select{
     text-align: center;
 }
 
-input:focus{
+input:focus, textarea:focus{
     background-color: #f5f2f2;
 }
 
 form{
     padding: 10px 0;
     font-weight: bold;
+}
+
+#edit_form{
+    border: 3px solid #af0809;
+    border-radius: 30px;
+}
+
+textarea{
+    padding: 10px;
+    text-align: justify!important;
+    hyphens: auto;
+    word-wrap: break-word;
+}
+
+td{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+table{
+    table-layout: fixed;
+}
+
+#msg{
+    font-size: 30px;
+    text-transform: uppercase;
+    text-align: center;
+    color: red;
 }

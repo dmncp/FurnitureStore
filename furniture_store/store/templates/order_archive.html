@@ -31,6 +31,24 @@
                     <input name="client_id" id="client_id">
                   </div>
 
+                  <div class="col-md-6 d-flex flex-column">
+                    <label for="sort_by_id" class="align-middle form-label">Sortuj według:</label>
+                    <select id="sort_by_id" name="sort_by">
+                        <option value="order_nr">Nr. zamówienia</option>
+                        <option value="user__id">ID klienta</option>
+                        <option value="user__first_name">Imię klienta</option>
+                        <option value="user__last_name">Nazwisko klienta</option>
+                        <option value="price">Cena</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6 d-flex flex-column">
+                    <label for="sort_order_id" class="align-middle form-label">Kolejność</label>
+                    <select id="sort_order_id" name="order">
+                        <option value="asc">Rosnąco</option>
+                        <option value="desc">Malejąco</option>
+                    </select>
+                  </div>
+
                   <button type="submit" class="btn btn-outline-dark mt-3 col-md-3 col-sm-4 m-auto">Wyszukaj</button>
                 </form>
             </div>

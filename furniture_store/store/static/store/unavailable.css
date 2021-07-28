@@ -28,19 +28,16 @@ h3{
 
 label{
     font-size: 20px;
-    margin: 20px 0 0 40px!important;
+    text-align: center;
 }
 
-input{
+input, select{
     border: none;
     border-bottom: 2px solid #af0809;
     outline: none;
     text-align: center;
     font-size: 18px!important;
     margin: 40px!important;
-}
-
-input{
     height: 50px;
 }
 
