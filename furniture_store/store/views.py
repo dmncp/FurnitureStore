@@ -138,17 +138,6 @@ class CustomerOrdersView(LoginRequiredMixin, generic.ListView):
         return orders
 
 
-def get_price(user, pk):
-    order = Order.objects.get(user=user, order_nr=pk)
-    products = order.products.all()
-    price_all = 0
-
-    for product in products:
-        price_all += product.product.price * product.amount
-
-    return price_all
-
-
 class OrderDetailsView(LoginRequiredMixin, generic.ListView):
     model = Order
 
@@ -157,12 +146,6 @@ class OrderDetailsView(LoginRequiredMixin, generic.ListView):
         order = orders.get(order_nr=self.kwargs['pk'])
 
         return order
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['price_all'] = get_price(self.request.user, self.kwargs['pk'])
-
-        return context
 
 
 class OpinionsView(LoginRequiredMixin, generic.ListView):
@@ -313,8 +296,23 @@ class AllOrdersView(LoginRequiredMixin, generic.ListView):
 def cancel_order(request, pk):
     order = Order.objects.get(order_nr=pk)
     if order.status == 'unsent':
+        for product in order.products.all():
+            furniture = product.product
+            furniture.amount += product.amount
+            furniture.save()
+
         order.delete()
     return redirect('order_archive')
+
+
+def get_price(order):
+    products = order.products.all()
+    price_all = 0
+
+    for product in products:
+        price_all += product.product.price_with_discount * product.amount
+
+    return round(price_all, 2)
 
 
 class EditOrderView(LoginRequiredMixin, generic.ListView):
@@ -328,14 +326,20 @@ class EditOrderView(LoginRequiredMixin, generic.ListView):
         for prod in products:
             amount = self.request.GET.get('a' + str(prod.id), None)
             if amount:
-                prod.amount = amount
+                furniture = prod.product
+                furniture.amount -= (int(amount) - prod.amount)
+                furniture.save()
+
+                prod.amount = int(amount)
                 prod.save()
+
+                order.price = get_price(order)
+                order.save()
 
         return order
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['price_all'] = get_price(self.request.user, self.kwargs['pk'])
         context['order_id'] = self.kwargs['pk']
 
         return context
@@ -345,7 +349,22 @@ class EditOrderView(LoginRequiredMixin, generic.ListView):
 def delete_product_from_order(request, order_nr, prod_nr):
     order = Order.objects.get(order_nr=order_nr)
     product = order.products.all().get(id=prod_nr)
+
+    furniture_id = product.product.id
+    amount = product.amount
+
+    furniture = Furniture.objects.get(id=furniture_id)
+    furniture.amount += amount
+
+    furniture.save()
     product.delete()
+
+    order.price = get_price(order)
+    order.save()
+
+    if len(order.products.all()) == 0:
+        order.delete()
+        return redirect('order_archive')
 
     return redirect('order_edit', order_nr)
 
@@ -382,9 +401,18 @@ def add_product(request, order_nr, prod_nr):
 
     if not prod_in_list:
         prod = Furniture.objects.get(id=prod_nr)
-        order_product = OrderProduct(product=prod, amount=1)
-        order_product.save()
-        order.products.add(order_product)
+        if prod.amount > 0:
+            order_product = OrderProduct(product=prod, amount=1)
+            order_product.save()
+            order.products.add(order_product)
+
+            prod.amount -= 1
+            prod.save()
+
+            order.price = get_price(order)
+            order.save()
+        else:
+            pass # todo komunikat
 
     return redirect('order_edit_add', order_nr)
 

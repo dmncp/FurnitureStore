@@ -33,7 +33,7 @@ table{
     margin: 20px auto;
 }
 
-#product{
+.product{
     border: solid 1px #af0809;
     text-align: center;
     width: 80%;

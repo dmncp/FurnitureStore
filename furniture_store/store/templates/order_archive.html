@@ -84,7 +84,7 @@
                                     Zobacz listę
                                 </a>
                                 <div class="collapse" id="a{{order.order_nr}}">
-                                    <p id="product">
+                                    <p class="product">
                                         {% for product in order.products.all %}
                                             {{product.product.name}} - {{product.amount}}szt.<br><br>
                                         {% endfor %}
@@ -145,13 +145,13 @@
                                     Zobacz listę
                                 </a>
                                 <div class="collapse" id="b{{order.order_nr}}">
-                                    <p>
+                                    <p class="product">
                                         {% for product in order.products.all %}
                                             {{product.product.name}} - {{product.amount}}szt.<br><br>
                                         {% endfor %}
                                     </p>
                                 </div>
-                                <a class="btn btn-warning" href="">Szczegóły</a>
+                                <a class="btn btn-warning" href="{% url 'all_details' order.order_nr %}">Szczegóły</a>
                             </td>
                             <td>{{order.price}}</td>
                             <td>Dostarczone</td>

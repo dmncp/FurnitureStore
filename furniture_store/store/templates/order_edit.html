@@ -28,6 +28,7 @@
                         <th>Nazwa produktu</th>
                         <th>Cena jednostkowa (zł)</th>
                         <th>Ilość</th>
+                        <th>Zniżka (%)</th>
                         <th>Cena łączna (zł)</th>
                         <th>Działania</th>
                     </tr>
@@ -39,24 +40,25 @@
                             <td>{{product.product.name}}</td>
                             <td>{{product.product.price}}</td>
                             <td style="max-width: 100px">
-                                <input value="{{product.amount}}" name="a{{product.id}}" type="number" min="1" max="{{product.product.amount}}" style="max-width: 100px; border: none">
+                                <input value="{{product.amount}}" name="a{{product.id}}" type="number" min="1" max="{{product.amount|add:product.product.amount}}" style="max-width: 100px; border: none">
                             </td>
-                            <td>{% widthratio product.product.price 1 product.amount %}</td>
+                            <td>{{product.product.discount}}</td>
+                            <td>{% widthratio product.product.price_with_discount 1 product.amount %}</td>
                             <td>
                                 <a href="{% url 'prod_delete' order_id product.id %}" class="btn btn-danger">Usuń</a>
                             </td>
                         </tr>
                     {% endfor %}
                         <tr>
-                            <td></td><td></td><td></td><td></td><td></td>
+                            <td></td><td></td><td></td><td></td><td></td><td></td>
                             <td>
                                 <a href="{% url 'order_edit_add' order_id %}" class="btn btn-success">Dodaj</a>
                             </td>
                         </tr>
                         <tr>
-                            <td></td><td></td><td></td><td></td>
+                            <td></td><td></td><td></td><td></td><td></td>
                             <td>
-                                <strong>Razem:</strong> {{ price_all }}
+                                <strong>Razem:</strong> {{ object_list.price }}
                             </td><td></td>
                         </tr>
                 </tbody>

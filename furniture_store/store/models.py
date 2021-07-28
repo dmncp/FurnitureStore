@@ -36,6 +36,10 @@ class Furniture(models.Model):
     width = models.IntegerField()
     depth = models.IntegerField()
 
+    @property
+    def price_with_discount(self):
+        return round(self.price * (1 - self.discount / 100), 2)
+
     def __str__(self):
         return str(self.name)
 

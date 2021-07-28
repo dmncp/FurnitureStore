@@ -17,6 +17,7 @@
                     <th>Nazwa produktu</th>
                     <th>Stan</th>
                     <th>Cena jednostkowa (zł)</th>
+                    <th>Zniżka (%)</th>
                     <th>Ilość</th>
                     <th>Cena łączna (zł)</th>
                 </tr>
@@ -33,14 +34,15 @@
                             {% endif %}
                         </td>
                         <td>{{product.product.price}}</td>
+                        <td>{{product.product.discount}}</td>
                         <td>{{product.amount}}</td>
-                        <td>{% widthratio product.product.price 1 product.amount %}</td>
+                        <td>{% widthratio product.product.price_with_discount 1 product.amount %}</td>
                     </tr>
                 {% endfor %}
                     <tr>
                         <td></td><td></td><td></td><td></td>
                         <td>
-                            <strong>Razem:</strong> {{ price_all }}
+                            <strong>Razem:</strong> {{ object_list.price }}
                         </td>
                     </tr>
             </tbody>
