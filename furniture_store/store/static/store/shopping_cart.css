@@ -1,0 +1,33 @@
+h3{
+    text-transform: uppercase;
+    font-size: 50px!important;
+    text-align: center;
+    padding-top: 50px;
+}
+
+input{
+    border: none;
+    border-bottom: 2px solid #af0809;
+    outline: none;
+    font-size: 18px!important;
+    height: 50px;
+    max-width: 100px;
+    text-align: center;
+}
+
+input:focus{
+    background-color: #f5f2f2;
+}
+
+#next{
+    margin: 50px auto;
+    display: block;
+    width: 150px;
+}
+
+#msg{
+    font-size: 30px;
+    text-transform: uppercase;
+    text-align: center;
+    color: red;
+}

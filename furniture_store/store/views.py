@@ -675,3 +675,62 @@ def delete_account_admin(request, pk):
         user.delete()
 
     return redirect('users')
+
+
+class ShoppingCartView(LoginRequiredMixin, generic.ListView):
+    model = ShoppingCart
+
+    def post(self, *args, **kwargs):
+        amount = self.request.POST['amount']
+        prod_id = self.request.POST['prod_id']
+        furniture = Furniture.objects.get(id=prod_id)
+
+        if furniture.amount - int(amount) >= 0:
+            cart = ShoppingCart.objects.get(user=self.request.user, furniture__id=prod_id)
+            cart.amount = amount
+            cart.save()
+        else:
+            messages.warning(self.request, f'Produkt {furniture.name} jest niedostępny w podanej ilości. '
+                                           f'Aktualnie możesz zamówić maksymalnie {furniture.amount} sztuk.')
+
+        return redirect('shop_cart')
+
+    def get_queryset(self):
+        products = super().get_queryset()
+        products = products.filter(user=self.request.user)
+
+        return products
+
+    def get_all_price(self):
+        products = self.get_queryset()
+        price = 0
+        for product in products:
+            price += product.furniture.price_with_discount * product.amount
+        return round(price, 2)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['all_price'] = self.get_all_price()
+
+        return context
+
+
+@login_required
+def delete_product_from_cart(request, pk):
+    cart = ShoppingCart.objects.get(user=request.user, furniture__id=pk)
+    cart.delete()
+    return redirect('shop_cart')
+
+
+class DeliveryAddressView(LoginRequiredMixin, generic.ListView):
+    model = UserAddress
+
+    def post(self, *args, **kwargs):
+        address_id = self.request.POST['address']
+        products = ShoppingCart.objects.filter(user=self.request.user)
+        for product in products:
+            address = UserAddress.objects.get(id=address_id)
+            product.address = address
+            product.save()
+
+        return redirect('confirm')

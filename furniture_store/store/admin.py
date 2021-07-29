@@ -23,7 +23,7 @@ class OpinionAdmin(admin.ModelAdmin):
 
 @admin.register(ShoppingCart)
 class ShoppingCartAdmin(admin.ModelAdmin):
-    list_display = ['id', 'user', 'furniture']
+    list_display = ['id', 'user', 'furniture', 'amount']
     list_filter = ['user', 'furniture']
 
 

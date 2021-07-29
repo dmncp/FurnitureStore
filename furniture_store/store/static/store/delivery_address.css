@@ -1,0 +1,24 @@
+h3{
+    text-transform: uppercase;
+    font-size: 50px!important;
+    text-align: center;
+    padding-top: 50px;
+}
+
+#list{
+    margin-bottom: 50px;
+    display: flex!important;
+    flex-direction: column!important;
+    align-items: center!important;
+}
+
+#add_new:hover{
+    cursor: pointer;
+    background-color: #E4E4E4!important;
+}
+
+#go_back, #next{
+    margin: -50px 2px 50px 2px;
+    display: block;
+    width: 150px;
+}

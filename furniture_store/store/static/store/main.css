@@ -159,7 +159,6 @@ h2{
     z-index: -1;
 }
 
-
 @media(max-width:991px){
     h2{
         font-size: 60px!important;

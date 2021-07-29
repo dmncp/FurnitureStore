@@ -1,0 +1,62 @@
+{% extends 'navMenu.html' %}
+
+{% block additional %}
+    {% load static %}
+    <link href="{% static 'store/shopping_cart.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <h3>Koszyk</h3>
+    </div>
+
+    <div class="container" id="main-content" style="min-height: 74vh; margin: 0 auto;">
+        <table class="table align-middle">
+            <thead style="text-align: center;">
+                <tr>
+                    <th style="max-width: 50px">ID mebla</th>
+                    <th>Nazwa</th>
+                    <th>Cena (zł)</th>
+                    <th>Ilość</th>
+                    <th>Zniżka (%)</th>
+                    <th>Cena łączna (zł)</th>
+                    <th>Działania</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in object_list %}
+                  <tr style="text-align: center">
+                      <td style="max-width: 50px">{{product.furniture.id}}</td>
+                      <td>{{product.furniture.name}}</td>
+                      <td>{{product.furniture.price}}</td>
+                      <td>
+                          <form method="post">
+                              {% csrf_token %}
+                              <input style="display: none" value="{{product.furniture.id}}" name="prod_id">
+                              <input name="amount" value="{{product.amount}}" type="number" min="1" max="{{product.furniture.amount}}">
+                              <button type="submit" class="btn btn-warning">Zmień</button>
+                          </form>
+                      </td>
+                      <td>{{product.furniture.discount}}</td>
+                      <td>{% widthratio product.furniture.price_with_discount 1 product.amount %}</td>
+                      <td>
+                          <a class="btn btn-danger" href="{% url 'delete_from_cart' product.furniture.id %}" id="delete_btn">Usuń</a>
+                      </td>
+                  </tr>
+                {% endfor %}
+                <tr>
+                    <td></td><td></td><td></td><td></td><td></td>
+                    <td class="text-center"><strong>Razem: {{all_price}}</strong></td><td></td>
+                </tr>
+            </tbody>
+          </table>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <p {% if message.tags %} class="{{ message.tags }}"{% endif %} id="msg">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+            <a type="button" class="btn btn-lg btn-outline-dark" href="{% url 'delivery_address' %}" id="next">Dalej</a>
+    </div>
+
+{% endblock %}

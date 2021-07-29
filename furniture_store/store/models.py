@@ -14,6 +14,17 @@ ORDER_STATUS = (
 
 
 # Create your models here.
+class Address(models.Model):
+    city = models.CharField(max_length=255)
+    street = models.CharField(max_length=255)
+    house_nr = models.CharField(max_length=5)
+    building_nr = models.CharField(max_length=5, blank=True)
+    zip_code = models.CharField(max_length=7)
+
+    def __str__(self):
+        return str(self.city) + ',' + str(self.street) + ' ' + str(self.building_nr) + '/' + str(self.house_nr)
+
+
 class FurnitureType(models.Model):
     name = models.CharField(max_length=255)
 
@@ -54,23 +65,19 @@ class Opinion(models.Model):
         return str(self.opinion)
 
 
+class UserAddress(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
+    address = models.ForeignKey(Address, on_delete=models.CASCADE, default=0)
+
+
 class ShoppingCart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
     furniture = models.ForeignKey(Furniture, on_delete=models.CASCADE)
+    amount = models.IntegerField(default=1)
+    address = models.ForeignKey(UserAddress, on_delete=models.CASCADE, default=0)
 
     def __str__(self):
         return str(self.user)
-
-
-class Address(models.Model):
-    city = models.CharField(max_length=255)
-    street = models.CharField(max_length=255)
-    house_nr = models.CharField(max_length=5)
-    building_nr = models.CharField(max_length=5, blank=True)
-    zip_code = models.CharField(max_length=7)
-
-    def __str__(self):
-        return str(self.city) + ',' + str(self.street) + ' ' + str(self.building_nr) + '/' + str(self.house_nr)
 
 
 class OrderProduct(models.Model):
@@ -87,12 +94,9 @@ class Order(models.Model):
     price = models.IntegerField()
     products = models.ManyToManyField(OrderProduct, symmetrical=False, related_name='ordered_products')
     status = models.CharField(choices=ORDER_STATUS, default='unsent', max_length=20)
+    address = models.ForeignKey(UserAddress, on_delete=models.CASCADE, default=0)
 
     def __str__(self):
         return str(self.user) + ':' + str(self.order_nr)
 
-
-class UserAddress(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
-    address = models.ForeignKey(Address, on_delete=models.CASCADE, default=0)
 

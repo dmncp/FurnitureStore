@@ -35,5 +35,9 @@ urlpatterns = [
     path('settings/all_products/delete_category/<int:pk>', staff_member_required(delete_category), name='delete_category'),
     path('settings/all_products/edit_category/<int:pk>', staff_member_required(EditCategoryView.as_view(template_name='category_edit.html')), name='category_edit'),
     path('settings/users', staff_member_required(UserListView.as_view(template_name='users.html')), name='users'),
-    path('settings/users/delete/<int:pk>', staff_member_required(delete_account_admin), name='delete_user')
+    path('settings/users/delete/<int:pk>', staff_member_required(delete_account_admin), name='delete_user'),
+    path('shopping_cart', ShoppingCartView.as_view(template_name='shopping_cart.html'), name='shop_cart'),
+    path('shopping_cart/delete/<int:pk>', delete_product_from_cart, name='delete_from_cart'),
+    path('shopping_cart/address', DeliveryAddressView.as_view(template_name='delivery_address.html'), name='delivery_address'),
+    path('shopping_cart/confirmation', ShoppingCartView.as_view(template_name='order_confirmation.html'), name='confirm')
 ]
