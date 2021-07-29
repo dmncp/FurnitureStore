@@ -12,6 +12,11 @@
 
     <div class="container" style="min-height: 74vh; margin: 0 auto;">
         <div id="actual">
+            {% if messages %}
+                {% for message in messages %}
+                    <p {% if message.tags %} class="{{ message.tags }}"{% endif %} id="msg">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
             <table class="table align-middle">
               <thead style="text-align: center;">
                   <tr>

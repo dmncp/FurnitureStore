@@ -26,7 +26,7 @@ urlpatterns = [
     path('settings/order_archive/edit/<str:pk>', staff_member_required(EditOrderView.as_view(template_name='order_edit.html')), name='order_edit'),
     path('settings/order_archive/edit/delete/<str:order_nr>/<int:prod_nr>', staff_member_required(delete_product_from_order), name='prod_delete'),
     path('settings/order_archive/edit/add/<str:pk>', staff_member_required(AddProductToOrder.as_view(template_name='order_edit_add.html')), name='order_edit_add'),
-    path('settings/order_archive/edit/add/<str:order_nr>/<str:prod_nr>', staff_member_required(add_product), name='add_to_order'),
+    path('settings/order_archive/edit/add/<str:order_nr>/<int:prod_nr>', staff_member_required(add_product), name='add_to_order'),
     path('settings/opinions_all', staff_member_required(OpinionsAdminView.as_view(template_name='opinions_edit_admin.html')), name='opinions_admin'),
     path('settings/opinions_all/edit/<str:pk>', staff_member_required(delete_opinion_description), name='opinions_admin_edit'),
     path('settings/opinions_all/delete/<str:pk>', staff_member_required(delete_opinion_admin), name='opinions_admin_delete'),

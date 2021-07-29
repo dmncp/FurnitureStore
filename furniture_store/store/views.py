@@ -69,13 +69,12 @@ class AddressEditView(LoginRequiredMixin, generic.ListView):
 class AddressEditFormView(LoginRequiredMixin, generic.ListView):
     model = Address
 
-    def get_queryset(self):
-        address_queryset = super().get_queryset()
-        street = self.request.GET.get('street', None)
-        house_nr = self.request.GET.get('house_nr', None)
-        block_nr = self.request.GET.get('block_nr', None)
-        zip_code = self.request.GET.get('zip_code', None)
-        city = self.request.GET.get('city', None)
+    def post(self, *args, **kwargs):
+        street = self.request.POST['street']
+        house_nr = self.request.POST['house_nr']
+        block_nr = self.request.POST['block_nr']
+        zip_code = self.request.POST['zip_code']
+        city = self.request.POST['city']
 
         if street and house_nr and zip_code and city:
             if self.kwargs['pk'] == 0:
@@ -94,8 +93,7 @@ class AddressEditFormView(LoginRequiredMixin, generic.ListView):
                 address.zip_code = zip_code
 
                 address.save()
-
-        return address_queryset
+        return redirect('address')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -184,16 +182,20 @@ def delete_opinion_user(request, pk):
 class OpinionEditFormView(LoginRequiredMixin, generic.ListView):
     model = Opinion
 
-    def get_queryset(self):
-        opinions = super().get_queryset()
-        opinion = opinions.get(id=self.kwargs['pk'])
-        rating = self.request.GET.get('rating', None)
-        opinion_desc = self.request.GET.get('opinion', None)
+    def post(self, *args, **kwargs):
+        rating = self.request.POST['rating']
+        opinion_desc = self.request.POST['opinion']
+        opinion = Opinion.objects.get(id=self.kwargs['pk'])
 
         if rating and opinion_desc:
             opinion.rating = rating
             opinion.opinion = opinion_desc
             opinion.save()
+        return redirect('opinions')
+
+    def get_queryset(self):
+        opinions = super().get_queryset()
+        opinion = opinions.get(id=self.kwargs['pk'])
 
         return opinion
 
@@ -272,6 +274,19 @@ class UnavailableProductsView(LoginRequiredMixin, generic.ListView):
 class AllOrdersView(LoginRequiredMixin, generic.ListView):
     model = Order
 
+    def post(self, *args, **kwargs):
+        status = self.request.POST['status']
+        status = status.split('+')
+
+        if status:
+            order = Order.objects.get(id=status[1])
+            new_status = status[0]
+
+            order.status = new_status
+            order.save()
+
+        return redirect('order_archive')
+
     def get_queryset(self):
         order = super().get_queryset()
         order_nr = self.request.GET.get('order_nr', None)
@@ -292,6 +307,12 @@ class AllOrdersView(LoginRequiredMixin, generic.ListView):
         return order
 
 
+def delete_order_products(order_id):
+    order = Order.objects.get(id=order_id)
+    for product in order.products.all():
+        product.delete()
+
+
 @login_required
 def cancel_order(request, pk):
     order = Order.objects.get(order_nr=pk)
@@ -300,7 +321,7 @@ def cancel_order(request, pk):
             furniture = product.product
             furniture.amount += product.amount
             furniture.save()
-
+        delete_order_products(order.id)
         order.delete()
     return redirect('order_archive')
 
@@ -318,13 +339,12 @@ def get_price(order):
 class EditOrderView(LoginRequiredMixin, generic.ListView):
     model = Order
 
-    def get_queryset(self):
-        order = super().get_queryset()
-        order = order.get(order_nr=self.kwargs['pk'])
+    def post(self, *args, **kwargs):
+        order = Order.objects.get(order_nr=self.kwargs['pk'])
         products = order.products.all()
 
         for prod in products:
-            amount = self.request.GET.get('a' + str(prod.id), None)
+            amount = self.request.POST['a' + str(prod.id)]
             if amount:
                 furniture = prod.product
                 furniture.amount -= (int(amount) - prod.amount)
@@ -335,6 +355,11 @@ class EditOrderView(LoginRequiredMixin, generic.ListView):
 
                 order.price = get_price(order)
                 order.save()
+        return redirect('order_edit', self.kwargs['pk'])
+
+    def get_queryset(self):
+        order = super().get_queryset()
+        order = order.get(order_nr=self.kwargs['pk'])
 
         return order
 
@@ -364,6 +389,7 @@ def delete_product_from_order(request, order_nr, prod_nr):
 
     if len(order.products.all()) == 0:
         order.delete()
+        delete_order_products(order.id)
         return redirect('order_archive')
 
     return redirect('order_edit', order_nr)
@@ -412,12 +438,14 @@ def add_product(request, order_nr, prod_nr):
             order.price = get_price(order)
             order.save()
         else:
-            pass # todo komunikat
+            messages.warning(request, 'Ten produkt jest niedostępny')
+    else:
+        messages.warning(request, 'Ten produkt należy już do zamówienia')
 
     return redirect('order_edit_add', order_nr)
 
 
-class OpinionsAdminView(LoginRequiredMixin, generic.ListView):
+class OpinionsAdminView(SuperUserCheck, generic.ListView):
     model = Opinion
 
     def get_queryset(self):
@@ -438,21 +466,23 @@ class OpinionsAdminView(LoginRequiredMixin, generic.ListView):
 
 @login_required
 def delete_opinion_admin(request, pk):
-    delete_opinion(pk)
+    if request.user.is_superuser:
+        delete_opinion(pk)
     return redirect('opinions_admin')
 
 
 @login_required
 def delete_opinion_description(request, pk):
-    opinion = Opinion.objects.get(id=pk)
+    if request.user.is_superuser:
+        opinion = Opinion.objects.get(id=pk)
 
-    opinion.opinion = ''
-    opinion.save()
+        opinion.opinion = ''
+        opinion.save()
 
     return redirect('opinions_admin')
 
 
-class AllProductsView(LoginRequiredMixin, generic.ListView):
+class AllProductsView(SuperUserCheck, generic.ListView):
     model = Furniture
 
     def get_queryset(self):
@@ -486,7 +516,7 @@ class AllProductsView(LoginRequiredMixin, generic.ListView):
         return context
 
 
-class EditProductView(LoginRequiredMixin, generic.ListView):
+class EditProductView(SuperUserCheck, generic.ListView):
     model = Furniture
 
     def post(self, *args, **kwargs):
@@ -546,13 +576,14 @@ class EditProductView(LoginRequiredMixin, generic.ListView):
 
 @login_required
 def delete_category(request, pk):
-    category = FurnitureType.objects.get(id=pk)
-    products = Furniture.objects.filter(type=category)
+    if request.user.is_superuser:
+        category = FurnitureType.objects.get(id=pk)
+        products = Furniture.objects.filter(type=category)
 
-    if products.exists():
-        messages.warning(request, f'Kategoria {category.name} jest w użyciu. Operacja usunięcia niemożliwa.')
-    else:
-        category.delete()
+        if products.exists():
+            messages.warning(request, f'Kategoria {category.name} jest w użyciu. Operacja usunięcia niemożliwa.')
+        else:
+            category.delete()
 
     return redirect('all_products')
 
@@ -636,10 +667,11 @@ class UserListView(SuperUserCheck, generic.ListView):
 
 @login_required
 def delete_account_admin(request, pk):
-    delete_user_data(request, pk)
+    if request.user.is_superuser:
+        delete_user_data(request, pk)
 
-    # delete account
-    user = User.objects.get(id=pk)
-    user.delete()
+        # delete account
+        user = User.objects.get(id=pk)
+        user.delete()
 
     return redirect('users')

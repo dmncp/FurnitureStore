@@ -94,11 +94,19 @@
                             </td>
                             <td>{{order.price}}</td>
                             <td>
-                                {% if order.status == 'unsent' %}
-                                    W magazynie
-                                {% elif order.status == 'sent' %}
-                                    W drodze
-                                {% endif %}
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <select name="status">
+                                        {% if order.status == 'unsent' %}
+                                            <option selected value="unsent+{{order.id}}">W magazynie</option>
+                                        {% endif %}
+                                        <option {% if order.status == 'sent' %} selected {% endif %} value='sent+{{order.id}}'>W drodze</option>
+                                        {% if order.status == 'sent' %}
+                                            <option value="ordered+{{order.id}}">Dostarczone</option>
+                                        {% endif %}
+                                    </select>
+                                    <button class="btn btn-warning" type="submit">Zmień</button>
+                                </form>
                             </td>
                             <td>
                                 {% if order.status == 'unsent' %}
