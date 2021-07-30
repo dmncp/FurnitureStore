@@ -1,3 +1,4 @@
+import string
 from django.urls import reverse_lazy
 from django.views import generic, View
 from django.contrib import messages
@@ -10,6 +11,7 @@ from django.contrib.auth.models import User
 from .models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+import random
 
 
 class SuperUserCheck(UserPassesTestMixin, View):
@@ -677,6 +679,13 @@ def delete_account_admin(request, pk):
     return redirect('users')
 
 
+def get_all_price(products):
+    price = 0
+    for product in products:
+        price += product.furniture.price_with_discount * product.amount
+    return round(price, 2)
+
+
 class ShoppingCartView(LoginRequiredMixin, generic.ListView):
     model = ShoppingCart
 
@@ -701,16 +710,9 @@ class ShoppingCartView(LoginRequiredMixin, generic.ListView):
 
         return products
 
-    def get_all_price(self):
-        products = self.get_queryset()
-        price = 0
-        for product in products:
-            price += product.furniture.price_with_discount * product.amount
-        return round(price, 2)
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['all_price'] = self.get_all_price()
+        context['all_price'] = get_all_price(self.get_queryset())
 
         return context
 
@@ -734,3 +736,37 @@ class DeliveryAddressView(LoginRequiredMixin, generic.ListView):
             product.save()
 
         return redirect('confirm')
+
+
+def generate_order_nr():
+    orders = Order.objects.all()
+    order_numbers = []
+    for order in orders:
+        order_numbers.append(order.order_nr)
+
+    random_order_nr = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
+
+    while random_order_nr in order_numbers:
+        random_order_nr = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
+
+    return random_order_nr
+
+
+@login_required
+def add_new_order(request):
+    products = ShoppingCart.objects.filter(user=request.user)
+    order = Order(user=request.user, order_nr=generate_order_nr(), price=get_all_price(products),
+                  address=products[0].address)
+    order.save()
+
+    for product in products:
+        order_product = OrderProduct(product=product.furniture, amount=product.amount)
+        order_product.save()
+        order.products.add(order_product)
+
+        product.furniture.amount -= product.amount
+        product.furniture.save()
+        product.delete()
+
+    return redirect('thanks')
+

@@ -39,5 +39,7 @@ urlpatterns = [
     path('shopping_cart', ShoppingCartView.as_view(template_name='shopping_cart.html'), name='shop_cart'),
     path('shopping_cart/delete/<int:pk>', delete_product_from_cart, name='delete_from_cart'),
     path('shopping_cart/address', DeliveryAddressView.as_view(template_name='delivery_address.html'), name='delivery_address'),
-    path('shopping_cart/confirmation', ShoppingCartView.as_view(template_name='order_confirmation.html'), name='confirm')
+    path('shopping_cart/confirmation', ShoppingCartView.as_view(template_name='order_confirmation.html'), name='confirm'),
+    path('shopping_cart/add_order', add_new_order, name='add_order_new'),
+    path('shopping_cart/order_placed', TemplateView.as_view(template_name='thanks_for_order.html'), name='thanks')
 ]

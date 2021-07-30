@@ -1,0 +1,20 @@
+{% extends 'navMenu.html' %}
+
+{% block additional %}
+    {% load static %}
+    <link href="{% static 'store/delivery_address.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <h3 class="mb-5">Dziękujemy za zakupy w naszym sklepie!</h3>
+    </div>
+
+    <div class="container" id="list" style="min-height: 74vh">
+        <p>Zamówienie zostało złożone, wyślemy je do ciebie w najbliższym czasie. W przypadku jakichkolwiek pytań zapraszamy do kontaktu z biurem obsługi klienta.</p>
+        <div class="d-flex">
+          <a class="btn btn-outline-dark" href="/" style="margin-top: 50px" id="go_back">Strona główna</a>
+        </div>
+    </div>
+
+{% endblock %}
