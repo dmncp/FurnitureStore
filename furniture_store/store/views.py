@@ -595,12 +595,14 @@ class EditCategoryView(SuperUserCheck, generic.ListView):
 
     def post(self, *args, **kwargs):
         cat_name = self.request.POST['cat_name']
+        url = self.request.POST['url']
         if self.kwargs['pk'] == 0:
-            category = FurnitureType(name=cat_name)
+            category = FurnitureType(name=cat_name, url=url)
         else:
             category = FurnitureType.objects.get(id=self.kwargs['pk'])
             if cat_name:
                 category.name = cat_name
+                category.url = url
 
         category.save()
         return redirect('all_products')
@@ -770,3 +772,6 @@ def add_new_order(request):
 
     return redirect('thanks')
 
+
+class CategoriesView(generic.ListView):
+    model = FurnitureType

@@ -27,6 +27,7 @@ class Address(models.Model):
 
 class FurnitureType(models.Model):
     name = models.CharField(max_length=255)
+    url = models.URLField(default='', blank=True)
 
     def __str__(self):
         return str(self.name)

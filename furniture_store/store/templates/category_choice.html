@@ -1,0 +1,47 @@
+{% extends 'navMenu.html' %}
+
+{% block additional %}
+    {% load static %}
+    <link href="{% static 'store/delivery_address.css' %}" rel="stylesheet">
+    <style>
+        .card-body{
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            transition: all .5s;
+            width: 100%;
+            height: 100%;
+        }
+        .card:hover{
+            background-color: #E4E4E4!important;
+            cursor: pointer;
+        }
+        .card:hover .card-body{
+            transform: scale(1.3);
+        }
+        .card{
+            overflow: hidden;
+        }
+    </style>
+{% endblock %}
+{% block main %}
+    <div class="container">
+        <h3 class="mb-5">Wybór kategorii</h3>
+    </div>
+
+    <div class="container" id="list" style="min-height: 74vh">
+        <div class="row" style="position: relative; z-index: 2; width: 100%">
+            {% for category in object_list %}
+                <div class="col-lg-4 mt-2">
+                    <a>
+                        <div class="card text-center bg-light" style="height: 400px">
+                            <div class="card-header h4">{{category.name}}</div>
+                            <div class="card-body" style="background-image: url({{category.url}});"></div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
