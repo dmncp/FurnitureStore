@@ -775,3 +775,40 @@ def add_new_order(request):
 
 class CategoriesView(generic.ListView):
     model = FurnitureType
+
+
+class ProductsMainView(generic.ListView):
+    model = Furniture
+
+    def get_queryset(self):
+        products = super().get_queryset()
+        products = products.filter(type__id=self.kwargs['pk'], amount__gt=0)
+
+        return products
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['ratings'] = self.get_ratings()
+
+        return context
+
+    def get_ratings(self):
+        products = self.get_queryset()
+        ratings = []
+        for product in products.all():
+            opinions = Opinion.objects.filter(furniture=product)
+            rate, counter = 0, 0
+            for opinion in opinions:
+                rate += opinion.rating
+                counter += 1
+            r = rate // counter if counter > 0 else 0
+            ratings.append((product, r))
+        return ratings
+
+
+@login_required
+def add_to_shopping_cart(request, pk):
+    product = Furniture.objects.get(id=pk)
+    cart = ShoppingCart(user=request.user, furniture=product, amount=1, address=None)
+    cart.save()
+    return redirect('products_main', product.type.id)

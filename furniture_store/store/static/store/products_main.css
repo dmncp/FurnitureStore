@@ -1,0 +1,28 @@
+.img_div{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.no_img{
+    background-image: url('./images/no_img.jpg');
+}
+
+h3{
+    text-transform: uppercase;
+    font-size: 50px!important;
+    text-align: center;
+    padding: 50px 0;
+}
+
+#stars > div{
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    width: 20px;
+    height: 20px;
+    background-color: gold;
+}
+
+#stars{
+    display: flex;
+    justify-content: center;
+}

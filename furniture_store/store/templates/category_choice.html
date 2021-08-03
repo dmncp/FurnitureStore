@@ -22,6 +22,9 @@
         .card{
             overflow: hidden;
         }
+        a{
+            text-decoration: none!important;
+        }
     </style>
 {% endblock %}
 {% block main %}
@@ -33,7 +36,7 @@
         <div class="row" style="position: relative; z-index: 2; width: 100%">
             {% for category in object_list %}
                 <div class="col-lg-4 mt-2">
-                    <a>
+                    <a class="link-dark" href="{% url 'products_main' category.id %}">
                         <div class="card text-center bg-light" style="height: 400px">
                             <div class="card-header h4">{{category.name}}</div>
                             <div class="card-body" style="background-image: url({{category.url}});"></div>

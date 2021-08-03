@@ -37,7 +37,7 @@ class Furniture(models.Model):
     name = models.CharField(max_length=255)
     type = models.ForeignKey(FurnitureType, on_delete=models.CASCADE)
     state = models.CharField(choices=STATE, default='new', max_length=20)
-    price = models.IntegerField(default=200)
+    price = models.FloatField(default=200)
     origin = models.CharField(max_length=255)
     material = models.CharField(max_length=255)
     amount = models.IntegerField(default=0)
@@ -47,6 +47,9 @@ class Furniture(models.Model):
     height = models.IntegerField()
     width = models.IntegerField()
     depth = models.IntegerField()
+    url1 = models.URLField(default='', blank=True)
+    url2 = models.URLField(default='', blank=True)
+    url3 = models.URLField(default='', blank=True)
 
     @property
     def price_with_discount(self):
@@ -75,7 +78,7 @@ class ShoppingCart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
     furniture = models.ForeignKey(Furniture, on_delete=models.CASCADE)
     amount = models.IntegerField(default=1)
-    address = models.ForeignKey(UserAddress, on_delete=models.CASCADE, default=0)
+    address = models.ForeignKey(UserAddress, on_delete=models.CASCADE, default=0, blank=True, null=True)
 
     def __str__(self):
         return str(self.user)
@@ -92,7 +95,7 @@ class OrderProduct(models.Model):
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
     order_nr = models.CharField(max_length=7)
-    price = models.IntegerField()
+    price = models.FloatField()
     products = models.ManyToManyField(OrderProduct, symmetrical=False, related_name='ordered_products')
     status = models.CharField(choices=ORDER_STATUS, default='unsent', max_length=20)
     address = models.ForeignKey(UserAddress, on_delete=models.CASCADE, default=0)

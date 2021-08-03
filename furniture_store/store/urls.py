@@ -42,5 +42,7 @@ urlpatterns = [
     path('shopping_cart/confirmation', ShoppingCartView.as_view(template_name='order_confirmation.html'), name='confirm'),
     path('shopping_cart/add_order', add_new_order, name='add_order_new'),
     path('shopping_cart/order_placed', TemplateView.as_view(template_name='thanks_for_order.html'), name='thanks'),
-    path('categories', CategoriesView.as_view(template_name='category_choice.html'), name='category_choice')
+    path('categories', CategoriesView.as_view(template_name='category_choice.html'), name='category_choice'),
+    path('categories/products/<int:pk>', ProductsMainView.as_view(template_name='products_main_view.html'), name='products_main'),
+    path('categories/products/add_to_shopping_cart/<int:pk>', add_to_shopping_cart, name='add_to_cart')
 ]
