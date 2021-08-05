@@ -1,5 +1,5 @@
 {% extends 'navMenu.html' %}
-
+{% load poll_extras %}
 {% block additional %}
     {% load static %}
     <link href="{% static 'store/delivery_address.css' %}" rel="stylesheet">
@@ -52,7 +52,7 @@
                       <td>{{product.furniture.price}}</td>
                       <td>{{product.amount}}</td>
                       <td>{{product.furniture.discount}}</td>
-                      <td>{% widthratio product.furniture.price_with_discount 1 product.amount %}</td>
+                      <td>{{product.furniture.price_with_discount|mul:product.amount}}</td>
                   </tr>
                 {% endfor %}
                 <tr>

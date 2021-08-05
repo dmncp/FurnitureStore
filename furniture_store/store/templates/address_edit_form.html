@@ -32,7 +32,7 @@
           </p>
           <p>
               <label for="zip">Kod pocztowy: </label>
-              <input id="zip" name="zip_code" type="text" inputmode="numeric" pattern="^(?(^00000(|-0000))|(\d{5}(|-\d{4})))$" {% if address %}value="{{address.zip_code}}"{%endif%} required>
+              <input id="zip" name="zip_code" type="text" inputmode="numeric" pattern="^[0-9]{2}-[0-9]{3}$" {% if address %}value="{{address.zip_code}}"{%endif%} required>
           </p>
           <p>
               <label for="city">Miasto: </label>

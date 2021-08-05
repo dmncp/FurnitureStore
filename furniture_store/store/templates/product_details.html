@@ -1,0 +1,282 @@
+{% extends 'navMenu.html' %}
+
+{% block additional %}
+    {% load static %}
+    <link href="{% static 'store/products_main.css' %}" rel="stylesheet">
+    <style>
+        .heading:nth-child(2){
+            border-left: 3px solid #af0809;
+            border-right: 3px solid #af0809;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        .heading{
+            font-size: 30px;
+        }
+        #details{
+            justify-content: center;
+        }
+        strong{
+            text-transform: uppercase;
+        }
+        form{
+            background-color: rgba(175, 8, 9, 0.2);
+            border: 2px solid #af0809;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        textarea{
+            border: none;
+            border-bottom: 2px solid #af0809;
+            outline: none;
+            font-size: 18px!important;
+            text-align: center;
+        }
+        #msg{
+            font-size: 20px;
+            color: black;
+        }
+        #edit_form_stars > div, #form_stars > div, .container > .stars > div{
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            width: 30px;
+            height: 30px;
+            background-color: black;
+        }
+        #edit_form_stars, #form_stars{
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <div class="container" style="min-height: 74vh">
+        <div id="carousel" class="carousel slide mt-5 mb-2" data-bs-touch="false" data-bs-interval="false">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carousel" data-bs-slide-to="0"  aria-label="Slide 1" style="background-color: #41f7ff; filter: invert(100%);"></button>
+                <button type="button" data-bs-target="#carousel" data-bs-slide-to="1" class="active" aria-current="true" aria-label="Slide 2" style="background-color: #41f7ff; filter: invert(100%);"></button>
+                <button type="button" data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Slide 3" style="background-color: #41f7ff; filter: invert(100%);"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item">
+                    {% if object_list.url1%}
+                        <div class="img_div m-auto" style="width: 80vw; height: 30vw; background-image: url({{object_list.url1}}); background-size: contain;"></div>
+                    {% else %}
+                        <div class="img_div no_img m-auto" style="width: 80vw; height: 30vw; background-size: contain;"></div>
+                    {% endif %}
+                </div>
+                <div class="carousel-item active">
+                    {% if object_list.url1%}
+                        <div class="img_div m-auto" style="width: 80vw; height: 30vw; background-image: url({{object_list.url2}}); background-size: contain;"></div>
+                    {% else %}
+                        <div class="img_div no_img m-auto" style="width: 80vw; height: 30vw; background-size: contain;"></div>
+                    {% endif %}
+                </div>
+                <div class="carousel-item">
+                    {% if object_list.url1%}
+                        <div class="img_div m-auto" style="width: 80vw; height: 30vw; background-image: url({{object_list.url3}}); background-size: contain;"></div>
+                    {% else %}
+                        <div class="img_div no_img m-auto" style="width: 80vw; height: 30vw; background-size: contain;"></div>
+                    {% endif %}
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(100%);"></span>
+                <span class="visually-hidden ">Previous</span>
+            </button>
+            <button class="carousel-control-next " type="button" data-bs-target="#carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true" style="filter: invert(100%);"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <h3 class="mb-0 pb-1">{{object_list.name}}</h3>
+        <div class="mt-0 stars">
+            <div {% if object_list.rating >= 1 %} style="background-color: gold"; {% else %} style="background-color: black"; {% endif%}></div>
+            <div {% if object_list.rating >= 2 %} style="background-color: gold"; {% else %} style="background-color: black"; {% endif%}></div>
+            <div {% if object_list.rating >= 3 %} style="background-color: gold"; {% else %} style="background-color: black"; {% endif%}></div>
+            <div {% if object_list.rating >= 4 %} style="background-color: gold"; {% else %} style="background-color: black"; {% endif%}></div>
+            <div {% if object_list.rating >= 5 %} style="background-color: gold"; {% else %} style="background-color: black"; {% endif%}></div>
+        </div>
+        <h4 class="text-center my-2" style="font-size: 30px">
+            <span {% if object_list.discount > 0 %} style="text-decoration: line-through" {% endif %}>{{object_list.price}} zł</span>
+            {% if object_list.discount > 0 %}
+                <span style="color: red">{{object_list.price_with_discount}} zł</span>
+            {% endif %}
+        </h4>
+
+        <a class="btn btn-lg btn-success mx-auto my-3 d-block col-lg-2 col-sm-6">Do koszyka</a>
+
+        <div style="width: 100%; height: 5px; border-bottom: 2px dashed black;" class="my-3 py-3"></div>
+
+        <div id="details" class="d-flex mb-5">
+            <a class="heading mx-1" data-bs-toggle="collapse" href="#prod-description" role="button" aria-expanded="false" aria-controls="collapseExample">
+                  OPIS
+            </a>
+            <a class="heading mx-1" data-bs-toggle="collapse" href="#product-details" role="button" aria-expanded="false" aria-controls="collapseExample">
+                  DANE
+            </a>
+            <a class="heading mx-1" data-bs-toggle="collapse" href="#opinions" role="button" aria-expanded="false" aria-controls="collapseExample">
+                  OPINIE
+            </a>
+        </div>
+        <div style="font-size: 20px;">
+            <div class="collapse my-5 p-4 border" style="border-color: #af0809!important" id="prod-description">
+                <p style="font-weight: bolder; font-size: 25px;" class="text-center w-100">OPIS</p>
+                <p class="text-center">{{object_list.description}}</p>
+            </div>
+
+            <div class="collapse my-5 p-4 border" style="border-color: #af0809!important" id="product-details">
+                <p style="font-weight: bolder; font-size: 25px;" class="text-center w-100">DANE</p>
+                <table class="table align-middle w-75 m-auto text-center">
+                    <tbody>
+                        <tr>
+                            <td><strong>Nazwa produktu</strong></td>
+                            <td>{{object_list.name}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kategoria</strong></td>
+                            <td>{{object_list.type}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Stan</strong></td>
+                            <td>
+                                {% if object_list.state == 'used' %}
+                                    Używany
+                                {% else %}
+                                    Nowy
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pochodzenie</strong></td>
+                            <td>{{object_list.origin}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Materiał</strong></td>
+                            <td>{{object_list.material}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Czas gwarancji</strong></td>
+                            <td>{{object_list.warranty_time}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="collapse my-5 p-4 border" style="border-color: #af0809!important" id="opinions">
+                <p style="font-weight: bolder; font-size: 25px;" class="text-center w-100">OPINIE</p>
+                {% for opinion in opinions %}
+                    <div class="bg-light w-50 mx-auto my-3 border p-3 rounded">
+                        <div class="mt-0 stars">
+                            <div {% if opinion.rating >= 1 %} style="background-color: gold"; {% else %} style="background-color: black"; {% endif%}></div>
+                            <div {% if opinion.rating >= 2 %} style="background-color: gold"; {% else %} style="background-color: black"; {% endif%}></div>
+                            <div {% if opinion.rating >= 3 %} style="background-color: gold"; {% else %} style="background-color: black"; {% endif%}></div>
+                            <div {% if opinion.rating >= 4 %} style="background-color: gold"; {% else %} style="background-color: black"; {% endif%}></div>
+                            <div {% if opinion.rating >= 5 %} style="background-color: gold"; {% else %} style="background-color: black"; {% endif%}></div>
+                        </div>
+                        <p class="text-center">{{opinion.user.username}}</p>
+                        <p class="text-center">{{opinion.opinion}}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        {% if not user_opinion %}
+        <form method="post" class="w-50 mx-auto my-5 p-3" style="font-weight: 400">
+            {% csrf_token %}
+            <h4 class="text-center text-uppercase" id="form-title" style="font-weight: bolder">Dodaj opinię</h4>
+            <p class="text-center">Możesz również zostawić samą ocenę.</p>
+            <div class="col-lg-6 mx-auto my-2 text-center">
+                <label>Ocena:</label><br>
+                <div id="form_stars">
+                    <div {% if object_list.rating >= 1 %} style="background-color: gold"; {% else %} style="background-color: black"; {% endif%}></div>
+                    <div {% if object_list.rating >= 2 %} style="background-color: gold"; {% else %} style="background-color: black"; {% endif%}></div>
+                    <div {% if object_list.rating >= 3 %} style="background-color: gold"; {% else %} style="background-color: black"; {% endif%}></div>
+                    <div {% if object_list.rating >= 4 %} style="background-color: gold"; {% else %} style="background-color: black"; {% endif%}></div>
+                    <div {% if object_list.rating >= 5 %} style="background-color: gold"; {% else %} style="background-color: black"; {% endif%}></div>
+                </div>
+                <input class="w-25 m-auto" type="number" min="1" max="5" id="rate" name="rate" style="display: none;" required>
+            </div>
+            <div class="col-lg-12 mx-auto my-2 text-center">
+                <label>Treść opinii:</label><br>
+                <textarea name="opinion_desc" id="opinion_desc" rows="10" style="width: 80%"></textarea>
+                {% if messages %}
+                    {% for message in messages %}
+                        <p {% if message.tags %} class="{{ message.tags }}"{% endif %} id="msg">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <button id="form-btn" class="btn btn-lg text-white" type="submit" style="background-color: #af0809; margin: 30px auto;">Dodaj</button>
+        </form>
+
+        {% else %}
+            <form method="post" class="w-50 mx-auto my-5 p-3" style="font-weight: 400">
+                {% csrf_token %}
+                <h4 class="text-center text-uppercase" style="font-weight: bolder">Edytuj opinię</h4>
+                <p class="text-center">Możesz zostawić samą ocenę.</p>
+                <div class="col-lg-6 mx-auto my-2 text-center">
+                    <label>Ocena:</label><br>
+                    <div id="edit_form_stars">
+                        <div {% if user_opinion.0.rating >= 1 %} style="background-color: gold"; {% else %} style="background-color: black"; {% endif%}></div>
+                        <div {% if user_opinion.0.rating >= 2 %} style="background-color: gold"; {% else %} style="background-color: black"; {% endif%}></div>
+                        <div {% if user_opinion.0.rating >= 3 %} style="background-color: gold"; {% else %} style="background-color: black"; {% endif%}></div>
+                        <div {% if user_opinion.0.rating >= 4 %} style="background-color: gold"; {% else %} style="background-color: black"; {% endif%}></div>
+                        <div {% if user_opinion.0.rating >= 5 %} style="background-color: gold"; {% else %} style="background-color: black"; {% endif%}></div>
+                    </div>
+                    <input class="w-25 m-auto" type="number" min="1" max="5" id="rate_edit" name="rate_edit" value="{{user_opinion.0.rating}}" style="display: none;" required>
+                </div>
+                <div class="col-lg-12 mx-auto my-2 text-center">
+                    <label>Treść opinii:</label><br>
+                    <textarea name="opinion_edit" id="opinion_edit" rows="10" style="width: 80%">{{user_opinion.0.opinion}}</textarea>
+                </div>
+                <button class="btn btn-lg text-white" type="submit" style="background-color: #af0809; margin: 30px auto;">Edytuj</button>
+            </form>
+        {% endif %}
+        <a type="button" class="btn btn-lg btn-outline-dark" href="{% url 'products_main' object_list.type.id %}" id="go_back">Powrót</a>
+    </div>
+
+    <script>
+        let edit_form = document.getElementById('edit_form_stars');
+        let form = document.getElementById('form_stars');
+        let input_edit = document.getElementById('rate_edit');
+        let input = document.getElementById('rate');
+        let clicked = false;
+        
+        if(edit_form)
+            starsWorking(edit_form, input_edit);
+        if(form)
+            starsWorking(form, input);
+
+        function starsWorking(my_form, my_input){
+            for(let i = 0; i < my_form.children.length; i++){
+                my_form.children[i].addEventListener("mouseover", function(event){
+                    clicked = false;
+                    for(let j = 0; j <= i; j ++){
+                        my_form.children[j].style.backgroundColor = "gold";
+                        my_form.children[j].style.cursor = "pointer";
+                    }
+                })
+
+                my_form.children[i].addEventListener("mouseout", function(event){
+                    for(let j = 0; j <= i; j ++){
+                        if (!clicked) my_form.children[j].style.backgroundColor = "black";
+                        my_form.children[j].style.cursor = "default";
+                    }
+                })
+
+                my_form.children[i].addEventListener("click", function(event){
+                    my_input.value = i + 1;
+                    clicked = true;
+                    for(let j = 0; j <= i; j ++){
+                        my_form.children[j].style.backgroundColor = "gold";
+                    }
+                })
+            }
+        }
+
+    </script>
+{% endblock %}

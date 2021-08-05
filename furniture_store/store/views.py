@@ -170,9 +170,22 @@ class OpinionsView(LoginRequiredMixin, generic.ListView):
         return opinions
 
 
+def get_rating(product):
+    opinions = Opinion.objects.filter(furniture=product)
+    rate, counter = 0, 0
+    for opinion in opinions:
+        rate += opinion.rating
+        counter += 1
+
+    return rate // counter if counter > 0 else 0
+
+
 def delete_opinion(pk):
     opinion = Opinion.objects.get(id=pk)
+    product = opinion.furniture
     opinion.delete()
+    product.rating = get_rating(product)
+    product.save()
 
 
 @login_required
@@ -189,10 +202,14 @@ class OpinionEditFormView(LoginRequiredMixin, generic.ListView):
         opinion_desc = self.request.POST['opinion']
         opinion = Opinion.objects.get(id=self.kwargs['pk'])
 
-        if rating and opinion_desc:
+        if rating:
             opinion.rating = rating
             opinion.opinion = opinion_desc
             opinion.save()
+        product = opinion.furniture
+        product.rating = get_rating(product)
+        product.save()
+
         return redirect('opinions')
 
     def get_queryset(self):
@@ -209,38 +226,14 @@ class OpinionEditFormView(LoginRequiredMixin, generic.ListView):
         return context
 
 
-def delete_user_data(request, pk):
-    user = User.objects.get(id=pk)
-    # delete addresses
-    addresses = UserAddress.objects.filter(user=user)
-    for address in addresses:
-        address.delete()
-
-    # delete shopping carts
-    shopping_cart = ShoppingCart.objects.filter(user=user)
-    for cart in shopping_cart:
-        cart.delete()
-
-    # delete orders
-    orders = Order.objects.filter(user=user)
-    for order in orders:
-        order.delete()
-
-    # delete opinions
-    opinions = Opinion.objects.filter(user=user)
-    for opinion in opinions:
-        opinion.delete()
-
-
 @login_required
 def delete_account(request):
-    delete_user_data(request, request.user.id)
-
     # logout user
-    logout(request)
+    # logout(request)
     # delete account
     user = User.objects.get(id=request.user.id)
-    user.delete()
+    user.is_active = False
+    user.save()
 
     return redirect('home')
 
@@ -672,11 +665,10 @@ class UserListView(SuperUserCheck, generic.ListView):
 @login_required
 def delete_account_admin(request, pk):
     if request.user.is_superuser:
-        delete_user_data(request, pk)
-
         # delete account
         user = User.objects.get(id=pk)
-        user.delete()
+        user.is_active = False
+        user.save()
 
     return redirect('users')
 
@@ -773,8 +765,26 @@ def add_new_order(request):
     return redirect('thanks')
 
 
+def categories_counter():
+    id_list = []
+    category_amount = {c.id: 0 for c in FurnitureType.objects.all()}
+
+    for product in Furniture.objects.all():
+        category_amount[product.type.id] += 1
+        if product.type.id not in id_list:
+            id_list.append(product.type.id)
+
+    return id_list
+
+
 class CategoriesView(generic.ListView):
     model = FurnitureType
+
+    def get_queryset(self):
+        categories = super().get_queryset()
+        categories = categories.filter(id__in=categories_counter())
+
+        return categories
 
 
 class ProductsMainView(generic.ListView):
@@ -784,31 +794,94 @@ class ProductsMainView(generic.ListView):
         products = super().get_queryset()
         products = products.filter(type__id=self.kwargs['pk'], amount__gt=0)
 
+        prod_name = self.request.GET.get('prod_name', None)
+        state = self.request.GET.get('state', None)
+        height_from = self.request.GET.get('height_from', None)
+        height_to = self.request.GET.get('height_to', None)
+        price_from = self.request.GET.get('price_from', None)
+        price_to = self.request.GET.get('price_to', None)
+        sort_by = self.request.GET.get('sort_by', None)
+        order = self.request.GET.get('order', None)
+
+        if prod_name:
+            products = products.filter(name__icontains=prod_name)
+        if state:
+            products = products.filter(state=state)
+        if height_from:
+            products = products.filter(height__gte=height_from)
+        if height_to:
+            products = products.filter(height__lte=height_to)
+        if price_from:
+            products = products.filter(price__gte=price_from)
+        if price_to:
+            products = products.filter(price__lte=price_to)
+
+        if sort_by and order:
+            if order == 'desc':
+                sort_by = '-' + sort_by
+            products = products.order_by(sort_by)
+
         return products
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['ratings'] = self.get_ratings()
-
-        return context
-
-    def get_ratings(self):
-        products = self.get_queryset()
-        ratings = []
-        for product in products.all():
-            opinions = Opinion.objects.filter(furniture=product)
-            rate, counter = 0, 0
-            for opinion in opinions:
-                rate += opinion.rating
-                counter += 1
-            r = rate // counter if counter > 0 else 0
-            ratings.append((product, r))
-        return ratings
 
 
 @login_required
 def add_to_shopping_cart(request, pk):
     product = Furniture.objects.get(id=pk)
-    cart = ShoppingCart(user=request.user, furniture=product, amount=1, address=None)
-    cart.save()
+    if product.amount > 0:
+        cart = ShoppingCart(user=request.user, furniture=product, amount=1, address=None)
+        cart.save()
+    else:
+        messages.warning(request, 'Ten produkt jest niedostępny')
+
     return redirect('products_main', product.type.id)
+
+
+class ProductDetailsView(generic.ListView):
+    model = Furniture
+
+    def post(self, *args, **kwargs):
+        rate = self.request.POST.get('rate', False)
+        opinion_desc = self.request.POST.get('opinion_desc', False)
+        rate_edit = self.request.POST.get('rate_edit', False)
+        opinion_edit = self.request.POST.get('opinion_edit', False)
+
+        if self.request.user.is_authenticated:
+            if rate:
+                furniture = Furniture.objects.get(id=self.kwargs['pk'])
+                if not Opinion.objects.filter(user=self.request.user, furniture=furniture).exists():
+                    opinion = Opinion(user=self.request.user, furniture=furniture, rating=rate, opinion=opinion_desc)
+                    opinion.save()
+
+                    furniture.rating = get_rating(furniture)
+                    furniture.save()
+                else:
+                    messages.warning(self.request, 'Dodałeś już jedną opinię do tego produktu. Nie możesz dodać '
+                                                   'kolejnej.')
+
+            if rate_edit:
+                furniture = Furniture.objects.get(id=self.kwargs['pk'])
+                opinion = Opinion.objects.get(user=self.request.user, furniture=furniture)
+                opinion.rating = rate_edit
+                opinion.opinion = opinion_edit
+                opinion.save()
+
+                furniture.rating = get_rating(furniture)
+                furniture.save()
+
+        else:
+            messages.warning(self.request, 'Musisz się zalogować żeby zostawić opinię.')
+
+        return redirect('prod_details', self.kwargs['pk'])
+
+    def get_queryset(self):
+        products = super().get_queryset()
+        products = products.get(id=self.kwargs['pk'])
+
+        return products
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['opinions'] = Opinion.objects.filter(furniture__id=self.kwargs['pk'])
+        context['user_opinion'] = Opinion.objects.filter(user=self.request.user,
+                                                         furniture__id=self.kwargs['pk']) if self.request.user.is_authenticated else None
+        return context

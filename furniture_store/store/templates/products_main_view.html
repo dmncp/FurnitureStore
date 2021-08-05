@@ -7,77 +7,157 @@
 {% block main %}
     <div class="container">
         <h3 class="mb-5">Lista produktów</h3>
+        {% if messages %}
+            {% for message in messages %}
+                <p {% if message.tags %} class="{{ message.tags }}"{% endif %} id="msg">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
     </div>
 
     <div class="container" id="list" style="min-height: 74vh; mb-5">
+        <div class="d-flex row mb-5">
+            <div class="col-md-6 d-flex flex-column">
+                <a class="heading" data-bs-toggle="collapse" href="#filters" role="button" aria-expanded="false" aria-controls="collapseExample">
+                  Filtry
+                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+                  </svg>
+                </a>
+                <div class="collapse" id="filters">
+                  <form method="get" class="row">
+                    {% csrf_token %}
+                    <div class="col-lg-6 d-flex flex-column">
+                      <label class="align-middle form-label">Nazwa mebla:</label>
+                      <input id="prod_name" name="prod_name">
+                    </div>
+                    <div class="col-lg-6 d-flex flex-column">
+                        <label class="align-middle form-label">Stan:</label>
+                        <select name="state" id="state">
+                            <option value="" selected>Wszystkie</option>
+                            <option value="new">Nowe</option>
+                            <option value="used">Używane</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6 d-flex flex-column">
+                        <label class="align-middle form-label">Wysokość (cm):</label>
+                        <input id="height_from" name="height_from" type="number" max="500" placeholder="min">
+                        <input id="height_to" name="height_to" type="number" max="500" placeholder="max">
+                    </div>
+                    <div class="col-lg-6 d-flex flex-column">
+                        <label class="align-middle form-label">Cena:</label>
+                        <input id="price_from" name="price_from" type="number" min="0" placeholder="min">
+                        <input id="price_to" name="price_to" type="number" min="0" placeholder="max">
+                    </div>
+
+                    <button type="submit" class="btn btn-outline-dark mt-3 col-sm-6 m-auto">Filtruj</button>
+                  </form>
+                </div>
+            </div>
+            <div class="col-md-6 d-flex flex-column border-start border-danger">
+                <a class="heading" data-bs-toggle="collapse" href="#sorting" role="button" aria-expanded="false" aria-controls="collapseExample">
+                  Sortowanie
+                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+                  </svg>
+                </a>
+                <div class="collapse" id="sorting">
+                  <form method="get" class="row">
+                    {% csrf_token %}
+                    <div class="col-md-6 d-flex flex-column">
+                      <label for="sort_by_id" class="align-middle form-label">Sortuj według:</label>
+                      <select id="sort_by_id" name="sort_by">
+                          <option value="name">Nazwa mebla</option>
+                          <option value="rating">Ocena</option>
+                          <option value="state">Stan</option>
+                          <option value="price">Cena</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 d-flex flex-column">
+                      <label for="sort_order_id" class="align-middle form-label">Kolejność</label>
+                      <select id="sort_order_id" name="order">
+                          <option value="asc">Rosnąco</option>
+                          <option value="desc">Malejąco</option>
+                      </select>
+                    </div>
+                    <button type="submit" class="btn btn-outline-dark mt-3 col-sm-6 m-auto">Sortuj</button>
+                  </form>
+                </div>
+            </div>
+        </div>
+
+
         <div class="row" style="position: relative; z-index: 2; width: 100%">
-            {% for r in ratings %}
+            {% for product in object_list %}
                 <div class="col-lg-4 mt-2">
                     <a>
                         <div class="card text-center bg-light mb-4 pb-4">
-                            <div id="a{{r.0.id}}" class="carousel slide mb-2" data-bs-touch="false" data-bs-interval="false">
+                            <div id="a{{product.id}}" class="carousel slide mb-2" data-bs-touch="false" data-bs-interval="false">
                                 <div class="carousel-indicators">
-                                    <button type="button" data-bs-target="#a{{r.0.id}}" data-bs-slide-to="0"  aria-label="Slide 1" style="filter: invert(100%);"></button>
-                                    <button type="button" data-bs-target="#a{{r.0.id}}" data-bs-slide-to="1" class="active" aria-current="true" aria-label="Slide 2" style="filter: invert(100%);"></button>
-                                    <button type="button" data-bs-target="#a{{r.0.id}}" data-bs-slide-to="2" aria-label="Slide 3" style="filter: invert(100%);"></button>
+                                    <button type="button" data-bs-target="#a{{product.id}}" data-bs-slide-to="0"  aria-label="Slide 1" style="filter: invert(100%);"></button>
+                                    <button type="button" data-bs-target="#a{{product.id}}" data-bs-slide-to="1" class="active" aria-current="true" aria-label="Slide 2" style="filter: invert(100%);"></button>
+                                    <button type="button" data-bs-target="#a{{product.id}}" data-bs-slide-to="2" aria-label="Slide 3" style="filter: invert(100%);"></button>
                                   </div>
                                 <div class="carousel-inner">
                                     <div class="carousel-item">
-                                        {% if r.0.url1%}
-                                            <div class="img_div m-auto" style="width: 22vw; height: 20vw; background-image: url({{r.0.url1}});"></div>
+                                        {% if product.url1%}
+                                            <div class="img_div m-auto" style="width: 90%; height: 40vh; background-image: url({{product.url1}});"></div>
                                         {% else %}
-                                            <div class="img_div no_img m-auto" style="width: 20vw; height: 20vw;"></div>
+                                            <div class="img_div no_img m-auto" style="width: 90%; height: 40vh;"></div>
                                         {% endif %}
                                     </div>
                                     <div class="carousel-item active">
-                                        {% if r.0.url1%}
-                                            <div class="img_div m-auto" style="width: 22vw; height: 20vw; background-image: url({{r.0.url2}});"></div>
+                                        {% if product.url1%}
+                                            <div class="img_div m-auto" style="width: 90%; height: 40vh; background-image: url({{product.url2}});"></div>
                                         {% else %}
-                                            <div class="img_div no_img m-auto" style="width: 20vw; height: 20vw;"></div>
+                                            <div class="img_div no_img m-auto" style="width: 90%; height: 40vh;"></div>
                                         {% endif %}
                                     </div>
                                     <div class="carousel-item">
-                                        {% if r.0.url1%}
-                                            <div class="img_div m-auto" style="width: 22vw; height: 20vw; background-image: url({{r.0.url3}});"></div>
+                                        {% if product.url1%}
+                                            <div class="img_div m-auto" style="width: 90%; height: 40vh; background-image: url({{product.url3}});"></div>
                                         {% else %}
-                                            <div class="img_div no_img m-auto" style="width: 20vw; height: 20vw;"></div>
+                                            <div class="img_div no_img m-auto" style="width: 90%; height: 40vh;"></div>
                                         {% endif %}
                                     </div>
                                 </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#a{{r.0.id}}" data-bs-slide="prev">
+                                <button class="carousel-control-prev" type="button" data-bs-target="#a{{product.id}}" data-bs-slide="prev">
                                     <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(100%);"></span>
                                     <span class="visually-hidden ">Previous</span>
                                 </button>
-                                <button class="carousel-control-next " type="button" data-bs-target="#a{{r.0.id}}" data-bs-slide="next">
+                                <button class="carousel-control-next " type="button" data-bs-target="#a{{product.id}}" data-bs-slide="next">
                                     <span class="carousel-control-next-icon" aria-hidden="true" style="filter: invert(100%);"></span>
                                     <span class="visually-hidden">Next</span>
                                 </button>
                             </div>
-                            <div id="stars">
-                                <div {% if r.1 >= 1 %} style="background-color: gold" {% else %} style="background-color: black" {% endif%}></div>
-                                <div {% if r.1 >= 2 %} style="background-color: gold" {% else %} style="background-color: black" {% endif%}></div>
-                                <div {% if r.1 >= 3 %} style="background-color: gold" {% else %} style="background-color: black" {% endif%}></div>
-                                <div {% if r.1 >= 4 %} style="background-color: gold" {% else %} style="background-color: black" {% endif%}></div>
-                                <div {% if r.1 >= 5 %} style="background-color: gold" {% else %} style="background-color: black" {% endif%}></div>
+                            <div class="stars py-2">
+                                <div {% if product.rating >= 1 %} style="background-color: gold" {% else %} style="background-color: black" {% endif%}></div>
+                                <div {% if product.rating >= 2 %} style="background-color: gold" {% else %} style="background-color: black" {% endif%}></div>
+                                <div {% if product.rating >= 3 %} style="background-color: gold" {% else %} style="background-color: black" {% endif%}></div>
+                                <div {% if product.rating >= 4 %} style="background-color: gold" {% else %} style="background-color: black" {% endif%}></div>
+                                <div {% if product.rating >= 5 %} style="background-color: gold" {% else %} style="background-color: black" {% endif%}></div>
                             </div>
 
-                            <h4>{{r.0.name}}</h4>
+                            <h4>{{product.name}}</h4>
                             <h5>
-                                <span {% if r.0.discount > 0 %} style="text-decoration: line-through" {% endif %}>{{r.0.price}} zł</span>
-                                {% if r.0.discount > 0 %}
-                                    <span style="color: red">{{r.0.price_with_discount}} zł</span>
+                                <span {% if product.discount > 0 %} style="text-decoration: line-through" {% endif %}>{{product.price}} zł</span>
+                                {% if product.discount > 0 %}
+                                    <span style="color: red">{{product.price_with_discount}} zł</span>
                                 {% endif %}
                             </h5>
 
-                            <div id="btns">
-                                <a class="btn btn-warning">Szczegóły</a>
-                                <a class="btn btn-success" href="{% url 'add_to_cart' r.0.id %}">Dodaj do koszyka</a>
+                            <div id="btns" class="my-3">
+                                <a class="btn btn-warning" href="{% url 'prod_details' product.id %}">Szczegóły</a>
+                                <a class="btn btn-success" href="{% url 'add_to_cart' product.id %}">Dodaj do koszyka</a>
                             </div>
+                            {% if product.amount <= 5 %}
+                                <p class="my-2 py-0 text-danger">Kończy się dostępność !</p>
+                            {% endif %}
                         </div>
                     </a>
                 </div>
             {% endfor %}
         </div>
+        <a type="button" class="btn btn-lg btn-outline-dark mb-5" href="{% url 'category_choice' %}" id="go_back">Powrót</a>
     </div>
 
 {% endblock %}

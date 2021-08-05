@@ -47,12 +47,14 @@ class Furniture(models.Model):
     height = models.IntegerField()
     width = models.IntegerField()
     depth = models.IntegerField()
+    rating = models.IntegerField(default=0)
     url1 = models.URLField(default='', blank=True)
     url2 = models.URLField(default='', blank=True)
     url3 = models.URLField(default='', blank=True)
 
     @property
     def price_with_discount(self):
+        print(round(self.price * (1 - self.discount / 100), 2))
         return round(self.price * (1 - self.discount / 100), 2)
 
     def __str__(self):
@@ -63,7 +65,7 @@ class Opinion(models.Model):
     furniture = models.ForeignKey(Furniture, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
     rating = models.IntegerField()
-    opinion = models.TextField()
+    opinion = models.TextField(blank=True)
 
     def __str__(self):
         return str(self.opinion)

@@ -1,5 +1,5 @@
 {% extends 'navMenu.html' %}
-
+{% load poll_extras %}
 {% block additional %}
     {% load static %}
     <link href="{% static 'store/shopping_cart.css' %}" rel="stylesheet">
@@ -38,7 +38,7 @@
                           </form>
                       </td>
                       <td>{{product.furniture.discount}}</td>
-                      <td>{% widthratio product.furniture.price_with_discount 1 product.amount %}</td>
+                      <td>{{product.furniture.price_with_discount|mul:product.amount}}</td>
                       <td>
                           <a class="btn btn-danger" href="{% url 'delete_from_cart' product.furniture.id %}" id="delete_btn">Usuń</a>
                       </td>
