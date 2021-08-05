@@ -1,5 +1,5 @@
 {% extends 'navMenu.html' %}
-
+{% block title %}{{object_list.name}}{% endblock %}
 {% block additional %}
     {% load static %}
     <link href="{% static 'store/products_main.css' %}" rel="stylesheet">
