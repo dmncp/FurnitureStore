@@ -1,0 +1,276 @@
+{% extends 'navMenu.html' %}
+{% block title %}Regulamin{% endblock %}
+{% block additional %}
+    {% load static %}
+    <link href="{% static 'store/delivery_address.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <h3 class="mb-5">Regulamin sklepu</h3>
+    </div>
+
+    <div class="container" id="list" style="min-height: 74vh">
+        <p id="statute">
+            <strong>WSTĘP</strong><br>
+Fabryka Mebli BODZIO Bogdan Szewczyk Sp. j. jest jednym z największych producentów mebli w kraju, pozostając przy tym klasyczną
+spółką rodzinną opartą na polskim kapitale. Produkujemy i sprzedajemy szeroką gamę mebli kuchennych, mebli pokojowych i
+systemowych, sypialnianych, biurowych, hotelowych oraz tapicerowanych. Dysponujemy siecią ponad 300 salonów meblowych na terenie
+Polski oraz zatrudniamy ponad 2300 najwyższej klasy branżowych specjalistów. Nasze przedsiębiorstwo jest laureatem wielu
+prestiżowych nagród i wyróżnień krajowych, a kierownictwo Spółki było nagradzane odznaczeniami państwowymi za rozwój rodzimego
+przemysłu oraz tworzenie i utrzymywanie miejsc pracy.  Więcej o naszym przedsiębiorstwie mogą przeczytać Państwo w zakładce
+Sklepu Internetowego „O firmie”.
+            <br><br>
+
+<strong>I.DEFINICJE</strong> <br>
+            <br>Użyte w Regulaminie sformułowania , których znaczenie zostało zdefiniowane poniżej, należy rozumieć w następujący sposób:
+            <br>a) Regulamin - niniejszy dokument wraz z wszelkimi załącznikami i dodatkami, które się do niego odwołują;
+            <br>b) Sklep Internetowy – Serwis internetowy bodzio.pl oraz zbiór wszelkich danych, informacji, treści, funkcjonalności oraz usług dostępnych za ich pomocą, znajdujących się pod adresem internetowym https://www.bodzio.pl oraz innych adresach Fabryki Mebli BODZIO, które mogą tworzyć możliwość odesłania do strony https://www.bodzio.pl.
+            <br>c) Sprzedawca (zamiennie: Fabryka Mebli BODZIO) - podmiot  odpowiedzialny za prowadzenie Sklepu Internetowego  bodzio.pl, którym jest Fabryka Mebli BODZIO Bogdan Szewczyk Sp. j., z siedzibą w Goszczu, ul. Sycowska 16, 56-416 Twardogóra, Polska, zarejestrowana w Rejestrze Przedsiębiorców Krajowego Rejestru Sądowego przez Sąd Rejonowy dla Wrocławia - Fabrycznej we Wrocławiu, IX Wydział Gospodarczy Krajowego Rejestru Sądowego pod numerem: KRS 0000203107, REGON 93298909600000, NIP 9111852372.
+            <br>d) Skrzynka e-mail - elektroniczna skrzynka pocztowa charakteryzująca się indywidualnym adresem internetowym danej osoby (adres e-mail), za pośrednictwem której dana osoba może wysyłać i odbierać wiadomości i inne dane w ramach usługi poczty elektronicznej.
+            <br>e) Użytkownik - oznacza każdą osobę fizyczną, prawną lub jednostkę organizacyjną nie będąca osobą prawną, której przepisy szczególne przyznają zdolność prawną, korzystającą ze Sklepu Internetowego i usług w nim dostępnych.
+            <br>f) Klient - oznacza każdą osobę fizyczną, prawną lub jednostkę organizacyjną nie będąca osobą prawną, której przepisy szczególne przyznają zdolność prawną, która dokonuje Zamówienia w ramach Sklepu Internetowego.
+            <br>g) Konsument - Klient, o którym mowa w art. 22¹ ustawy Kodeks Cywilny.
+            <br>h) Zamówienie - oświadczenie woli Klienta, zmierzające bezpośrednio do zawarcia umowy sprzedaży, określające w szczególności rodzaj i liczbę towaru oraz sposób realizacji zamówienia.
+            <br>i) Umowa – umowa sprzedaży Towarów lub Usług w rozumieniu Kodeksu Cywilnego, zawarta między Sprzedawcą a Klientem, zawierana na odległość z wykorzystaniem Sklepu Internetowego.
+            <br>j) Towary i Usługi - produkty i usługi prezentowane lub oferowane w Sklepie Internetowym przez Sprzedawcę.
+            <br>k) Kalkulacja wstępna - funkcjonalność pozwalająca Użytkownikowi na wstępne wyliczenie wartości potencjalnego zamówienia realizowanego w stacjonarnej placówce handlowej Sprzedawcy i nie zmierzająca do bezpośredniego zakupu towarów za pośrednictwem Sklepu Internetowego.
+            <br>l) Konto – osobisty panel administracyjny Klienta w Sklepie Internetowym tworzony w wyniku prawidłowej rejestracji.
+            <br>ł) Rejestracja – założenie Konta Klienta w Sklepie Internetowym.
+            <br>m) Koszyk – narzędzie systemowe umożliwiające Klientom dokonywanie zakupów w Sklepie Internetowym, w szczególności umożliwiające gromadzenie wybranych ofert w jednym miejscu, celem złożenia zbiorczego Zamówienia.
+            <br>n) Newsletter – elektroniczna usługa dystrybucji poczty elektronicznej świadczona przez Sprzedawcę za pośrednictwem poczty elektronicznej, umożliwiająca korzystającym z tej usługi otrzymywanie od Sprzedawcy treści marketingowych, w szczególności zawierających informacje o nowościach i promocjach w Sklepie Internetowym.
+            <br>o) Spam - przesyłanie niezamówionych wiadomości o charakterze reklamowym, komercyjnym lub informacyjnym bez zgody Sprzedawcy lub podszywając się pod Sprzedawcę, za których przesłanie Fabryka Mebli BODZIO nie ponosi odpowiedzialności.
+            <br>p) Netykieta – nieskodyfikowany zbiór zasad przyzwoitego zachowania i dobrych obyczajów w Internecie, w szczególności jak fair play, szacunek i poszanowanie godności i dóbr osobistych innych użytkowników, powstrzymanie się od używania słów powszechnie uznanych za wulgarne, obelżywe, nieprzyzwoite, ksenofobiczne, związanych z mową nienawiści  lub dyskryminujące innych użytkowników, jak również wszelkie inne zachowania, które są zgłaszane przez innych użytkowników jako nieuczciwe lub naganne w ich pojęciu lub rozumieniu. Fabryka Mebli BODZIO dokonuje samodzielnej oceny czy doszło do naruszenia zasad Netykiety oraz decyduje o zastosowaniu sankcji określonych w Regulaminie.
+            <br>r) Planer 3D – program służący do samodzielnego projektowania wnętrz z wykorzystaniem produktów znajdujących się w ofercie BODZIO, udostępniony na stronie bodzio.pl. Regulamin Planera 3D jest dostępny pod adresem https://www.bodzio.pl/pl/regulamin-planera-3d-bodzio.
+            <br><br>
+
+<strong>II.POSTANOWIENIA OGÓLNE</strong> <br>
+            <br>Sklep Internetowy jest prowadzony i administrowany jest przez Sprzedawcę (także w zakresie danych osobowych).
+            <br>Przed rozpoczęciem korzystania ze Sklepu Internetowego pod adresem: https://www.bodzio.pl prosimy o uważne zapoznanie się z treścią poniższego Regulaminu.
+            <br>Regulamin określa rodzaj i zakres usług świadczonych drogą elektroniczną w Sklepie internetowym pod adresem: https://www.bodzio.pl, jak również warunki zawierania i rozwiązywania umów o świadczenie takich usług i zasady korzystania przez Użytkowników ze Sklepu Internetowego oraz udostępnianych za pośrednictwem Sklepu Internetowego dodatkowych funkcjonalności.
+            <br>W zakresie świadczenia usług drogą elektroniczną, niniejszy Regulamin jest regulaminem w rozumieniu art. 8 ustawy z dnia 19 lipca 2002 roku o świadczeniu usług drogą elektroniczną (Dz. U. tj. z 2019 r. poz. 123).
+            <br>Prawa i obowiązki Użytkowników oraz Fabryki Mebli BODZIO określają w sposób wyłączny postanowienia niniejszego Regulaminu oraz przepisy prawa obowiązującego na terytorium Rzeczpospolitej Polskiej.
+            <br>Korzystanie z niniejszego Sklepu Internetowego w jakikolwiek sposób jest równoznaczne z tym, że Użytkownik zapoznał się i zaakceptował treść Regulaminu oraz, iż wyraża bezwarunkową zgodę na jego treść.
+            <br>Sklep Internetowy  jest przeznaczony dla osób pełnoletnich.
+            <br>Korzystanie ze Sklepu Internetowego jest dobrowolne i bezpłatne i nie pociąga za sobą innych konsekwencji jakie mogłyby wynikać z regulacji nie ujawnionych w niniejszym Regulaminie.
+            <br>Terenem działalności Fabryki Mebli BODZIO polegającej na sprzedaży towarów na odległość jest terytorium Rzeczypospolitej Polskiej.
+            <br>Klient może w dowolnym czasie uzyskać dostęp do aktualnej wersji niniejszego Regulaminu oraz wersji historycznych pod adresem https://www.bodzio.pl/pl/regulamin-01, https://www.bodzio.pl/pl/regulamin-02  oraz za pośrednictwem odesłania internetowego (linku) zamieszczonego w Sklepie Internetowym, a także w każdym czasie sporządzić jego wydruk
+            <br>Oferowane do sprzedaży i dokonywania Zamówień za pośrednictwem Sklepu Internetowego są wyłącznie Towary oznaczone przyciskiem "DODAJ DO KOSZYKA". Poza takimi Towarami w Sklepie Internetowym mogą być również prezentowane Towary, w oparciu o które Użytkownik może sporządzić kalkulację z użyciem oferowanej funkcjonalności "Kalkulacja wstępna", które oznaczone są przyciskiem "DODAJ DO KALKULACJI". W przypadku, gdy Towary aktualnie nie są dostępne za pośrednictwem Sklepu Internetowego, lecz możliwe jest, że będą dostępne w przyszłości, są one oznaczone przyciskiem "ZAPYTAJ O DOSTĘPNOŚĆ".
+<br><br>
+
+            <strong>III. WYMAGANIA TECHNICZNE</strong>
+            <br>Do korzystania z usług Sklepu Internetowego niezbędne jest posiadanie urządzenia pozwalającego na korzystanie z zasobów Internetu, skrzynki pocztowej e-mail oraz przeglądarki zasobów internetowych umożliwiającej wyświetlanie stron WWW (zaleca się korzystanie z następujących przeglądarek internetowych z włączona obsługą plików "cookies"): Internet Explorer 10, Mozilla, Firefox, Safari, Chrome, Opera oraz Adobe Flash Player lub inna wtyczka (plug-in) zainstalowana w przeglądarce internetowej zapewniająca możliwość odtwarzania animacji wykonanej w technologii Flash.
+            <br>Więcej o plikach „cookies” oraz zasadach ochrony tego typu danych w rozdziale X niniejszego Regulaminu dotyczącym  ochrony danych oraz Polityce prywatności.
+
+<br><br>
+            <strong>IV.PROCEDURA DOKONYWANIA ZAMÓWIENIA W SKLEPIE INTERNETOWYM</strong>
+            <br>Zamówienia w Sklepie Internetowym można składać w wyłącznie przez stronę Sklepu Internetowego (w domenie https://www.bodzio.pl) po przejściu całej procedury składania zamówienia.
+            <br>Zamówienia w Serwisie może składać jedynie osoba fizyczna o pełnej zdolności do czynności prawnych, osoba prawna lub jednostka organizacyjna nie będąca osobą prawną, której przepisy szczególne przyznają zdolność prawną.
+            <br>Poprzez złożenie Zamówienia w Sklepie Internetowym Klient oświadcza, że:
+            <br>a)zapoznał się z treścią Regulaminu i oraz zaakceptował jego treść w całości,
+            <br>b)spełnia warunki wymagane do korzystania z serwisu określone w Regulaminie.
+            <br>Klient jest zobowiązany do podania prawdziwych i prawidłowych danych niezbędnych do realizacji Zamówienia oraz identyfikacji osoby Klienta. Fabryka Mebli BODZIO potwierdza przyjęcie Zamówienia e-mailem. Fabryka Mebli BODZIO ma prawo odmówić przyjęcia Zamówienia, ograniczyć sposób płatności lub żądać przedpłaty w przypadku, gdy Zamówienie budzi uzasadnione wątpliwości co do prawdziwości i rzetelności podanych danych bądź sposobu zapłaty.
+            <br>Umowa sprzedaży towarów zostaje zawarta z chwilą, gdy Klient po przejściu całej procedury złoży Zamówienie (tj. kliknie przycisk „ZAMÓW Z OBOWIĄZKIEM ZAPŁATY”), co oznacza że przyjął ofertę Sprzedawcy złożoną za pośrednictwem Sklepu. Z tą chwilą Umowa sprzedaży zawarta pomiędzy Sprzedawcą a Klientem jest prawnie wiążąca.
+            <br>W trakcie procesu składania Zamówienia towarów Klient może wyrazić zgodę na otrzymywanie od Fabryki Mebli BODZIO Newslettera drogą elektroniczną. Wyrażenie zgody następuje poprzez zaznaczenie odpowiedniego pola wyboru formularza. Zgoda ta może zostać w każdym momencie cofnięta z jednoczesnym żądaniem usunięcia jej z baz danych jak również zaprzestania używania w jakimkolwiek celu .
+            <br>Dla stron wiążące są informacje zawarte w Sklepie Internetowym przy kupowanym towarze w momencie złożenia Zamówienia, w szczególności: cena, charakterystyka towaru, jego cechy, elementy wchodzące w skład zestawu, termin dostawy i sposób dostawy. Zdjęcia i opisy towarów zamieszczone w Sklepie Internetowym podlegają ograniczeniom technicznym i mają na celu jedynie umożliwienie Klientowi wyrobienia sobie ogólnego wyobrażenia o właściwościach, wyglądzie,  parametrach i cechach  użytkowych Towaru. W szczególności wygląd Towaru na zdjęciach prezentowanych w Sklepie może różnić się od wyglądu Towaru po jego dostarczeniu i w wyniku oglądu organoleptycznego przez Klienta, które to różnice mogą wynikać np. z ustawień monitora, warunków oświetlenia czy ograniczeń fotografii oraz odbioru Klienta. Ponadto opis techniczny Towaru może zawierać uproszczenia związane z jego przekształceniem do wersji czytelnej i właściwej celowi jego umieszczenia w Sklepie Internetowym.
+            <br>Pomimo najwyższych starań Sprzedawca ze względów technicznych nie jest w stanie zapewnić dostępności wszystkich towarów w momencie Zamówienia.
+            <br>Wszystkie ceny prezentowane w Sklepie Internetowym są cenami brutto wyrażonymi w złotych polskich (zawierają podatek VAT). Użytkownik może ponieść również opłatę za dostawę określoną w warunkach i kosztach dostawy.
+            <br>Dostawa Towaru jest oferowana wyłącznie na terenie Rzeczypospolitej Polskiej na zasadach przewidzianych w ust.VII. Ze względu na ograniczenie dostawy Towarów Sklep Internetowy nie zawiera informacji o podatkach i opłatach (w tym opłatach celnych) oraz kosztach dostawy zagranicznej.
+            <br>Fabryka Mebli BODZIO zastrzega sobie możliwość objęcia w określonym terminie wybranych produktów promocją cenową. Warunki zakupu w promocji mogą różnić się od warunków zakupu zawartych w niniejszym Regulaminie.
+            <br>Sprzedawca może dokonywać zmian w opisach, zdjęciach i cenach Towarów w każdym czasie. Uprawnienie powyższe nie ma wpływu na ceny Towarów zamówionych przed dokonaniem zmiany.
+            <br>Klient dokonuje wyboru Towaru i jego ilości klikając na przycisk „DODAJ DO KOSZYKA”. W oknie „Koszyk” pokazana jest ilość wybranych Towarów znajdujących się w koszyku, ich cena jednostkowa, wartość oraz łączna wartość całego zamówienia. Klient może gromadzić w koszyku kolejne Towary lub zwiększać albo zmniejszać ich ilość.
+            <br>W kolejnym kroku procedury dokonywania Zamówienia Klient może sprawdzić zawartość swojego Koszyka, klikając na przycisk „Koszyk”, gdzie wybiera również sposób zapłaty, a także uzyskuje informację o kosztach dostawy Towaru innych ewentualnych usługach. Na tym etapie Klient może również zweryfikować zawartość swojego koszyka i wprowadzić ewentualne zmiany
+            <br>Po dodaniu do Koszyka wszystkich zamawianych Towarów i ostatecznym sprawdzeniu jego zawartości, Klient przechodzi do dalszej części procedury zamawiania klikając przycisk „Następny krok”. Na tym etapie Klient może wybrać jeden z trzech wariantów:
+            <br>a) „Zaloguj się” - Klient posiadający swoje konto w Sklepie na stronie https://www.bodzio.pl o ile nie zalogował się wcześniej, podaje swój Adres e-mail i wpisuje hasło.
+            <br>b) „Stwórz konto z tymi danymi po zakupie” - Jeśli Klient nie ma jeszcze konta w Sklepie na https://www.bodzio.pl na tym etapie możliwe jest założenie konta z użyciem podanych przy dokonywaniu zamówienia danych. Rejestracja jest dobrowolna.
+            <br>c) Klient może dokonać zakupów bez rejestracji, każdorazowo podając wszystkie wymagane do realizacji zamówienia dane i wyrażając niezbędne zgody.
+            <br>Klient może wskazać „Metodę płatności”, „Metodę dostawy”, a także zaznaczyć czy chce otrzymać Fakturę VAT (po zalogowaniu się) albo wskazać inny adres dostawy.
+            <br>Otrzymanie Faktury VAT przy dokonywaniu Zamówienia jest możliwe po uprzednim zalogowaniu się do Konta Użytkownika, w którym Użytkownik wskazuje dane niezbędne do otrzymania Faktury VAT. Dane te zostają przypisane do Konta Użytkownika. Zmiana danych do Faktury VAT możliwa jest po kliknięciu przycisku „Zmiana danych do Faktury VAT” i wyrażeniu zgód formalnych. Każda zmiana danych do Faktury VAT jest przez Sprzedawcę rozpatrywana indywidualnie i wymaga podania przyczyny takiej zmiany.
+            <br>Jeśli wszystkie dane są prawidłowe, Klient składa Zamówienie, klikając na przycisk „Zamów z obowiązkiem zapłaty”. Jest to moment zawarcia Umowy (wiążące i ostateczne dla Sprzedawcy i Klienta są warunki transakcji obowiązujące w tej chwili).
+            <br>Po złożeniu Zamówienia, Klient zostaje przekierowany na stronę ”Zamówienie gotowe” lub inną stronę właściwą dla wybranego sposobu płatności (np. w celu dokonania przelewu online lub kartą płatniczą).
+            <br>Po złożeniu Zamówienia Klient otrzymuje automatyczny e-mail z informacją zawierającą potwierdzenie przyjęcia zamówienia do realizacji.
+            <br>Status i szczegóły zamówienia Klient (o ile nie dokonywał zakupów bez rejestracji) może w każdym czasie sprawdzić w zakładce „Moje zamówienia/kalkulacje” po wcześniejszym zalogowaniu się na Konto. Ponadto wszystkie istotne dane ze złożonego zamówienia zostaną dodatkowo przesłane Klientowi na podany przez niego adres e-mail (treść otrzymanej w tej formie informacji Klient może wydrukować).
+            <br>W przypadku Towarów aktualnie niedostępnych w ofercie Sklepu Internetowego Użytkownik może skorzystać z przycisku "ZAPYTAJ O DOSTĘPNOŚĆ", którym oznaczone są Towary czasowo niedostępne. Po podaniu niezbędnych danych kontaktowych, w szczególności adresu skrzynki e-mail i wyrażeniu zgód formalnych Użytkownik otrzymuje automatyczny e-mail z informacją zawierającą potwierdzenie przyjęcia zapytania o dostępność przez Sprzedawcę. W razie ponownej dostępności Towarów w Sklepie Internetowym Użytkownik zostanie o tym powiadomiony drogą wiadomości elektronicznej  na wskazany adres skrzynki e-mail.
+
+<br><br>
+            <strong>IV (a)  PROCEDURA DOKONYWANIA KALKULACJI W SKLEPIE INTERNETOWYM</strong>
+            <br>Z zastrzeżeniem ust. 4 niniejszego Regulaminu kalkulację w Sklepie Internetowym można wysłać przez stronę Sklepu Internetowego (w domenie https://www.bodzio.pl) po przejściu całej procedury dokonywania kalkulacji z użyciem funkcjonalności „Kalkulacja wstępna”
+            <br>Kalkulację w Sklepie Internetowym może wysłać jedynie osoba fizyczna o pełnej zdolności do czynności prawnych, osoba prawna lub jednostka organizacyjna nie będąca osobą prawną, której przepisy szczególne przyznają zdolność prawną.
+            <br>Poprzez wysłanie kalkulacji w Sklepie Internetowym Klient oświadcza, że:
+            <br>a)zapoznał się z treścią Regulaminu i oraz zaakceptował jego treść w całości,
+            <br>b)spełnia warunki wymagane do korzystania z serwisu określone w Regulaminie.
+            <br>Narzędzie kalkulacji wstępnej udostępniane jest Użytkownikom w celu dokonania wstępnej wyceny towarów niedostępnych do bezpośredniego zakupu w Sklepie Internetowym Sprzedawcy. Po sporządzeniu kalkulacji wstępnej przez Użytkownika i podaniu przez niego niezbędnych danych kontaktowych pracownicy Sprzedawcy skontaktują się z osobą wskazaną przez Użytkownika w celu umożliwienia zawarcia Umowy sprzedaży wskazanych w kalkulacji towarów bezpośrednio w stacjonarnej placówce handlowej Sprzedawcy.
+            <br>Pomimo najwyższych starań Sprzedawca ze względów technicznych nie jest w stanie zapewnić, że warunki, cena oraz dostępność towarów prezentowanych w Sklepie Internetowym i oznaczonych przyciskiem "DODAJ DO KALKULACJI" odpowiada ofercie Sprzedawcy dostępnej w stacjonarnych placówkach handlowych Sprzedawcy.
+            <br>Użytkownicy dodają do kalkulacji Towary oznaczone przyciskiem "DODAJ DO KALKULACJI" poprzez kliknięcie przycisku "DODAJ DO KALKULACJI". W oknie „Kalkulacja wstępna” pokazana jest ilość wybranych Towarów znajdujących się w kalkulacji, ich cena jednostkowa, wartość oraz łączna wartość całej kalkulacji. Użytkownik może gromadzić w koszyku kolejne Towary lub zwiększać ich ilość.
+            <br>Po dodaniu do kalkulacji wszystkich objętych kalkulacją Towarów Użytkownik przechodzi do dalszej części procedury kalkulacji klikając przycisk „Dalej”. Na tym etapie Użytkownik może wybrać jeden z trzech wariantów:
+            <br>a) „Zaloguj się” - Użytkownik posiadający swoje konto w Sklepie na stronie https://www.bodzio.pl o ile nie zalogował się wcześniej, podaje swój Adres e-mail i wpisuje Hasło. Po kliknięciu na przycisk „Zaloguj się” Klient zostaje przeniesiony na stronę „Dane  osobowe",
+            <br>b) „Stwórz konto z tymi danymi po złożeniu kalkulacji” - Jeśli Klient nie ma jeszcze konta w Sklepie na https://www.bodzio.pl możliwe jest założenie konta z użyciem podanych przy dokonywaniu kalkulacji danych. Rejestracja jest dobrowolna.
+            <br>c) Każdy Użytkownik może także wykonać kalkulację bez dokonywania rejestracji, każdorazowo podając wszystkie wymagane do realizacji kalkulacji dane.
+            <br>W trakcie procesu dokonywania kalkulacji Użytkownik może wyrazić zgodę na otrzymywanie od Fabryki Mebli BODZIO Newslettera drogą elektroniczną. Wyrażenie zgody następuje poprzez zaznaczenie odpowiedniego pola wyboru formularza. Zgoda ta może zostać w każdym momencie cofnięta z jednoczesnym żądaniem usunięcia jej z baz danych jak również zaprzestania używania w jakimkolwiek celu.
+            <br>Po wysłaniu kalkulacji Użytkownik otrzymuje automatyczny e-mail z informacją zawierającą potwierdzenie otrzymania Kalkulacji przez Sprzedawcę.
+
+<br><br>
+            <strong>V. REJESTRACJA I FUNKCJE KONTA W SKLEPIE INTERNETOWYM</strong>
+            <br>Rejestracja odbywa się poprzez:
+            <br>a) jednokrotne wypełnienie formularza rejestracyjnego dostępnego w funkcjonalności „Konto” po skorzystaniu z opcji „Zarejestruj się”,
+            <br>b) zaznaczeniu pola check-box „stwórz konto z tymi danymi po zakupie” podczas procesu zamówienia,
+            <br>c) zaznaczeniu pola check-box „stwórz konto z tymi danymi po złożeniu kalkulacji” podczas procesu kalkulacji.
+            <br>Rejestracja Użytkownika wymaga podania:
+            <br>a) Imienia
+            <br>b) Nazwiska
+            <br>c) Adresu e-mail
+            <br>d) Hasła (oraz powtórzenia hasła)
+            <br>e) Potwierdzenia zapoznania się z niniejszym Regulaminem oraz Polityką Prywatności oraz akceptacji ich treści.
+            <br>Po kliknięciu w przycisk „Zarejestruj się” albo zaznaczeniu pola check-box „stwórz konto z tymi danymi po zakupie” podczas procesu zamówienia albo zaznaczeniu pola check-box „stwórz konto z tymi danymi po złożeniu kalkulacji” podczas procesu kalkulacji na podany adres e-mail Użytkownik otrzyma wiadomość potwierdzającą założenie konta z dalszą instrukcją potwierdzenia rejestracji.
+            <br>Aby uaktywnić założone konto należy wykonać polecenia z wiadomości e-mail. Do tego czasu konto pozostanie nieaktywne.
+            <br>Użytkownik w każdym czasie może zażądać jego usunięcia od Sprzedawcy (kontaktując się w dowolny sposób).
+            <br>Rejestracja jest możliwa wyłącznie dla osób posiadających adres zamieszkania (siedziby) na terenie Polski.
+            <br>Użytkownik jest zobowiązany do zachowania w tajemnicy loginu i hasła.
+            <br>Rejestracja umożliwia korzystanie z następujących funkcjonalności:
+            <br>a) przeglądanie złożonych zamówień,
+            <br>b) przeglądanie złożonych kalkulacji,
+            <br>c) modyfikowanie danych rejestracyjnych,
+            <br>d) zmiana hasła,
+            <br>e) wskazanie danych do faktury VAT oraz ich zmianę,
+            <br>f) zapisanie produktów użytych w planerze 3D, do ich późniejszegowczytania i dalszej edycji lub wykonania Kalkulacji wstępnej.
+            <br>Sprzedawca może usunąć konto Użytkownika który:
+            <br>a) narusza niniejszy Regulamin,
+            <br>b) podał przy rejestracji dokonanej w sposób opisany w ust. V pkt 1 a-c  nieprawdziwe dane,
+            <br>c) podał przy składaniu zamówienia nieprawdziwe dane,
+            <br>d) podał nieprawdziwe dane przy dokonywaniu płatności za zamówienia.
+            <br>Za podanie nieprawdziwych danych w zakresie adresu zamieszkania (siedziby) lub adresu do dostawy uznaje się w szczególności jednokrotnie nieudane doręczenie jakiejkolwiek przesyłki pod wskazany adres i zwrot przesyłki z adnotacją "adresat nieznany", "adresat wyprowadził się” lub inną równoważną, dwukrotne nieudane doręczenie jakiejkolwiek przesyłki pod wskazany adres i zwrot przesyłki z adnotacją inną niż określona w punkcie powyżej.
+            <br>W przypadku usunięcia Konta, wszelkie złożone Zamówienia Klienta i zawarte Umowy pozostają ważne.
+
+<br><br>
+            <strong>VI. SPOSOBY I FORMY PŁATNOŚCI</strong>
+            <br>Klient może dokonać zapłaty za zamówione Towary i Usługi w następujący sposób:
+            <br>a) Przelew online lub karta płatnicza - za pośrednictwem serwisu Przelewy24 przy wykorzystaniu usługi „szybkich przelewów” oferowanych przez poszczególne banki lub przy wykorzystaniu obsługiwanych kart płatniczych.
+            <br>b) Płatność za pobraniem - pobraniem przewoźnikowi podczas dostawy – gotówką.
+            <br>W zależności od dokonanego przez Klienta sposobu płatności:
+            <br>a) w przypadku płatności przelewem online lub kartą płatniczą, należność za Towar i Usługi pobierana jest jako płatność z góry, co oznacza że Towar zostaje wysłany dopiero po otrzymaniu płatności dokonanej zgodnie z zasadami realizacji płatności serwisu Przelewy24,
+            <br>b) w przypadku płatności gotówką przy odbiorze („Płatność za pobraniem”), należność za Towar pobierana jest podczas odbioru Towaru, jeśli wybrano sposób dostawy umożliwiający taką formę płatności.
+            <br>Umowa sprzedaży wygasa:
+            <br>a) w przypadku wyboru formy płatności przelewem online lub kartą płatniczą zawarta Umowa wygasa przy braku dokonania przez Klienta płatności zgodnej z regulaminem serwisu realizującego te płatności. Nieuiszczenie takiej płatności przez Klienta w ciągu 5 dni od dnia złożenia Zamówienia powoduje wygaśnięcie Umowy sprzedaży. Sprzedawca przed upływem powyższego terminu może skontaktować się z Klientem celem przypomnienia o płatności, w tym wysyłając wiadomość e-mail.
+            <br>b) w przypadku, gdy Klient nie dokonał  z własnej winy odbioru przesyłki z Towarem, Umowa ulega rozwiązaniu z upływem 5 dni od otrzymania przez Sprzedawcę z powrotem przesyłki - chyba, że w tym czasie Klient skontaktuje się ze Sprzedawcą (w dowolny sposób) i uzgodni warunki ponownej dostawy, dokona z góry zapłaty za ponowną dostawę oraz dostawa ta zostanie zrealizowana. W przypadku dokonania płatności z góry wpłacona przez Klienta kwota zostanie zwrócona w tej samej formie, w jakiej płatność została dokonana. Powyższe nie wyklucza możliwości dochodzenia przez Sprzedawcę od Klienta szkody poniesionej z tytułu niezrealizowanego transportu lub Umowy (w szczególności kosztów niezrealizowanej z jego winy przesyłki),
+            <br>Usługę „szybki przelew elektroniczny” za pośrednictwem portalu PRZELEWY24 realizuje PayPro Spółką Akcyjną z siedzibą w Poznaniu przy ul. Kanclerskiej 15, 60-327 Poznań, wpisaną do Rejestru Przedsiębiorców Krajowego Rejestru Sądowego prowadzonego przez Sąd Rejonowy Poznań Nowe Miasto i Wilda, VIII Wydział Gospodarczy Krajowego Rejestru Sądowego po numerem KRS 0000347935, numer NIP 7792369887, o kapitale zakładowym wynoszącym 4.500.000,00 zł, w całości opłaconym, wpisaną do rejestru krajowych instytucji płatniczych prowadzonego przez Komisję Nadzoru Finansowego pod numerem podmiotu w UKNF IP24/2014, jako krajowa instytucja płatnicza.
+            <br>Usługę „płatność kartą” za pośrednictwem portalu PRZELEWY24 realizuje PayPro S.A. z siedzibą w Poznaniu przy ul. Kanclerskiej 15, 60-327 Poznań, wpisaną do Rejestru Przedsiębiorców Krajowego Rejestru Sądowego prowadzonego przez Sąd Rejonowy Poznań Nowe Miasto i Wilda, VIII Wydział Gospodarczy Krajowego Rejestru Sądowego pod numerem KRS 0000347935, numer NIP 7792369887, REGON 301345068.
+            <br>Operatorem kart płatniczych jest PayPro SA (Agent Rozliczeniowy), ul. Kanclerska 15, 60-327 Poznań, wpisany do Rejestru Przedsiębiorców Krajowego Rejestru Sądowego prowadzonego przez Sąd Rejonowy Poznań Nowe Miasto i Wilda w Poznaniu, VIII Wydział Gospodarczy Krajowego Rejestru Sądowego pod numerem KRS 0000347935, NIP 7792369887, REGON 301345068.
+            <br>Szczegółowe warunki realizacji płatności on-line za pośrednictwem portalu PRZELEWY24 dostępne są na stronie internetowej www.przelewy24.pl.
+
+<br><br>
+            <strong>VII. DOSTAWA I ODBIÓR</strong>
+            <br>Sklep dostarcza nabyte Towary wyłącznie na terytorium Rzeczpospolitej Polskiej.
+            <br>Dostawa Towaru realizowana jest na adres wskazany w Zamówieniu Klienta.
+            <br>Dostępne są następujące formy dostawy Towarów:
+            <br>a) za pośrednictwem Firmy Kurierskiej InPost Express sp. z o.o. z siedzibą w Krakowie (dalej: Firmy Kurierskiej),  ul. WIELICKA 28, 30-552 KRAKÓW,
+            <br>b) dostawa flotą BODZIO,
+            <br>c) odbiór osobisty.
+            <br>W przypadku wyboru dostawy za pośrednictwem Firmy Kurierskiej lub dostawą flotą BODZIO na okres dostawy Towaru i wykonania usługi składają się: czas realizacji zamówienia (kompletowanie Towaru, wystawienie dokumentu sprzedaży, spakowanie Towaru) oraz czas dostawy przez Firmę Kurierską albo flotę BODZIO.
+            <br>Szczegółowe zasady dostawy Towaru przez Firmy Kurierską w tym terminy doręczenia  są dostępne pod adresem www.inpost.pl dla każdego Klienta w Regulaminie świadczenia usług pocztowych i przewozowych przez InPost Express sp. z o. o. oraz Cenniku aktualnym na dzień nadania przesyłki.
+            <br>Dostawa za pośrednictwem Firmy Kurierskiej odbywa się co do zasady w dni robocze od poniedziałku do piątku, w godzinach roboczych dla Firm Kurierskich i zależnych od planów logistycznych tych firm.
+            <br>Na koszt dostawy za pośrednictwem Firmy Kurierskiej wpływ mają gabaryty paczki zawierającej Towar i wybrany przez Klienta sposób zapłaty za Towar.
+            <br>Dostawa flotą BODZIO możliwa jest w przypadku dokonania Zamówienia o wartości przekraczającej 600,00 zł brutto w skład którego wchodzą meble znajdujące się w ofercie Sprzedawcy. Opcja ta jest udostępniana jako możliwa „Metoda dostawy” wyłącznie w przypadku, gdy Zamówienie spełnia powyższe kryteria.
+            <br>Dostawa flotą BODZIO dokonywana jest w ciągu 5 dni roboczych od dnia dokonania Zamówienia, od poniedziałku do soboty włącznie z wyłączeniem dni ustawowo wolnych od pracy. Dokładny czas dostawy uzależniony jest od możliwości logistycznych Sprzedawcy, z tego względu wskazanie czasu dostawy w zakresie bardziej precyzyjnym niż wskazany w zd. 1 tego ustępu nie jest możliwe. Dokładamy starań, aby czas dostawy był w miarę możności indywidualnie ustalony z Klientem.
+            <br>W przypadku wyboru opcji dostawy flotą BODZIO informujemy, że kierowcy nie wnoszą Towarów wchodzących w skład Zamówienia do domów, mieszkań, pomieszczeń itp. Klient jest zobowiązany do samodzielnego odbioru Zamówienia bezpośrednio od kierowcy pojazdu dostawczego Sprzedawcy pod wskazanym w Zamówieniu adresem dostawy na własne ryzyko.
+            <br>W przypadku wyboru formy dostawy pod postacią odbioru osobistego Zamówienia, odbiór Towaru przez Klienta jest możliwy we wskazanym w Zamówieniu salonie meblowym Sprzedawcy w ciągu 5 dni roboczych od dnia dokonania Zamówienia.
+            <br>Wydanie towaru Klientowi następuje nie wcześniej niż zapłata całości ceny Zamówienia. Do czasu zapłaty całości ceny Zamówienia Towar pozostaje własnością Sprzedawcy.
+            <br>Klient powinien sprawdzić stan Towarów przy ich odbiorze pod kątem ustalenia czy są one zgodne z ze złożonym Zamówieniem oraz czy nie są uszkodzone.
+            <br>Meble dostępne do zakupu w Sklepie doręczane są w paczkach i przeznaczone do samodzielnego montażu.
+
+<br><br>
+            <strong>VIII. PRAWO ODSTĄPIENIA OD UMOWY</strong>
+            <br>Klient będący Konsumentem może odstąpić od umowy sprzedaży Towarów zawartej na odległość bez podania przyczyny, składając stosowne oświadczenie  w terminie 14 dni od daty doręczenia Towaru.
+            <br>Termin do odstąpienia od umowy wygasa po upływie 14 dni od dnia, w którym Konsument wszedł w posiadanie rzeczy lub, w którym osoba trzecia inna niż przewoźnik i wskazana przez Konsumenta weszła w posiadanie rzeczy zgodnie ze wskazaniem osoby przez Konsumenta
+            <br>Odstąpienie może zostać zrealizowane poprzez przesłanie oświadczenia o odstąpieniu od umowy sprzedaży (wzór do pobrania) na adres korespondencyjny Fabryki Mebli BODZIO. Dla zachowania terminu decyduje data wysłania oświadczenia do Fabryki Mebli BODZIO przed upływem terminu wskazanego w ust.  1
+            <br>Towar zakupiony przez Klienta powinien zostać zwrócony Sprzedawcy w stanie niezmienionym, chyba że zmiana była konieczna w granicach zwykłego zarządu. Zwracany przez Klienta Towar powinien zostać opakowany w odpowiedni sposób, zapewniający brak uszkodzeń w trakcie transportu. Jeżeli jest to możliwe, Towar powinien być opakowany w oryginalne opakowanie. Koszt zwrotu Towaru do Fabryki Mebli BODZIO ponosi Klient. Za uszkodzenia Towaru w trakcie jego zwrotu wynikające z zastosowania niewłaściwego sposobu opakowania wyłączną odpowiedzialność ponosi Klient.
+            <br>Klient jest zobowiązany dokonać zwrotu towaru w terminie 14 dni od daty złożenia oświadczenia o odstąpieniu. Towar powinien zostać zwrócony na adres Fabryki Mebli BODZIO.
+            <br>W przypadku odstąpienia od umowy przez Klienta, jeżeli zapłata została dokonana, zwrot zapłaty nastąpi w terminie do 14 dni przez Fabrykę Mebli BODZIO od dnia otrzymania oświadczenia o odstąpieniu przez Klienta
+            <br>Prawo odstąpienia od umowy nie przysługuje Klientowi w przypadkach świadczeń o właściwościach określonych przez Klienta w złożonym przez niego Zamówieniu lub ściśle związanych z jego osobą, a także świadczeń, które z uwagi na ich charakter nie mogą zostać zwrócone
+            <br>Klient jest zobowiązany do poniesienia bezpośrednich kosztów zwrotu rzeczy. Klient odpowiada wyłącznie za zmniejszenie wartości rzeczy wynikające z korzystania z nich w sposób inny niż było to konieczne do stwierdzenia charakteru, cech i funkcjonowania rzeczy.
+<br><br>
+            <strong>IX. REKLAMACJE</strong>
+            <br>Fabryka Mebli BODZIO odpowiada wobec Klienta z tytułu rękojmi, jeżeli sprzedany towar jest obarczony wadą fizyczną lub prawną  w rozumieniu przepisów art. 556(1) - 556(3) ustawy z dnia 23 kwietnia 1964 r. Kodeks Cywilny (tekst jednolity: Dz. U. z 2014 r. poz. 121 ze zm.)
+            <br>Sprzedawca ponosi odpowiedzialność względem Klienta z tytułu rękojmi za wady fizyczne, jeżeli wada fizyczna została stwierdzona w ciągu 2 lat od dnia dostarczenia towaru Klientowi. Roszczenie o usunięcie wady lub wymianę Towaru na wolny od wad przedawnia się z upływem roku od stwierdzenia wady. Jeżeli Klientem jest Konsument, termin też nie może zakończyć się przed upływem terminu określonego w zdaniu pierwszym.
+            <br>Klient może złożyć reklamację  w każdej przewidzianej prawem formie. Preferowaną formą składania reklamacji jest złożenie oświadczenia w formie pisemnej na adres korespondencyjny Fabryki Mebli BODZIO.
+            <br>Reklamacja powinna zawierać:
+            <br>a) dane Klienta;
+            <br>b) nazwa lub kod reklamowanego towaru
+            <br>c) powód reklamacji i okoliczności uzasadniające reklamację
+            <br>d) podpis reklamującego - w przypadku reklamacji złożonej w formie pisemnej,
+            <br>Fabryka Mebli BODZIO rozpatruje reklamację w ciągu 14 dni od dnia jej otrzymania w przypadku Klienta będącego jednocześnie Konsumentem. W przypadku braku danych niezbędnych do rozpatrzenia roszczeń dotyczących wadliwego towaru wynikających z rękojmi, Sprzedawca niezwłocznie po zapoznaniu się treścią reklamacji zwróci się do Klienta o ich uzupełnienie.
+            <br>Zgłaszając reklamację Klient powinien odesłać wadliwy towar wraz z dokumentem potwierdzającym dokonanie zakupu na adres Sprzedawcy.
+            <br>Sprzedawca jest zwolniony z odpowiedzialności z tytułu rękojmi, jeżeli Klient w momencie zawarcia umowy wiedział o wadzie, na przykład ze względu na sprzedaż towaru po obniżonej cenie ze względu na usterkę, towar powystawowy itp. Wada ta nie będzie podlegała reklamacji. ale towar można zareklamować, jeżeli ujawni się w nim inna usterka, nieznana Klientowi w momencie zakupu.
+            <br>
+<br><br>
+            <strong>X. PRAWA I OBOWIĄZKI UŻYTKOWNIKA</strong>
+            <br>W trosce o dobro Użytkowników i Klientów oraz zapewnienie najwyższej jakości Sklepu Internetowego niedozwolone jest wykorzystywanie Sklepu Internetowego, wszelkich jego funkcjonalności oraz świadczonych usług w sposób sprzeczny z charakterem, celem i przedmiotem działania Sklepu Internetowego, a w szczególności:
+            <br>1) podejmowanie działań, które są sprzeczne z powszechnie obowiązującym prawem, przepisami niniejszego Regulaminu oraz dobrymi obyczajami lub normami moralnymi;
+            <br>
+            <br>2) podejmowanie działań na szkodę Klientów Fabryki Mebli Bodzio, Użytkowników Sklepu Internetowego lub innych podmiotów trzecich;
+            <br>
+            <br>3) uprawianie bez pisemnej zgody Fabryki Mebli Bodzio jakiejkolwiek działalności komercyjnej, reklamowej, promocyjnej w oparciu o treści przedstawione na stronie;
+            <br>
+            <br>4) zbieranie jakichkolwiek danych osobowych Klientów i Użytkowników Sklepu Internetowego;
+            <br>
+            <br>5) podejmowanie bez pisemnej zgody Fabryki Mebli Bodzio jakichkolwiek działań, które polegają na ingerowaniu lub mogą mieć znamiona ingerowania w techniczne działanie Sklepu Internetowego, do których Użytkownik nie ma dostępu, w szczególności obchodzenie technicznych zabezpieczeń Sklepu (dekompilacja, dezasemblacja lub jakakolwiek inna modyfikacja);
+            <br>
+            <br>6) podejmowanie działań, które destabilizują funkcjonowanie Sklepu lub korzystanie z Sklepu przez innych Użytkowników, bez względu na sposób i techniki powyższych niedozwolonych działań.
+            <br>
+            <br>Zakazane jest dostarczanie przez Użytkownika, w tym zamieszczanie w Serwisie, treści o charakterze bezprawnym, w szczególności treści pornograficznych, wulgarnych, obraźliwych, szerzących mowę nienawiści, ksenofobicznych, naruszających zasady współżycia społecznego  bądź stanowiących naruszenie Netykiety. Fabryka Mebli BODZIO zastrzega sobie prawo do usunięcia takich treści.
+
+<br><br>
+     <strong>XI. ZASTRZEŻENIA, ZAPEWNIENIA I ODPOWIEDZIALNOŚĆ.</strong>
+            <br>Fabryka Mebli Bodzio ponosi względem Klientów odpowiedzialność z tytułu niewykonania lub nienależytego wykonania Umowy.
+            <br>Fabryka Mebli Bodzio nie odpowiada w granicach dopuszczalnych przez obowiązujące przepisy prawa:a) za szkody spowodowane działaniami lub zaniechaniami Użytkowników, w szczególności za korzystanie ze Sklepu Internetowego przez Użytkowników niezgodnie z obowiązującymi przepisami prawa lub niniejszym Regulaminem,b) za niemożliwość lub utrudnienia w korzystaniu ze Sklepu Internetowego, wynikające z przyczyn leżących po stronie Użytkownika,c) za niewykonanie lub nienależyte wykonywanie usług świadczonych drogą elektroniczną, jeżeli jest to spowodowane przez osoby trzecie. Fabryka Mebli Bodzio ponosi odpowiedzialność za działania lub zaniechania osób trzecich, z których pomocą wykonuje usługi świadczone drogą elektroniczną wykonuje, jak również osób, którym wykonanie tych usług powierza.
+            <br>Fabryka Mebli Bodzio dołoży wszelkich starań, aby Sklep Internetowy oraz wszystkie usługi udostępniane za jego pośrednictwem działały w sposób ciągły, bez jakichkolwiek zakłóceń, jednakże Fabryka Mebli Bodzio nie ponosi żadnej odpowiedzialności za zakłócenia spowodowane siłą wyższą lub niedozwoloną ingerencją Użytkowników lub osób trzecich, za które nie ponosi odpowiedzialności, a także za sytuacje związane z wprowadzeniem stanu wyjątkowego i stanu wojny, stanu klęski żywiołowej oraz niezawinionym ze strony Fabryki Mebli Bodzio zakłóceniem świadczenia usług telekomunikacyjnych.
+            <br>Fabryka Mebli Bodzio zastrzega sobie prawo do wprowadzania wszelkich zabezpieczeń mających na celu ochronę prawidłowego działania Sklepu Internetowego, w tym zabezpieczeń chroniących przed działaniami Użytkowników Sklepu Internetowego łamiących niniejszy Regulamin lub zasady związane z działalnością Sklepu Internetowego.
+
+<br><br>
+     <strong>XII. OCHRONA DANYCH OSOBOWYCH</strong>
+            <br>Podczas korzystania ze Sklepu Internetowego Użytkownik może zostać poproszony o podanie niektórych swoich danych osobowych, w szczególności podczas składania zamówienia towarów, dokonywania kalkulacji lub poprzez wypełnienie formularza kontaktowego.
+            <br>Administratorem danych osobowych jest Sprzedawca.
+            <br>Zakres gromadzonych danych w Sklepie Internetowym to:
+            <br>a) imię oraz nazwisko Klienta lub Użytkownika,
+            <br>b) nazwa firmy,
+            <br>c) numer NIP,
+            <br>d) adres,
+            <br>e) telefon kontaktowy,
+            <br>f) adres poczty elektronicznej,
+            <br>Podanie powyższych danych jest dobrowolne, lecz konieczne w celu prawidłowego korzystania ze Sklepu Internetowego, w szczególności składania i realizacji zamówień oraz dokonywania kalkulacji.
+            <br>Poprzez wypełnienie formularza zamówienia, kalkulacji lub formularza kontaktowego i po zaznaczeniu odpowiedniego pola akceptacji "check box" Użytkownik wyraża zgodę na umieszczenie swoich danych osobowych w bazie danych Sklepu Internetowego oraz ich przetwarzanie przez Fabrykę Mebli BODZIO zgodnie z obowiązującymi przepisami. Użytkownik może odwołać tą zgodę w każdym czasie z jednoczesnym zagwarantowaniem prawa do zapomnienia wynikającego z Rozporządzenia Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (ogólne rozporządzenie o ochronie danych). Użytkownikowi w zależności od korzystania z konkretnych funkcjonalności także przysługuje prawo wniesienia skargi do organu właściwego dla ochrony danych osobowych, prawo sprzeciwu, prawo dostępu do jego danych osobowych, żądania ich sprostowania, usunięcia, ograniczenia przetwarzania oraz przenoszenia danych.
+            <br>Dane przekazane przez Użytkownika w trakcie składania zamówienia towarów, dokonywania kalkulacji oraz za pośrednictwem formularza kontaktowego będą wykorzystywane przez Fabrykę Mebli BODZIO w celu wypełnienia zobowiązań Fabryki Mebli BODZIO wobec Użytkownika wynikających z niniejszego Regulaminu oraz przepisów prawa.
+            <br>Użytkownik upoważnia Fabrykę Mebli BODZIO do przekazywania jego danych osobowych osobom trzecim w zakresie, w jakim wiąże się to z realizacją ciążących na nim obowiązków w świetle niniejszego Regulaminu.
+            <br>W trakcie procesu składania zamówienia towarów Użytkownik może wyrazić również zgodę na przetwarzanie danych osobowych w celach promocyjnych oraz przekazanie w takich celach swoich danych podmiotom trzecim będącymi partnerami Fabryki Mebli BODZIO. Wyrażenie zgody następuję poprzez zaznaczenie odpowiednich pól wyboru formularza. Zgoda ta może zostać w każdym momencie cofnięta.
+            <br>Użytkownikowi przysługuje prawo dostępu do treści swoich danych osobowych oraz ich poprawiania, żądania ich usunięcia.
+            <br>Podczas wizyty w Sklepie Internetowym automatycznie zbierane są dane, wynikające z ogólnych zasad połączeń realizowanych w Internecie, np. adres IP, typ przeglądarki, typ systemu operacyjnego itp. Wykorzystywane są one w celach technicznych, związanych z administracją serwerem oraz do zbierania ogólnych, statystycznych informacji. Dane te nie są danymi osobowymi i nie pozwalają na jednoznaczne zidentyfikowanie osoby.
+            <br>Fabryka Mebli BODZIO zastrzega sobie prawo do umieszczania na urządzeniach Użytkowników plików cookies w celu świadczenia usług na najwyższym poziomie po wyrażeniu przez nich uprzedniej zgody w celu optymalizacji treści dostępnych w naszych serwisach, dostosowania ich do indywidualnych potrzeb każdego użytkownika, jak również dla celów reklamowych i statystycznych.
+            <br>Pliki cookies to niewielkie pliki tekstowe, które nagrywane są na dysku twardym w komputerach osób  odwiedzających strony Serwisu. Pliki cookies nie zawierają żadnych informacji powiązanych z danymi osobowymi. Użytkownik może w każdym momencie uniemożliwić zapisywanie plików cookies wykorzystując do tego celu ustawienia przeglądarki internetowej. Więcej informacji na temat plików cookies można znaleźć w części Polityki Prywatności. Fabryki Mebli Bodzio dotyczącej plików cookies
+            <br>Kontakt z Inspektorem Ochrony Danych Fabryki Mebli BODZIO możliwy jest drogą elektroniczną  pod adresem e-mail: iod@bodzio.pl
+
+<br><br>
+    <strong>XIII. PRAWA WŁASNOŚCI INTELEKTUALNEJ</strong>
+            <br>Wszelkie prawa własności intelektualnej do Sklepu Internetowego, w szczególności do treści, znaków słownych lub graficznych, nazw, obrazów, grafiki, efektów dźwiękowych, informacji, funkcjonalności i usług dostępnych w Sklepie Internetowym przysługują wyłącznie Fabryce Mebli Bodzio lub jej partnerom, którzy przekazali określone materiały Fabryce Mebli Bodzio do użytkowania i podlegają ochronie prawnej, a ich nieuprawnione wykorzystywanie na jakimkolwiek polu eksploatacji zagrożone jest sankcjami określonymi odpowiednimi przepisami prawa.
+            <br>Zabronione jest bez zgody Fabryki Mebli Bodzio wyrażonej na piśmie: kopiowanie, powielanie lub jakiekolwiek inne wykorzystywanie w całości lub we fragmentach praw własności intelektualnej do Sklepu Internetowego oraz treści w nim zawartych, w tym do znaku graficznego oraz słownego "BODZIO", który podlega ochronie prawnej na podstawie właściwych przepisów oraz wydanych decyzji przez stosowne organy państwa. Nie dotyczy to automatycznego tymczasowego przechowywania plików w pamięci urządzenia cyfrowego, które jest skutkiem zwyczajnego korzystania ze Sklepu Internetowego w celach zgodnych z Regulaminem oraz przypadków prawem dozwolonego użytku.
+
+<br><br>
+    <strong>XIV. ZMIANY REGULAMINU</strong>
+            <br>Sprzedawca może zmienić treść Regulaminu w każdym czasie. Zmiana Regulaminu staje się wiążąca w odpowiednim terminie wskazanym przez Sprzedawcę liczonym od dnia udostępnienia nowej wersji Regulaminu.
+            <br>Fabryka Mebli BODZIO publikuje zmiany Regulaminu na stronie Sklepu Internetowego. Informacja o zmianie Regulaminu zostanie udostępniona na stronie Sklepu Internetowego nie później niż na 14 dni kalendarzowych przed wprowadzeniem zmienionego Regulaminu.
+            <br>Jeżeli Użytkownik korzysta ze Sklepu Internetowego po wprowadzeniu zmienionego Regulaminu przyjmuje się, że wyraził zgodę na zmianę lub dodanie nowych postanowień.
+            <br>Nie wymaga zmiany nn. Regulaminu wprowadzanie przez Fabrykę Mebli BODZIO promocji, konkursów oraz dodatkowych usług, których szczegółowe zasady i warunki określane będą każdorazowo w Załącznikach do nn. Regulaminu.
+            <br>Wszystkie Umowy zawarte przed dniem wejścia w życie nowego Regulaminu są realizowane na podstawie Regulaminu obowiązującego w dniu zawarcia Umowy.
+
+<br><br>
+    <strong>XV. POSTANOWIENIA KOŃCOWE</strong>
+            <br>Treść Regulaminu jest udostępniona Użytkownikom nieodpłatnie za pośrednictwem Sklepu Internetowego i może zostać utrwalona w szczególności poprzez wydrukowanie, zapisanie na nośniku lub pobranie w każdej chwili ze stron Sklepu Internetowego
+            <br>Nieważność jednego z postanowień Regulaminu stwierdzona orzeczeniem właściwego sądu, nie powoduje nieważności pozostałych postanowień Regulaminu.
+            <br>We wszystkich sprawach nieuregulowanych w niniejszym Regulaminie zastosowanie mają przepisy obowiązującego prawa polskiego,
+            <br>Spory wynikające z funkcjonowania Sklepu Internetowego oraz świadczenia usług w ramach Sklepu Internetowego będą poddane rozstrzygnięciu sądów powszechnych właściwych dla siedziby Fabryki Mebli BODZIO Istnieje możliwość pozasądowych sposobów rozpatrywania reklamacji i dochodzenia roszczeń. O zasadach dostępu do tych procedur informacji udzieli Klientowi wybrany przez niego organ ochrony konsumenckiej.
+            <br>Działając na podstawie Rozporządzenia Parlamentu Europejskiego i Rady (UE) nr 524/2013 z dnia 21.05.2013 r. Sprzedawca wskazuje:
+            <br>a) łącze elektroniczne do internetowego systemu rozstrzygania sporów (ODR): https://ec.europa.eu/consumers/odr/main/index.cfm?event=main.home2.show&lng=PL
+            <br>b) adres poczty elektronicznej - pierwszy punkt kontaktu Sprzedawcy sprzedaz@bodzo.pl.
+            <br>Niniejszy Regulamin wchodzi w życie z dniem 31.03.2020 r. i obowiązuje przez czas nieoznaczony.
+
+        </p>
+    </div>
+{% endblock %}

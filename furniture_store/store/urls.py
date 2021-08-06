@@ -46,5 +46,10 @@ urlpatterns = [
     path('categories', CategoriesView.as_view(template_name='category_choice.html'), name='category_choice'),
     path('categories/products/<int:pk>', ProductsMainView.as_view(template_name='products_main_view.html'), name='products_main'),
     path('categories/products/add_to_shopping_cart/<int:pk>', add_to_shopping_cart, name='add_to_cart'),
-    path('categories/products/details/<int:pk>', ProductDetailsView.as_view(template_name='product_details.html'), name='prod_details')
+    path('categories/products/details/<int:pk>', ProductDetailsView.as_view(template_name='product_details.html'), name='prod_details'),
+    path('statute', TemplateView.as_view(template_name='statute.html'), name='statute'),
+    path('paying_info', TemplateView.as_view(template_name='paying_info.html'), name='paying_info'),
+    path('installment_shopping', TemplateView.as_view(template_name='installment_shopping.html'), name='installment_shopping'),
+    path('about_us', TemplateView.as_view(template_name='about_us.html'), name='about_us'),
+    path('producers', TemplateView.as_view(template_name='producers.html'), name='producers'),
 ]
