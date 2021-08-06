@@ -110,8 +110,11 @@ def delete_address(request, pk):
     address = Address.objects.get(id=pk)
     user_address = UserAddress.objects.get(address=address, user=request.user)
 
-    user_address.delete()
-    address.delete()
+    if not Order.objects.filter(address=user_address, user=request.user).exists():
+        user_address.delete()
+        address.delete()
+    else:
+        messages.warning(request, 'Ten adres został wykorzystany w jednym z twoich zamówień. Nie może zostać usunięty.')
 
     return redirect('address')
 
@@ -126,9 +129,14 @@ class CustomerOrdersView(LoginRequiredMixin, generic.ListView):
         order_nr = self.request.GET.get('order_nr', None)
         sort_by = self.request.GET.get('sort_by', None)
         order = self.request.GET.get('order', None)
+        product_name = self.request.GET.get('product_name', None)
 
         if order_nr:
             orders = orders.filter(order_nr=order_nr)
+
+        if product_name:
+            order_product = OrderProduct.objects.filter(product__name=product_name)
+            orders = orders.filter(products__in=order_product)
 
         if sort_by and order:
             if order == 'desc':
@@ -288,6 +296,11 @@ class AllOrdersView(LoginRequiredMixin, generic.ListView):
         client_id = self.request.GET.get('client_id', None)
         sort_by = self.request.GET.get('sort_by', None)
         sort_order = self.request.GET.get('order', None)
+
+        product_name = self.request.GET.get('product_name', None)
+        if product_name:
+            order_product = OrderProduct.objects.filter(product__name=product_name)
+            order = order.filter(products__in=order_product)
 
         if order_nr:
             order = order.filter(order_nr=order_nr)
@@ -616,17 +629,21 @@ class UserListView(SuperUserCheck, generic.ListView):
     model = User
 
     def post(self, *args, **kwargs):
-        permission = self.request.POST['permission_new']
-        permission = permission.split('+')
-        user = User.objects.get(id=permission[1])
+        permission = self.request.POST.get('permission_new', False)
+        permission_new_not_active = self.request.POST.get('permission_new_not_active', False)
 
-        if permission[0] == 'client':
+        perm = permission if permission else permission_new_not_active
+        perm = perm.split('+')
+
+        user = User.objects.get(id=perm[1])
+
+        if perm[0] == 'client':
             user.is_staff = False
             user.is_superuser = False
-        elif permission[0] == 'worker':
+        elif perm[0] == 'worker':
             user.is_staff = True
             user.is_superuser = False
-        elif permission[0] == 'admin':
+        elif perm[0] == 'admin':
             user.is_staff = True
             user.is_superuser = True
         user.save()
@@ -668,6 +685,17 @@ def delete_account_admin(request, pk):
         # delete account
         user = User.objects.get(id=pk)
         user.is_active = False
+        user.save()
+
+    return redirect('users')
+
+
+@login_required
+def user_active(request, pk):
+    if request.user.is_superuser:
+        # delete account
+        user = User.objects.get(id=pk)
+        user.is_active = True
         user.save()
 
     return redirect('users')
@@ -828,8 +856,14 @@ class ProductsMainView(generic.ListView):
 def add_to_shopping_cart(request, pk):
     product = Furniture.objects.get(id=pk)
     if product.amount > 0:
-        cart = ShoppingCart(user=request.user, furniture=product, amount=1, address=None)
-        cart.save()
+        cart = ShoppingCart.objects.filter(user=request.user, furniture=product)
+        if not cart.exists():
+            cart = ShoppingCart(user=request.user, furniture=product, amount=1, address=None)
+            cart.save()
+        elif cart[0].amount + 1 <= product.amount:
+            cart = ShoppingCart.objects.get(user=request.user, furniture=product)
+            cart.amount += 1
+            cart.save()
     else:
         messages.warning(request, 'Ten produkt jest niedostępny')
 
@@ -883,5 +917,6 @@ class ProductDetailsView(generic.ListView):
         context = super().get_context_data(**kwargs)
         context['opinions'] = Opinion.objects.filter(furniture__id=self.kwargs['pk'])
         context['user_opinion'] = Opinion.objects.filter(user=self.request.user,
-                                                         furniture__id=self.kwargs['pk']) if self.request.user.is_authenticated else None
+                                                         furniture__id=self.kwargs[
+                                                             'pk']) if self.request.user.is_authenticated else None
         return context

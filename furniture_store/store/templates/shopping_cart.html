@@ -57,7 +57,10 @@
                     <p {% if message.tags %} class="{{ message.tags }}"{% endif %} id="msg">{{ message }}</p>
                 {% endfor %}
             {% endif %}
-            <a type="button" class="btn btn-lg btn-outline-dark" href="{% url 'delivery_address' %}" id="next">Dalej</a>
+
+            {% if object_list %}
+                <a type="button" class="btn btn-lg btn-outline-dark" href="{% url 'delivery_address' %}" id="next">Dalej</a>
+            {% endif %}
     </div>
 
 {% endblock %}

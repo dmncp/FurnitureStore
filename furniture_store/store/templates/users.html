@@ -61,13 +61,13 @@
             </div>
         </div>
 
-        <a class="heading collapsed" data-bs-toggle="collapse" href="#users" role="button" aria-expanded="true" aria-controls="collapseExample">
-          Lista użytkowników
+        <a class="heading collapsed" data-bs-toggle="collapse" href="#users_active" role="button" aria-expanded="true" aria-controls="collapseExample">
+          Użytkownicy aktywni
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
               <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
           </svg>
         </a>
-        <div id="users" class="mb-5 collapse show">
+        <div id="users_active" class="mb-5 collapse show">
           <table class="table align-middle" style="table-layout: auto">
             <thead style="text-align: center;">
                 <tr>
@@ -81,6 +81,7 @@
             </thead>
             <tbody>
                 {% for user in object_list %}
+                    {% if user.is_active %}
                   <tr style="text-align: center">
                       <td style="max-width: 20px">{{user.id}}</td>
                       <td>{{user.first_name}} {{user.last_name}}</td>
@@ -101,6 +102,54 @@
                         <a class="btn btn-danger" href="{% url 'delete_user' user.id %}">Usuń</a>
                       </td>
                   </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <a class="heading collapsed" data-bs-toggle="collapse" href="#users_not_active" role="button" aria-expanded="true" aria-controls="collapseExample">
+          Użytkownicy nieaktywni
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+          </svg>
+        </a>
+        <div id="users_not_active" class="mb-5 collapse show">
+          <table class="table align-middle" style="table-layout: auto">
+            <thead style="text-align: center;">
+                <tr>
+                    <th style="max-width: 20px">ID</th>
+                    <th>Imię i nazwisko</th>
+                    <th>Login</th>
+                    <th>Email</th>
+                    <th>Uprawnienia</th>
+                    <th>Działania</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in object_list %}
+                    {% if not user.is_active %}
+                  <tr style="text-align: center">
+                      <td style="max-width: 20px">{{user.id}}</td>
+                      <td>{{user.first_name}} {{user.last_name}}</td>
+                      <td>{{user.username}}</td>
+                      <td>{{user.email}}</td>
+                      <td>
+                        <form method="post">
+                          {% csrf_token %}
+                          <select name="permission_new_not_active">
+                            <option value="client+{{user.id}}" {%if not user.is_staff %} selected {%endif%}>Klient</option>
+                            <option value="worker+{{user.id}}" {%if user.is_staff and not user.is_superuser%} selected {%endif%}>Pracownik</option>
+                            <option value="admin+{{user.id}}"{%if user.is_superuser %} selected {%endif%}>Administrator</option>
+                          </select>
+                          <button type="submit" class="btn btn-warning">Zmień</button>
+                        </form>
+                      </td>
+                      <td>
+                        <a class="btn btn-success" href="{% url 'user_active' user.id %}">Przywróć</a>
+                      </td>
+                  </tr>
+                    {% endif %}
                 {% endfor %}
             </tbody>
           </table>

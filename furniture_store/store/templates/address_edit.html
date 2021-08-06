@@ -14,7 +14,7 @@
         <div class="row" style="position: relative; z-index: 2; width: 100%">
             {% for address in object_list %}
                 <div class="col-lg-6 mt-2">
-                    <div class="card text-center bg-light" style="height: 200px">
+                    <div class="card text-center bg-light" style="height: 250px">
                         <div class="card-body">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#af0809" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
                               <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
@@ -34,14 +34,19 @@
                                 Edycja
                             </a>
                             <a class="btn btn-danger" type="button" href="{% url 'address_delete' address.address.id %}">Usuń</a>
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <p {% if message.tags %} class="{{ message.tags }}"{% endif %} id="msg" style="margin: 5px">{{ message }}</p>
+                                {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             {% endfor %}
             <div class="col-lg-6 mt-2">
                 <a href="{% url 'address_form' 0 %}" class="link-dark">
-                    <div class="card text-center bg-light" style="height: 200px" id="add_new">
-                        <div class="card-body">
+                    <div class="card text-center bg-light" style="height: 250px" id="add_new">
+                        <div class="card-body d-flex" style="justify-content: center; align-items: center;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16" style="margin: 50px 0">
                               <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
                             </svg>
